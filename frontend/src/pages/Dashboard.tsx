@@ -73,6 +73,15 @@ export function Dashboard() {
 
   const dateInfo = episode ? formatDate(episode.date) : { date: new Date().toISOString().split('T')[0], day: 'Today' }
   const trend = getTrend()
+  const visionChange = episode?.yolo_today && episode?.yolo_yesterday
+    ? (() => {
+        const todayMask = episode.yolo_today['leaf average mask'] ?? 0
+        const yesterdayMask = episode.yolo_yesterday['leaf average mask'] ?? 0
+        if (yesterdayMask <= 0) return ''
+        const delta = ((todayMask - yesterdayMask) / yesterdayMask) * 100
+        return `${delta > 0 ? '+' : ''}${delta.toFixed(0)}%`
+      })()
+    : ''
 
   // Handle override confirmation
   const handleOverrideConfirm = async (amount: number, reason: string) => {
@@ -310,11 +319,7 @@ export function Dashboard() {
             <div className="vision-preview">
               <div className="vision-preview__label">
                 <span className="vision-preview__date vision-preview__date--today">TODAY</span>
-                <span className="vision-preview__change">
-                  {episode?.yolo_today && episode?.yolo_yesterday ?
-                    `${episode.yolo_today['leaf average mask'] > episode.yolo_yesterday['leaf average mask'] ? '+' : ''}${(((episode.yolo_today['leaf average mask'] - episode.yolo_yesterday['leaf average mask']) / episode.yolo_yesterday['leaf average mask']) * 100).toFixed(0)}%` :
-                    ''}
-                </span>
+                <span className="vision-preview__change">{visionChange}</span>
               </div>
               <div className="vision-preview__image vision-preview__image--today">
                 {episode?.date && !imageError[`today-${episode.date}`] ? (

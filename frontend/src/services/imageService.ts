@@ -42,7 +42,7 @@ export const imageService = {
     const shortDate = date.includes('-')
       ? date.split('-').slice(1).join('')
       : date
-    return `${API_BASE}/upload/images/${shortDate}/original`
+    return `${API_BASE}/vision/image/${shortDate}?original=true`
   },
 
   /**
@@ -52,7 +52,7 @@ export const imageService = {
     const shortDate = date.includes('-')
       ? date.split('-').slice(1).join('')
       : date
-    return `${API_BASE}/upload/images/${shortDate}/segmented`
+    return `${API_BASE}/vision/image/${shortDate}`
   },
 
   /**
@@ -133,7 +133,7 @@ export const imageService = {
       const shortDate = date.includes('-')
         ? date.split('-').slice(1).join('')
         : date
-      await apiClient.head(`/upload/images/${shortDate}/original`)
+      await apiClient.head(`/vision/image/${shortDate}?original=true`)
       return true
     } catch {
       return false

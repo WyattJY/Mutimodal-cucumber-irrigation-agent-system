@@ -43,6 +43,15 @@ export function DailyDecision() {
     return dateStr
   }
 
+  const getYesterdayDate = (dateStr: string) => {
+    if (!dateStr) return ''
+    const date = new Date(dateStr)
+    date.setDate(date.getDate() - 1)
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const day = String(date.getDate()).padStart(2, '0')
+    return `${month}${day}`
+  }
+
   // 获取趋势信息
   const getTrend = () => {
     const trend = episode?.response?.trend || 'same'
@@ -359,7 +368,7 @@ export function DailyDecision() {
               /* Image Compare Mode */
               <div style={{ padding: '1rem' }}>
                 <ImageCompare
-                  imageYesterday={imageService.getSegmentedImageUrl(getShortDate(episode.date))}
+                  imageYesterday={imageService.getSegmentedImageUrl(getYesterdayDate(episode.date))}
                   imageToday={imageService.getSegmentedImageUrl(getShortDate(episode.date))}
                   yoloYesterday={transformYoloMetrics(episode.yolo_yesterday)}
                   yoloToday={transformYoloMetrics(episode.yolo_today)}
