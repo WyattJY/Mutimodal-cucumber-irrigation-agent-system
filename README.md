@@ -247,7 +247,7 @@ graph TB
 ```
 
 ### 分层架构
-
+![architecture](docs/assets/screenshots/fig5_1_system_architecture.png)
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                    展示层（Presentation）                 │
