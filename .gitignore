@@ -54,7 +54,9 @@ data/index/*.db
 backend/config/user_settings.json
 
 # Vendored / generated docs
-backend/ultralytics/
+backend/ultralytics/cfg/datasets/
+backend/ultralytics/**/__pycache__/
+backend/ultralytics/**/*.pyc
 docs/folders/
 .ipynb_checkpoints/
 
