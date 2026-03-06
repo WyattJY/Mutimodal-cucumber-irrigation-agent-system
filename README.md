@@ -42,6 +42,7 @@
 - **Docker 部署与技术说明**: [docs/TECHNICAL_GUIDE.md](docs/TECHNICAL_GUIDE.md)
 - **环境变量模板**: [.env.example](.env.example)
 - **Docker Compose 启动**: [docker-compose.yml](docker-compose.yml)
+- **远端镜像一键启动**: [docker-compose.registry.yml](docker-compose.registry.yml)
 
 ## 🖼️ 界面预览
 
@@ -52,6 +53,28 @@
 | Vision | Knowledge |
 |--------|-----------|
 | ![Vision](docs/assets/screenshots/vision.png) | ![Knowledge](docs/assets/screenshots/knowledge.png) |
+
+## 🚀 最快启动
+
+如果你不想在本地构建镜像，而是直接拉取预构建镜像，优先使用：
+
+```bash
+copy .env.example .env
+docker compose -f docker-compose.registry.yml pull
+docker compose -f docker-compose.registry.yml up -d
+```
+
+启动后访问：
+
+- 前端：`http://localhost:3003`
+- 后端：`http://localhost:8000`
+- Swagger：`http://localhost:8000/docs`
+
+说明：
+
+- `docker-compose.registry.yml` 使用 GitHub Container Registry 里的预构建镜像。
+- 首次镜像发布由 `.github/workflows/publish-images.yml` 自动完成。
+- 如果 GHCR 包首次发布后默认不是公开的，需要在 GitHub Packages 页面将其切换为 `public`。
 
 ## 📖 项目概述
 

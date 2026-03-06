@@ -157,6 +157,11 @@ LLM 结合图像/指标/环境/RAG 做长势分析与合理性复核
 
 ## 5. Docker 部署说明
 
+推荐有两种方式：
+
+1. 最快方式：直接拉取预构建镜像。
+2. 开发方式：在本地根据源码构建镜像。
+
 ### 5.1 前置条件
 
 请先确保本机满足以下条件：
@@ -166,7 +171,36 @@ LLM 结合图像/指标/环境/RAG 做长势分析与合理性复核
 3. 项目目录中存在 `models/` 和 `data/knowledge_base/` 等必需资源。
 4. 你已经准备好自己的 LLM API Key。
 
-### 5.2 模型与知识库准备
+### 5.2 最快方式：直接拉取镜像
+
+如果仓库已经发布了 GHCR 镜像，建议优先使用这种方式。用户不需要本地构建前后端镜像，只需要：
+
+```bash
+copy .env.example .env
+docker compose -f docker-compose.registry.yml pull
+docker compose -f docker-compose.registry.yml up -d
+```
+
+对应文件：
+
+- `docker-compose.registry.yml`
+  使用 `ghcr.io/wyattjy/mutimodal-cucumber-irrigation-agent-system-backend:latest`
+- `docker-compose.registry.yml`
+  使用 `ghcr.io/wyattjy/mutimodal-cucumber-irrigation-agent-system-frontend:latest`
+
+这种方式适合：
+
+- 只想快速体验系统
+- 不打算修改源码
+- 希望跳过本地前后端构建耗时
+
+说明：
+
+- 预构建后端镜像内已包含运行所需模型和知识库文件。
+- `output/`、`data/storage/`、`data/weekly_storage/` 使用 Docker volume 持久化。
+- 如果你发现 GHCR 镜像无法匿名拉取，需要在 GitHub Packages 页面把镜像包设置为公开。
+
+### 5.3 模型与知识库准备
 
 公开仓库默认不会包含大模型权重文件，因此在自己的电脑上部署前，需要先把必需资源放到约定目录中：
 
@@ -179,7 +213,7 @@ LLM 结合图像/指标/环境/RAG 做长势分析与合理性复核
 
 如果你是从 GitHub 仓库直接克隆项目，这一步通常需要你把本地已有模型文件手动复制到上述位置。
 
-### 5.3 环境变量配置
+### 5.4 环境变量配置
 
 项目根目录提供了 `.env.example`。第一次部署时建议复制一份为 `.env`：
 
@@ -204,7 +238,7 @@ VITE_API_BASE_URL=/api
 
 后端同时兼容 `LLM_API_KEY` / `OPENAI_API_KEY` 这两套命名，但建议统一使用 `.env.example` 中的 `LLM_*` 变量。
 
-### 5.4 构建并启动
+### 5.5 本地源码构建并启动
 
 在项目根目录运行：
 
@@ -220,14 +254,14 @@ docker compose up -d
 
 后端镜像会在容器内自动创建 `/app/output`，因此首次从 GitHub 拉取仓库时，不要求仓库内自带 `output/` 目录。
 
-### 5.5 启动后访问地址
+### 5.6 启动后访问地址
 
 - 前端页面：`http://localhost:3003`
 - 后端 API：`http://localhost:8000`
 - 后端文档：`http://localhost:8000/docs`
 - 健康检查：`http://localhost:8000/api/health`
 
-### 5.6 常用 Docker 命令
+### 5.7 常用 Docker 命令
 
 查看服务状态：
 
@@ -259,7 +293,15 @@ docker compose down
 docker compose build backend
 ```
 
-### 5.7 Docker 服务说明
+如果你走远端镜像方式，对应命令是：
+
+```bash
+docker compose -f docker-compose.registry.yml pull
+docker compose -f docker-compose.registry.yml up -d
+docker compose -f docker-compose.registry.yml down
+```
+
+### 5.8 Docker 服务说明
 
 #### `backend`
 
@@ -330,6 +372,9 @@ docker compose build backend
    如需 GPU，需要进一步为本机 Docker/NVIDIA Runtime 做专项适配。
 3. `config.ini` 只保留示例配置。
    真正运行时建议统一通过 `.env` 注入密钥。
+4. 如果你希望“推代码后自动生成可拉取镜像”，仓库内已经包含：
+   `.github/workflows/publish-images.yml`
+   它会在 `main` 分支更新后自动发布前后端镜像到 GHCR。
 
 ## 10. 对外发布建议
 

@@ -34,6 +34,9 @@ Thumbs.db
 *.pt
 *.pth
 *.onnx
+!models/yolo/yolo11_seg_best.pt
+!models/tsmixer/model.pt
+!models/tsmixer/model_state.pt
 
 # Frontend / Node
 frontend/node_modules/

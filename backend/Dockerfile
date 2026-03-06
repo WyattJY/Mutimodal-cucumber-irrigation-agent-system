@@ -17,10 +17,13 @@ COPY src /app/src
 COPY data /app/data
 COPY models /app/models
 COPY .env.example /app/.env.example
+COPY backend/requirements-docker.txt /tmp/requirements-docker.txt
 
 RUN mkdir -p /app/output
 
-RUN pip install --upgrade pip && pip install -e /app/backend
+RUN pip install --upgrade pip \
+    && pip install -r /tmp/requirements-docker.txt \
+    && pip install -e /app/backend --no-deps
 
 WORKDIR /app/backend
 
