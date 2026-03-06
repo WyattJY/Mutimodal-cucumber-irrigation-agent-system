@@ -26,7 +26,6 @@
 - [目录结构](#目录结构)
 - [快速开始](#快速开始)
 - [使用指南](#使用指南)
-- [前端UI](#前端ui)
 - [API文档](#api文档)
 - [开发指南](#开发指南)
 - [测试](#测试)
@@ -416,28 +415,6 @@ uv run python scripts/run_weekly_real.py --week-start 2024-06-03 --week-end 2024
 # 检索FAO56知识（使用LocalRAG）
 uv run python -m cucumber_irrigation.rag.cli search "开花期灌水量建议" --use-local
 ```
-
----
-
-## 🎨 前端UI
-
-### 设计风格（参考 cankao.html）
-
-**视觉特点**：
-- **深空暗色主题**：背景 `#0B1120`（深空蓝）
-- **极光背景效果**：3层模糊渐变光斑动画
-- **玻璃拟态（Glassmorphism）**：半透明卡片 + 背景模糊
-- **霓虹色彩系统**：
-  - 主色：霓虹绿 `#00FF94`（健康/正常）
-  - 辅色：蓝 `#38BDF8`、紫 `#A78BFA`、橙 `#FB923C`（预警）
-
-**技术栈**：
-- **框架**: React 18 + Vite
-- **UI库**: Tailwind CSS + Phosphor Icons
-- **图表**: Chart.js / ECharts
-- **字体**: Inter + JetBrains Mono + Noto Sans SC
-
-**详细设计文档**: [requirements_ui.md](requirements_ui.md)
 
 ---
 
