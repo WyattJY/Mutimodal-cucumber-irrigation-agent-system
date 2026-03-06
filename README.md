@@ -280,104 +280,13 @@ graph TB
 ## 🔄 数据流程
 
 ### DailyPipeline 流程图
+![prompt](docs/assets/screenshots/fig5_4_prompt_assembly.png)
 
-```mermaid
-flowchart TD
-    Start([开始: 2025-12-26]) --> Input[读取环境数据<br/>温度25°C, 湿度70%, 光照8000lux]
-    Input --> YOLO[读取YOLO指标<br/>叶片数3.5, 掩码820, 花朵0.2]
-    YOLO --> Window[构建96步时序窗口<br/>env + YOLO历史数据]
-    Window --> TSMixer[TSMixer预测<br/>灌水量: 5.2 L/m²]
-
-    TSMixer --> PlantResp[PlantResponse长势评估]
-    PlantResp --> |读取今日/昨日图像| LLM1[GPT-5.2多模态分析]
-    LLM1 --> |输出JSON| Trend{长势趋势?}
-
-    Trend -->|better ↗| Conf1[置信度: 0.85<br/>证据: 叶片掩码+15%]
-    Trend -->|same →| Conf2[置信度: 0.70]
-    Trend -->|worse ↘| Conf3[置信度: 0.60<br/>异常: 萎蔫/黄化]
-
-    Conf1 --> Anomaly[异常检测A1/A2/A3]
-    Conf2 --> Anomaly
-    Conf3 --> Anomaly
-
-    Anomaly --> |A1范围检测| RangeCheck{5.2 ∈ [0.1,15]?}
-    RangeCheck -->|Yes| A2Check
-    RangeCheck -->|No| HighRisk[风险: critical]
-
-    A2Check[A2趋势矛盾检测] --> Conflict{长势好<br/>but灌水大降?}
-    Conflict -->|Yes| MediumRisk[风险: medium]
-    Conflict -->|No| A3Check
-
-    A3Check[A3环境异常检测] --> EnvCheck{连续3天<br/>高湿/高温/低光?}
-    EnvCheck -->|Yes| MediumRisk
-    EnvCheck -->|No| LowRisk[风险: low]
-
-    MediumRisk --> RAG[RAG知识库检索<br/>query: 高湿环境灌水建议]
-    HighRisk --> RAG
-    LowRisk --> Context
-
-    RAG --> |TopK=3| Knowledge[FAO56片段:<br/>1. 高湿需减水10%<br/>2. 注意通风<br/>3. 防霉菌]
-
-    Knowledge --> Context[构建L1工作上下文<br/>System+Weekly+Today+RAG]
-    Context --> Budget{预算<br/>>4500?}
-    Budget -->|Yes| Compress[压缩上下文<br/>RAG TopK 3→1<br/>删除evidence详情]
-    Budget -->|No| SanityCheck
-    Compress --> SanityCheck
-
-    SanityCheck[SanityCheck合理性复核] --> LLM2[GPT-5.2推理<br/>结合上下文+RAG知识]
-    LLM2 --> Decision{决策?}
-
-    Decision -->|接受| Accept[final_decision:<br/>value=5.2, source=TSMixer]
-    Decision -->|需人工确认| Question[questions:<br/>1. 湿度是否持续过高?<br/>2. 是否观察到病害?]
-    Decision -->|覆盖| Override[final_decision:<br/>value=6.0, source=Override<br/>reason=高温预警]
-
-    Accept --> Store[存储Episode<br/>MongoDB/JSON]
-    Question --> Store
-    Override --> Store
-
-    Store --> End([结束])
-
-    style TSMixer fill:#00FF94,color:#000
-    style LLM1 fill:#38BDF8,color:#000
-    style LLM2 fill:#38BDF8,color:#000
-    style RAG fill:#A78BFA,color:#fff
-    style HighRisk fill:#FF6B6B,color:#fff
-    style MediumRisk fill:#FFA04D,color:#000
-    style LowRisk fill:#51CF66,color:#000
-```
 
 ### WeeklyPipeline 流程图
+![multi_agent](docs/assets/screenshots/fig5_2_multi_agent.png)
+![rag_flow](docs/assets/screenshots/fig5_3_rag_flow_final.png)
 
-```mermaid
-flowchart TD
-    Start([每周日执行]) --> Query[查询过去7天Episodes<br/>2024-06-03 ~ 06-09]
-    Query --> Stats[统计分析]
-
-    Stats --> Trend[长势趋势分布<br/>better: 0天<br/>same: 3天<br/>worse: 1天]
-    Stats --> Irrigation[灌水趋势<br/>日均8.7 L/m²<br/>总量34.7 L<br/>趋势: 下降↘]
-    Stats --> Anomalies[异常事件<br/>1次趋势冲突(6/5)]
-
-    Trend --> Format[格式化统计摘要]
-    Irrigation --> Format
-    Anomalies --> Format
-
-    Format --> LLM[GPT-5.2周度反思<br/>Prompt: weekly_reflection]
-    LLM --> Insights[生成3条关键洞察:<br/>1. 长势平稳为主无好转且有1天下降<br/>2. 灌溉递减需防水分不足<br/>3. 6/5灌水10.5仍转差,建议排查EC]
-
-    Insights --> RAGRefs[关联知识库引用<br/>FAO56 Ch7: 灌溉量递减警惕缺水<br/>FAO56 Ch9: 趋势冲突可能由EC引起]
-
-    RAGRefs --> PromptBlock[生成Prompt块<br/>## 上周经验<br/>长势趋势: 平稳 | 灌溉趋势: 下降<br/>关键洞察: ...<br/>本周异常 1 次]
-
-    PromptBlock --> Store[存储WeeklySummary<br/>MongoDB/JSON]
-
-    Store --> Inject[下周DailyPipeline<br/>自动注入Prompt块到L1上下文]
-
-    Inject --> End([周度循环])
-
-    style LLM fill:#00FF94,color:#000
-    style Insights fill:#FFD43B,color:#000
-    style Inject fill:#A78BFA,color:#fff
-```
 
 ---
 
