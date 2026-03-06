@@ -1,0 +1,85 @@
+[project]
+name = "cucumber-irrigation"
+version = "0.1.0"
+description = "温室黄瓜灌水智能体系统 - Phase 0: PlantResponse 生成与调优"
+readme = "README.md"
+requires-python = ">=3.11"
+
+dependencies = [
+    # LLM 调用
+    "openai>=1.40.0",
+
+    # 数据处理
+    "pandas>=2.2.0",
+    "numpy>=1.26.0",
+
+    # 配置管理
+    "pyyaml>=6.0",
+    "python-dotenv>=1.0.0",
+
+    # 数据验证
+    "pydantic>=2.5.0",
+    "jsonschema>=4.20.0",
+
+    # 日志
+    "loguru>=0.7.2",
+
+    # CLI
+    "typer>=0.12.0",
+    "rich>=13.7.0",
+
+    # Token 计数
+    "tiktoken>=0.5.0",
+
+    # 数据库
+    "pymongo>=4.6.0",
+
+    # 机器学习
+    "scikit-learn>=1.4.0",
+
+    # Excel 读取
+    "openpyxl>=3.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.4.0",
+    "mypy>=1.9.0",
+]
+
+ml = [
+    # PyTorch (可选，用于 TSMixer)
+    "torch>=2.0.0",
+]
+
+rag = [
+    # RAG 组件 (Phase 7)
+    "pymilvus>=2.4.0",
+    "sentence-transformers>=2.5.0",
+    "FlagEmbedding>=1.2.0",
+    "pdfplumber>=0.10.0",
+    "PyPDF2>=3.0.0",
+]
+
+[project.scripts]
+cucumber-rag = "cucumber_irrigation.rag.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cucumber_irrigation"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = false
+ignore_missing_imports = true

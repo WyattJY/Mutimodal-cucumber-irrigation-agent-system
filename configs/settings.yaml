@@ -1,0 +1,32 @@
+# Phase 0 配置
+
+# LLM 配置
+llm:
+  base_url: "https://yunwu.zeabur.app/v1"
+  model: "gpt-5.2"
+  temperature: 0.3
+  max_tokens: 2000
+  timeout: 60
+
+# 数据路径
+data:
+  images_dir: "data/images"
+  csv_path: "data/csv/irrigation.csv"
+
+# 输出路径
+output:
+  pairs_index: "output/pairs_index.json"
+  growth_stats: "output/growth_stats.json"
+  responses_dir: "output/responses"
+
+# Prompt 配置
+prompts:
+  dir: "prompts/plant_response"
+  version: "v1"
+
+# 处理配置
+processing:
+  batch_size: 10
+  retry_times: 3
+  retry_delay: 2
+  skip_existing: true

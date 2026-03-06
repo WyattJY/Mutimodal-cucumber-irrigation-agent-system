@@ -1,0 +1,4 @@
+// Chat components index
+export { ChatInput } from './ChatInput'
+export { ChatMessage } from './ChatMessage'
+export { ChatPanel } from './ChatPanel'

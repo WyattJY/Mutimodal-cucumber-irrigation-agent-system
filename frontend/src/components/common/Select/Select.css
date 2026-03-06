@@ -1,0 +1,65 @@
+/* Select Component Styles */
+.select-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.select-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #E3E3E3;
+}
+
+.select-container {
+  position: relative;
+}
+
+.select-field {
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: #E3E3E3;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.select-field:focus {
+  border-color: #00FF94;
+  box-shadow: 0 0 0 2px rgba(0, 255, 148, 0.1);
+}
+
+.select-field:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.select-field option {
+  background: #1E1F20;
+  color: #E3E3E3;
+}
+
+.select-arrow {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9AA0A6;
+  pointer-events: none;
+}
+
+/* Error state */
+.select-wrapper--error .select-field {
+  border-color: #F28B82;
+}
+
+.select-error {
+  font-size: 0.75rem;
+  color: #F28B82;
+}

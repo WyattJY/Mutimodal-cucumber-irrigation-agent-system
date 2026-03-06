@@ -1,0 +1,1190 @@
+[
+  {
+    "date": "2024-03-15",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 8.94583,
+      "plant_response": {
+        "trend": "same",
+        "confidence": 0.7,
+        "evidence": {
+          "leaf_observation": "all_leaf_mask 由19537增加到21726（+2189），单叶平均面积上升（710→820），但叶片实例数略降（3.44→3.31），整体表现为叶片变大、数量基本稳定；图像中幼苗挺立，叶色以绿色为主。",
+          "flower_observation": "未检测到花（flower Instance Count=0），图像中也未见明显花器官。",
+          "fruit_observation": "未检测到果实（fruit Mask average=0），图像中未见果实。",
+          "terminal_bud_observation": "顶芽未被模型识别（terminal average Mask Pixel Count=0），从俯视图难以清晰判断生长点细节，但植株整体姿态正常。"
+        },
+        "comparison": {
+          "leaf_area_change": "增加",
+          "leaf_count_change": "持平",
+          "flower_count_change": "不适用",
+          "fruit_count_change": "不适用",
+          "overall_vigor_change": "持平"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "seedling",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": null,
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 8.94583,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:44:26.650374",
+    "updated_at": "2025-12-26T14:44:26.650374"
+  },
+  {
+    "date": "2024-03-16",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 6.609055000000001,
+      "plant_response": {
+        "trend": "same",
+        "confidence": 0.78,
+        "evidence": {
+          "leaf_observation": "与昨日相比，幼苗叶片整体略有增大（all leaf mask 从 21726.0 增至 22736.5；单叶平均面积也上升），叶色整体保持正常绿色，未见明显萎蔫或黄化扩展。",
+          "flower_observation": "未检测到花（flower Instance Count=0），无开花变化。",
+          "fruit_observation": "未检测到果实（fruit Mask average=0），不适用。",
+          "terminal_bud_observation": "模型未检测到顶芽掩膜（terminal average Mask Pixel Count=0），从图像观感整体长势平稳，未见明显生长点异常。"
+        },
+        "comparison": {
+          "leaf_area_change": "增加",
+          "leaf_count_change": "持平",
+          "flower_count_change": "不适用",
+          "fruit_count_change": "不适用",
+          "overall_vigor_change": "持平"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "seedling",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": null,
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 6.609055000000001,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:44:26.660816",
+    "updated_at": "2025-12-26T14:44:26.660816"
+  },
+  {
+    "date": "2024-03-17",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 3.989675,
+      "plant_response": {
+        "trend": "same",
+        "confidence": 0.65,
+        "evidence": {
+          "leaf_observation": "对比昨日，整体叶片展开幅度不大；YOLO 统计显示全叶面积从 22736.5 降至 20538.5，单叶平均面积下降，但叶片实例数略有增加，可能存在视角/分割波动，肉眼观感差异不明显。",
+          "flower_observation": "未见花朵（flower=0），与昨日一致。",
+          "fruit_observation": "未见果实（fruit=0），与昨日一致。",
+          "terminal_bud_observation": "顶芽未检出（terminal=0），图像中难以清晰判断顶芽活力变化。"
+        },
+        "comparison": {
+          "leaf_area_change": "减少",
+          "leaf_count_change": "增加",
+          "flower_count_change": "不适用",
+          "fruit_count_change": "不适用",
+          "overall_vigor_change": "持平"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "seedling",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": null,
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 3.989675,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:44:26.717813",
+    "updated_at": "2025-12-26T14:44:26.717813"
+  },
+  {
+    "date": "2024-03-18",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 8.910435000000001,
+      "plant_response": {
+        "trend": "same",
+        "confidence": 0.72,
+        "evidence": {
+          "leaf_observation": "全叶面积由 20538.5 增至 24384（+3845.5），叶片数量略增（3.5→4.3125），单叶平均面积略降（733.5→706.8），从图像观感看幼苗叶色正常、展开略有进展但不算明显跳增。",
+          "flower_observation": "未见花（flower Instance Count=0），与昨日一致。",
+          "fruit_observation": "未见果实（fruit Mask average=0），与昨日一致。",
+          "terminal_bud_observation": "顶芽未被稳定识别（terminal average Mask Pixel Count=0），图像中生长点信息不够清晰，无法据此判断显著变化。"
+        },
+        "comparison": {
+          "leaf_area_change": "增加",
+          "leaf_count_change": "增加",
+          "flower_count_change": "不适用",
+          "fruit_count_change": "不适用",
+          "overall_vigor_change": "持平"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "vegetative",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": null,
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 8.910435000000001,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:44:26.789098",
+    "updated_at": "2025-12-26T14:44:26.789098"
+  },
+  {
+    "date": "2024-03-19",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 9.150125000000001,
+      "plant_response": {
+        "trend": "same",
+        "confidence": 0.72,
+        "evidence": {
+          "leaf_observation": "all_leaf_mask 由 24384 增至 26864（+2480），叶片总面积有增长；但 leaf Instance Count 由 4.31 降至 3.81，可能为遮挡/分割差异导致的计数波动。图像中多数植株叶色正常、叶片挺立，未见明显萎蔫扩散。",
+          "flower_observation": "未检测到花（flower Instance Count=0），图像中也未见明显花器官。",
+          "fruit_observation": "未检测到果实（fruit Mask average=0），图像中未见结果。",
+          "terminal_bud_observation": "未检测到顶芽像素（terminal average Mask Pixel Count=0），图像中顶端生长点不够清晰，难以据此判断活力变化。"
+        },
+        "comparison": {
+          "leaf_area_change": "增加",
+          "leaf_count_change": "减少",
+          "flower_count_change": "不适用",
+          "fruit_count_change": "不适用",
+          "overall_vigor_change": "持平"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "seedling",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": null,
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 9.150125000000001,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:44:26.864806",
+    "updated_at": "2025-12-26T14:44:26.864806"
+  },
+  {
+    "date": "2024-03-20",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 9.57469,
+      "plant_response": {
+        "trend": "same",
+        "confidence": 0.72,
+        "evidence": {
+          "leaf_observation": "YOLO显示全叶面积由26864增加到30475（+3611），单叶平均面积增大，但叶片实例数略降（3.81→3.63），从图像整体看植株长势与昨日接近、叶色基本正常。",
+          "flower_observation": "未检测到花（flower Instance Count=0），图像中也未见明显开花迹象。",
+          "fruit_observation": "未检测到果实（fruit Mask average=0），图像中未见结果。",
+          "terminal_bud_observation": "未检测到顶芽掩膜（terminal average Mask Pixel Count=0），图像中生长点细节不清，难以据此判断活力变化。"
+        },
+        "comparison": {
+          "leaf_area_change": "增加",
+          "leaf_count_change": "减少",
+          "flower_count_change": "不适用",
+          "fruit_count_change": "不适用",
+          "overall_vigor_change": "持平"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "seedling",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": null,
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 9.57469,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:44:26.939096",
+    "updated_at": "2025-12-26T14:44:26.939096"
+  },
+  {
+    "date": "2024-03-21",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 10.282449999999999,
+      "plant_response": {
+        "trend": "same",
+        "confidence": 0.72,
+        "evidence": {
+          "leaf_observation": "叶片总面积（all leaf mask）较昨日明显增加，单叶平均面积增大；但叶片实例数略有下降，图像上整体株型变化不算剧烈，属于幼苗期正常波动与展开。",
+          "flower_observation": "未检测到花朵（今日/昨日 flower Instance Count=0），无开花相关变化。",
+          "fruit_observation": "未检测到果实（fruit Mask average=0），不适用。",
+          "terminal_bud_observation": "今日检测到顶芽像素面积（terminal average mask=136.5），昨日为0，提示生长点更清晰/更活跃或识别更稳定，属于积极信号。"
+        },
+        "comparison": {
+          "leaf_area_change": "增加",
+          "leaf_count_change": "减少",
+          "flower_count_change": "不适用",
+          "fruit_count_change": "不适用",
+          "overall_vigor_change": "持平"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "seedling",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": null,
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 10.282449999999999,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:44:27.013066",
+    "updated_at": "2025-12-26T14:44:27.013066"
+  },
+  {
+    "date": "2024-04-01",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 6.8384677085000005,
+      "plant_response": {
+        "trend": "better",
+        "confidence": 0.86,
+        "evidence": {
+          "leaf_observation": "今日整体冠层更饱满，叶片展开度更高；叶片总面积由188282增至214610，且单叶平均面积同步增大，叶色整体正常未见明显黄化或萎蔫。",
+          "flower_observation": "花朵数量明显增加（0.5→5.0），花朵总像素面积也显著上升，说明进入更活跃的开花状态。",
+          "fruit_observation": "未检测到果实（fruit mask average=0），图像中也未见明确坐果果实特征。",
+          "terminal_bud_observation": "顶芽平均像素面积增大（666.87→729.88），生长点活力较昨日增强。"
+        },
+        "comparison": {
+          "leaf_area_change": "增加",
+          "leaf_count_change": "增加",
+          "flower_count_change": "增加",
+          "fruit_count_change": "不适用",
+          "overall_vigor_change": "增强"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "flowering",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": null,
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 6.8384677085000005,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:45:11.568601",
+    "updated_at": "2025-12-26T14:45:11.568601"
+  },
+  {
+    "date": "2024-04-02",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 5.8315123949,
+      "plant_response": {
+        "trend": "better",
+        "confidence": 0.82,
+        "evidence": {
+          "leaf_observation": "对比昨日，整体冠层更饱满，叶片展开度与覆盖面积增加；叶色以正常绿色为主，未见明显卷叶或塌叶。",
+          "flower_observation": "花朵数量与花朵像素面积均增加，说明开花更活跃、可见花量上升。",
+          "fruit_observation": "昨日果实指标为0，今日出现果实平均像素面积（414.5），提示开始进入坐果/幼果显现阶段。",
+          "terminal_bud_observation": "顶芽平均像素面积增加，生长点更清晰，生长活力较昨日增强。"
+        },
+        "comparison": {
+          "leaf_area_change": "增加",
+          "leaf_count_change": "增加",
+          "flower_count_change": "增加",
+          "fruit_count_change": "增加",
+          "overall_vigor_change": "增强"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "fruiting",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": null,
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 5.8315123949,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:45:11.576479",
+    "updated_at": "2025-12-26T14:45:11.576479"
+  },
+  {
+    "date": "2024-04-03",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 9.1915663541,
+      "plant_response": {
+        "trend": "same",
+        "confidence": 0.78,
+        "evidence": {
+          "leaf_observation": "全株叶片覆盖面积较昨日明显增加（all_leaf_mask 由 242540.5 增至 278589.0），叶片数量略增（4.69→5.0），叶色整体正常、未见明显萎蔫下垂。",
+          "flower_observation": "花朵数量与花朵像素面积明显下降（5.5→1.0；2289.5→257.0），更像是花期阶段性波动或识别/遮挡导致的统计回落。",
+          "fruit_observation": "昨日检测到果实（fruit mask average 414.5），今日为 0，图像中未见清晰果实发育表现，可能为遮挡/角度或模型漏检。",
+          "terminal_bud_observation": "顶芽平均像素略增（790.08→833.32），生长点活力总体正常。"
+        },
+        "comparison": {
+          "leaf_area_change": "增加",
+          "leaf_count_change": "增加",
+          "flower_count_change": "减少",
+          "fruit_count_change": "减少",
+          "overall_vigor_change": "持平"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "flowering",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": null,
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 9.1915663541,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:45:11.681066",
+    "updated_at": "2025-12-26T14:45:11.681066"
+  },
+  {
+    "date": "2024-04-04",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 6.5384027090000005,
+      "plant_response": {
+        "trend": "same",
+        "confidence": 0.78,
+        "evidence": {
+          "leaf_observation": "全叶片总面积较昨日下降（278589→270598），叶片实例数略降（5.0→4.94）且单叶平均面积略小；从图像看整体叶色仍以正常绿色为主，未见明显大范围萎蔫。",
+          "flower_observation": "花朵实例数增加（1.0→1.5），花朵像素总量增加（257→407.5），显示有新花/开花更明显。",
+          "fruit_observation": "未检测到果实（fruit mask average=0），图像中也未见清晰果实发育。",
+          "terminal_bud_observation": "顶芽平均像素面积增加（833.3→946.6），生长点活力表现偏积极。"
+        },
+        "comparison": {
+          "leaf_area_change": "减少",
+          "leaf_count_change": "持平",
+          "flower_count_change": "增加",
+          "fruit_count_change": "不适用",
+          "overall_vigor_change": "持平"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "flowering",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": null,
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 6.5384027090000005,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:45:11.748636",
+    "updated_at": "2025-12-26T14:45:11.748636"
+  },
+  {
+    "date": "2024-04-05",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 5.059327709100001,
+      "plant_response": {
+        "trend": "same",
+        "confidence": 0.78,
+        "evidence": {
+          "leaf_observation": "全株叶片覆盖度较昨日增加，叶片整体颜色偏深绿、叶面较平展；但叶片实例数略降（可能与遮挡/重叠有关），单叶平均面积上升，表现为叶片扩展为主。",
+          "flower_observation": "花朵数量与花朵像素面积均增加（1.5→2.0，407.5→805），开花更明显。",
+          "fruit_observation": "未检测到果实（fruit mask 仍为0），尚未进入明显结果表现。",
+          "terminal_bud_observation": "顶芽平均像素面积增加（946.6→1054.2），生长点活力较昨日更好。"
+        },
+        "comparison": {
+          "leaf_area_change": "增加",
+          "leaf_count_change": "减少",
+          "flower_count_change": "增加",
+          "fruit_count_change": "不适用",
+          "overall_vigor_change": "增强"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "flowering",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": null,
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 5.059327709100001,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:45:11.817036",
+    "updated_at": "2025-12-26T14:45:11.817036"
+  },
+  {
+    "date": "2024-04-06",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 8.942773334,
+      "plant_response": {
+        "trend": "better",
+        "confidence": 0.78,
+        "evidence": {
+          "leaf_observation": "今日整体冠层覆盖度较昨日增大，叶片更舒展；叶色总体正常偏绿，未见明显黄化或卷叶。单叶平均面积略下降，但叶片数量增加，带来总叶面积提升。",
+          "flower_observation": "花朵数量较昨日减少（由2朵降至1朵），花朵总像素面积下降，表现为阶段性波动/落花现象。",
+          "fruit_observation": "未检测到果实（两日 fruit mask 均为0），暂无结果表现。",
+          "terminal_bud_observation": "顶芽平均面积增加，生长点活力较昨日增强，具继续抽生新叶趋势。"
+        },
+        "comparison": {
+          "leaf_area_change": "增加",
+          "leaf_count_change": "增加",
+          "flower_count_change": "减少",
+          "fruit_count_change": "不适用",
+          "overall_vigor_change": "增强"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "flowering",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": null,
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 8.942773334,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:45:11.888349",
+    "updated_at": "2025-12-26T14:45:11.888349"
+  },
+  {
+    "date": "2024-04-07",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 8.6778021879,
+      "plant_response": {
+        "trend": "same",
+        "confidence": 0.75,
+        "evidence": {
+          "leaf_observation": "all leaf mask 由 328847.0 增至 386943.5（+58096.5），单叶平均面积增大，但叶片实例数由 5.25 略降至 5.0；图像中整体叶色正常、叶片展开度略有提升。",
+          "flower_observation": "花朵实例数由 1.0 增至 3.5，花朵像素总量明显上升，今日可见更多开放花，开花表现增强。",
+          "fruit_observation": "fruit Mask average 仍为 0.0，未见明确果实发育信号。",
+          "terminal_bud_observation": "顶芽平均像素由 1206.54 降至 1054.67，顶端生长点相对昨日略弱，但图像中仍保持直立生长。"
+        },
+        "comparison": {
+          "leaf_area_change": "增加",
+          "leaf_count_change": "持平",
+          "flower_count_change": "增加",
+          "fruit_count_change": "不适用",
+          "overall_vigor_change": "持平"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "flowering",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": null,
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 8.6778021879,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:45:11.954620",
+    "updated_at": "2025-12-26T14:45:11.954620"
+  },
+  {
+    "date": "2024-05-02",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 5.7734516674,
+      "plant_response": {
+        "trend": "same",
+        "confidence": 0.7,
+        "evidence": {
+          "leaf_observation": "与昨日相比，整体冠层形态接近，但YOLO统计的总叶面积与单叶平均面积均下降（all leaf mask 542400.5→520344.0；leaf average mask 9600.0→9291.9），图像中未见明显新叶快速展开带来的冠层扩张。",
+          "flower_observation": "花朵数量持平（2→2），但花朵像素面积增加（679.0→1246.5），显示花朵更显著/更开放。",
+          "fruit_observation": "果实平均像素面积明显下降（1080.17→580.79），图像中果实不突出，可能为识别/遮挡差异或小果发育不明显。",
+          "terminal_bud_observation": "顶芽平均像素面积下降（650.0→580.25），但图像中生长点仍可见、未见明显坏死或停滞迹象。"
+        },
+        "comparison": {
+          "leaf_area_change": "减少",
+          "leaf_count_change": "持平",
+          "flower_count_change": "持平",
+          "fruit_count_change": "持平",
+          "overall_vigor_change": "持平"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "flowering",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": null,
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 5.7734516674,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:45:20.397967",
+    "updated_at": "2025-12-26T14:45:20.397967"
+  },
+  {
+    "date": "2024-05-03",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 4.4649821879000005,
+      "plant_response": {
+        "trend": "same",
+        "confidence": 0.78,
+        "evidence": {
+          "leaf_observation": "全株叶片覆盖度较昨日增加（all leaf mask 上升），叶色整体正常偏深绿；但单叶平均面积略下降，部分叶片姿态较平展，未见明显萎蔫或黄化扩大迹象。",
+          "flower_observation": "花朵数量明显增加（2→5），花朵像素总量增加，表现为开花更活跃。",
+          "fruit_observation": "果实平均像素面积下降，图像中可见小果但整体果实发育提升不明显，结果量变化不突出。",
+          "terminal_bud_observation": "顶芽平均像素面积较昨日降低，图像中生长点仍在抽生，但活力提升不明显。"
+        },
+        "comparison": {
+          "leaf_area_change": "增加",
+          "leaf_count_change": "增加",
+          "flower_count_change": "增加",
+          "fruit_count_change": "持平",
+          "overall_vigor_change": "持平"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "flowering",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": null,
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 4.4649821879000005,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:45:20.405522",
+    "updated_at": "2025-12-26T14:45:20.405522"
+  },
+  {
+    "date": "2024-05-04",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 7.448226146000001,
+      "plant_response": {
+        "trend": "same",
+        "confidence": 0.72,
+        "evidence": {
+          "leaf_observation": "今日整体冠层更饱满，叶片总面积上升；叶色整体正常偏深绿，未见明显黄化或萎蔫。部分叶片姿态与昨日接近。",
+          "flower_observation": "图像中可见花朵数量不多；结合YOLO指标花朵实例数由5.0降至2.5，呈减少趋势，可能与开花批次更替/凋谢有关。",
+          "fruit_observation": "可见少量幼果/小果；结合YOLO果实平均掩膜面积由457.77增至645.06，果实发育有推进迹象，但果实数量变化信息不足以判定明显增减。",
+          "terminal_bud_observation": "顶芽区域形态正常，结合YOLO顶芽平均像素由532.11升至604.63，生长点活力略有增强。"
+        },
+        "comparison": {
+          "leaf_area_change": "增加",
+          "leaf_count_change": "持平",
+          "flower_count_change": "减少",
+          "fruit_count_change": "持平",
+          "overall_vigor_change": "持平"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "fruiting",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": null,
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 7.448226146000001,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:45:20.521190",
+    "updated_at": "2025-12-26T14:45:20.521190"
+  },
+  {
+    "date": "2024-05-05",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 10.2897686466,
+      "plant_response": {
+        "trend": "worse",
+        "confidence": 0.82,
+        "evidence": {
+          "leaf_observation": "叶片总面积较昨日明显下降（all leaf mask 569263.5→513436.0），单叶平均面积下降（9487.7→9007.6），图像上整体冠层覆盖略变稀，叶色总体正常未见明显大面积黄化。",
+          "flower_observation": "花朵数量与花朵像素面积均减少（Instance 2.5→1.5；Mask 1863→427.5），可见开放花较昨日少。",
+          "fruit_observation": "果实平均像素面积略增（645.1→687.9），果实发育未见明显停滞迹象。",
+          "terminal_bud_observation": "顶芽平均像素面积增加（604.6→694.1），生长点活力尚可，未见明显萎蔫下垂。"
+        },
+        "comparison": {
+          "leaf_area_change": "减少",
+          "leaf_count_change": "减少",
+          "flower_count_change": "减少",
+          "fruit_count_change": "持平",
+          "overall_vigor_change": "减弱"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "flowering",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": null,
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 10.2897686466,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:45:20.591147",
+    "updated_at": "2025-12-26T14:45:20.591147"
+  },
+  {
+    "date": "2024-06-04",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 8.4556242711,
+      "plant_response": {
+        "trend": "same",
+        "confidence": 0.75,
+        "evidence": {
+          "leaf_observation": "叶片总体面积增加（all leaf mask 452428.5→472599.0），单叶平均面积略增，叶色整体正常偏深绿；与昨日相比冠层更饱满但变化幅度不算显著。",
+          "flower_observation": "花朵数量与花朵像素面积均增加（1.0→2.625；314.0→1038.75），可见新增开放花，开花活性提升。",
+          "fruit_observation": "果实平均面积增加（723.64→836.48），可见果实持续发育，数量变化信息不足但整体结果状态稳定。",
+          "terminal_bud_observation": "顶芽平均像素面积增加（588.96→617.14），生长点表现为持续生长、活力正常。"
+        },
+        "comparison": {
+          "leaf_area_change": "增加",
+          "leaf_count_change": "持平",
+          "flower_count_change": "增加",
+          "fruit_count_change": "持平",
+          "overall_vigor_change": "持平"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "fruiting",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": null,
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 8.4556242711,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:45:55.873570",
+    "updated_at": "2025-12-26T14:45:55.873570"
+  },
+  {
+    "date": "2024-06-05",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 10.4730425004,
+      "plant_response": {
+        "trend": "worse",
+        "confidence": 0.78,
+        "evidence": {
+          "leaf_observation": "叶片总面积明显下降（472599→423433），叶片实例数减少（8.16→7.38），今日画面中部分叶片姿态略下垂、层次变稀，整体冠层覆盖度变小。",
+          "flower_observation": "花朵数量增加（2.63→4.50），开花更活跃。",
+          "fruit_observation": "果实平均掩膜略降（836.48→820.64），未见明显果实膨大增强信号，整体偏持平略弱。",
+          "terminal_bud_observation": "顶芽平均掩膜下降（617.14→565.39），生长点活力较昨日略弱。"
+        },
+        "comparison": {
+          "leaf_area_change": "减少",
+          "leaf_count_change": "减少",
+          "flower_count_change": "增加",
+          "fruit_count_change": "持平",
+          "overall_vigor_change": "减弱"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "flowering",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": true,
+      "trend_conflict_severity": "minor",
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 10.4730425004,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:45:55.882401",
+    "updated_at": "2025-12-26T14:45:55.882401"
+  },
+  {
+    "date": "2024-06-08",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 6.9233839591,
+      "plant_response": {
+        "trend": "same",
+        "confidence": 0.72,
+        "evidence": {
+          "leaf_observation": "叶片总体颜色偏深绿、展开度良好；与昨日相比冠层略有增大，数据上 all_leaf_mask 明显上升，但图像中整体形态变化不算非常突出，未见明显萎蔫或黄化加重。",
+          "flower_observation": "花朵数量小幅增加（2.12→2.16），花朵总像素面积增加（827.7→956.8），图像中可见黄色花，开花状态略有增强。",
+          "fruit_observation": "果实平均像素面积小幅增加（871.9→880.7），图像中未见明显异常果，整体结果状态变化不大。",
+          "terminal_bud_observation": "顶芽平均像素面积下降（696.2→658.3），图像中顶端生长点仍可见新叶，但活力提升不明显。"
+        },
+        "comparison": {
+          "leaf_area_change": "增加",
+          "leaf_count_change": "增加",
+          "flower_count_change": "增加",
+          "fruit_count_change": "持平",
+          "overall_vigor_change": "持平"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "fruiting",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": null,
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 6.9233839591,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:45:55.978608",
+    "updated_at": "2025-12-26T14:45:55.978608"
+  },
+  {
+    "date": "2024-06-09",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 8.8576618755,
+      "plant_response": {
+        "trend": "same",
+        "confidence": 0.78,
+        "evidence": {
+          "leaf_observation": "叶片整体颜色仍以正常绿色为主，但与昨日相比覆盖度略下降；叶片实例数与总叶面积均小幅减少，单叶平均面积基本持平，疑似个别叶片角度/遮挡变化或轻微衰老造成观感下降。",
+          "flower_observation": "花朵数量与花朵像素面积较昨日小幅减少，但图中仍可见开放花，整体开花状态变化不大。",
+          "fruit_observation": "果实平均像素面积较昨日下降，图中果实不明显，难以确认是否为遮挡/识别波动或确有果实发育放缓。",
+          "terminal_bud_observation": "顶芽平均像素面积下降，生长点仍可见，但相较昨日活力指标偏弱。"
+        },
+        "comparison": {
+          "leaf_area_change": "减少",
+          "leaf_count_change": "减少",
+          "flower_count_change": "减少",
+          "fruit_count_change": "持平",
+          "overall_vigor_change": "持平"
+        }
+      },
+      "sanity_check": {},
+      "growth_stage": "flowering",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": null,
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 8.8576618755,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T14:45:56.066778",
+    "updated_at": "2025-12-26T14:45:56.066778"
+  }
+]

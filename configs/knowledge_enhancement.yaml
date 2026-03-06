@@ -1,0 +1,51 @@
+# Q7 知识增强配置
+# 参考: requirements1.md 8.5节, task1.md P1-06
+
+# 生育期预判 (GPT-5.2 视觉模型)
+growth_stage_detection:
+  enabled: true
+  confidence_threshold: 0.7    # 低于此置信度时查询多个生育期
+  stages:
+    - vegetative    # 营养期: 主要可见叶片，无明显花朵/果实
+    - flowering     # 开花期: 可见黄色花朵，可能有小果
+    - fruiting      # 结果期: 可见发育中的果实（黄瓜）
+    - mixed         # 混合期: 多种生育期特征并存
+
+# PlantResponse 知识增强
+plant_response_rag:
+  enabled: true
+  top_k: 2                     # 检索片段数
+  max_tokens: 400              # 知识注入预算
+  prefer_fao56: true           # 优先 FAO56 文献
+  query_templates:
+    vegetative: "cucumber vegetative stage Kc leaf growth water requirement"
+    flowering: "cucumber flowering stage Kc flower development water stress"
+    fruiting: "cucumber fruiting stage Kc fruit development irrigation"
+    mixed: "cucumber transition growth stage Kc adjustment"
+
+# WeeklySummary 知识增强
+weekly_summary_rag:
+  enabled: true
+  top_k: 3                     # 检索片段数
+  max_tokens: 500              # 知识注入预算
+  insight_source_tags: true    # 是否标注来源 [文献]/[数据]
+  source_tags:
+    literature: "[文献]"        # 主要依据文献
+    data: "[数据]"              # 主要依据统计数据
+    literature_data: "[文献+数据]"  # 结合两者
+    experience: "[经验]"        # 基于历史 Override
+
+# 检索策略 (权重配置)
+retrieval:
+  fao56_weight: 1.5            # FAO56 权威文献权重
+  cucumber_greenhouse_weight: 1.2  # 温室黄瓜专业文献权重
+  general_weight: 1.0          # 一般灌溉/作物文献权重
+  history_weight: 0.8          # 历史 Episode 权重
+
+# FAO56 Kc 系数参考 (用于知识注入)
+fao56_kc_reference:
+  cucumber:
+    initial: 0.6       # 初期
+    development: 0.7   # 发育期
+    mid_season: 1.0    # 中期 (开花结果)
+    late_season: 0.75  # 末期

@@ -1,0 +1,128 @@
+[
+  {
+    "date": "2025-03-15",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {
+        "temperature": 22.0,
+        "humidity": 65.0,
+        "light": 9000.0
+      },
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 1.2864202056573437,
+      "plant_response": {},
+      "sanity_check": {},
+      "growth_stage": null,
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": "none",
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 1.2864202056573437,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T12:15:10.109173",
+    "updated_at": "2025-12-26T12:15:10.109173"
+  },
+  {
+    "date": "2025-03-16",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {
+        "temperature": 28.0,
+        "humidity": 80.0,
+        "light": 6000.0
+      },
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 1.5659852883977798,
+      "plant_response": {},
+      "sanity_check": {},
+      "growth_stage": null,
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": "none",
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 1.5659852883977798,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T12:15:10.130012",
+    "updated_at": "2025-12-26T12:15:10.130012"
+  },
+  {
+    "date": "2025-03-17",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {
+        "temperature": 32.0,
+        "humidity": 55.0,
+        "light": 10000.0
+      },
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 1.2032328199711828,
+      "plant_response": {},
+      "sanity_check": {},
+      "growth_stage": null,
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": "none",
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 1.2032328199711828,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T12:15:10.379752",
+    "updated_at": "2025-12-26T12:15:10.379752"
+  }
+]

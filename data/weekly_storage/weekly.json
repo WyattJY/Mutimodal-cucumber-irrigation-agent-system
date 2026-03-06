@@ -1,0 +1,181 @@
+[
+  {
+    "week_start": "2024-03-15",
+    "week_end": "2024-03-21",
+    "season": "spring",
+    "trend_stats": {
+      "better_days": 0,
+      "same_days": 7,
+      "worse_days": 0,
+      "dominant_trend": "same"
+    },
+    "irrigation_stats": {
+      "total": 57.46226,
+      "daily_avg": 8.208894285714285,
+      "max": 10.282449999999999,
+      "min": 3.989675,
+      "trend": "increasing"
+    },
+    "anomaly_events": [],
+    "override_summary": {
+      "count": 0,
+      "total_delta": 0.0,
+      "reasons": []
+    },
+    "key_insights": [
+      "洞察1: 全周长势7天均same，未见好转/下降。",
+      "洞察2: 灌水量呈上升，日均8.21L/m²但长势不变，增水效应不明显。",
+      "洞察3: 3/17灌水仅4.0L/m²为异常低值，随后快速拉升至10.3L/m²，需关注波动。"
+    ],
+    "knowledge_references": [
+      {
+        "doc_id": "3058eb800b4e87d5b982498ee4383234",
+        "source": "Fao56.pdf"
+      },
+      {
+        "doc_id": "93798ab0373548826c6aa1ea19b04e21",
+        "source": "Fao56.pdf"
+      }
+    ],
+    "prompt_block": "## 上周经验 (2024-03-15 ~ 2024-03-21)\n长势趋势: 平稳 | 灌溉趋势: 上升 (日均 8.2 L/m²)\n关键洞察:\n- 洞察1: 全周长势7天均same，未见好转/下降。\n- 洞察2: 灌水量呈上升，日均8.21L/m²但长势不变，增水效应不明显。\n- 洞察3: 3/17灌水仅4.0L/m²为异常低值，随后快速拉升至10.3L/m²，需关注波动。",
+    "prompt_block_tokens": 192,
+    "created_at": "2025-12-26T14:45:11.532832",
+    "updated_at": "2025-12-26T14:45:11.532832"
+  },
+  {
+    "week_start": "2024-04-01",
+    "week_end": "2024-04-07",
+    "season": "spring",
+    "trend_stats": {
+      "better_days": 3,
+      "same_days": 4,
+      "worse_days": 0,
+      "dominant_trend": "same"
+    },
+    "irrigation_stats": {
+      "total": 51.079852397500005,
+      "daily_avg": 7.29712177107143,
+      "max": 9.1915663541,
+      "min": 5.059327709100001,
+      "trend": "stable"
+    },
+    "anomaly_events": [],
+    "override_summary": {
+      "count": 0,
+      "total_delta": 0.0,
+      "reasons": []
+    },
+    "key_insights": [
+      "洞察1: 周灌水51.1L/m²且稳定，长势4天平稳3天好转，无下降。",
+      "洞察2: 低灌水(5.1-5.8)仍平稳/好转，整体供水偏充足，可微降观察。",
+      "洞察3: 4/3灌水9.2但长势未升，疑边际效应，警惕过灌与根区缺氧。"
+    ],
+    "knowledge_references": [
+      {
+        "doc_id": "d10d30f7ea12d117f8ebd75d9101c040",
+        "source": "Fao56.pdf"
+      },
+      {
+        "doc_id": "4de9d6a9489939a567d5a39f332e8bae",
+        "source": "Fao56.pdf"
+      }
+    ],
+    "prompt_block": "## 上周经验 (2024-04-01 ~ 2024-04-07)\n长势趋势: 平稳 | 灌溉趋势: 稳定 (日均 7.3 L/m²)\n关键洞察:\n- 洞察1: 周灌水51.1L/m²且稳定，长势4天平稳3天好转，无下降。\n- 洞察2: 低灌水(5.1-5.8)仍平稳/好转，整体供水偏充足，可微降观察。\n- 洞察3: 4/3灌水9.2但长势未升，疑边际效应，警惕过灌与根区缺氧。",
+    "prompt_block_tokens": 215,
+    "created_at": "2025-12-26T14:45:20.384656",
+    "updated_at": "2025-12-26T14:45:20.384656"
+  },
+  {
+    "week_start": "2024-04-29",
+    "week_end": "2024-05-05",
+    "season": "spring",
+    "trend_stats": {
+      "better_days": 0,
+      "same_days": 3,
+      "worse_days": 1,
+      "dominant_trend": "same"
+    },
+    "irrigation_stats": {
+      "total": 27.9764286479,
+      "daily_avg": 6.994107161975,
+      "max": 10.2897686466,
+      "min": 4.4649821879000005,
+      "trend": "increasing"
+    },
+    "anomaly_events": [],
+    "override_summary": {
+      "count": 0,
+      "total_delta": 0.0,
+      "reasons": []
+    },
+    "key_insights": [
+      "洞察1: 灌溉量呈上升(4.5→10.3)，长势仍主导same(3天)。",
+      "洞察2: 5/5灌水10.3且长势worse，为唯一下降日，需排查过灌/根系缺氧。",
+      "洞察3: 周总28.0、日均6.99偏高；建议回调5–7并分次小水验证。"
+    ],
+    "knowledge_references": [
+      {
+        "doc_id": "d10d30f7ea12d117f8ebd75d9101c040",
+        "source": "Fao56.pdf"
+      },
+      {
+        "doc_id": "4de9d6a9489939a567d5a39f332e8bae",
+        "source": "Fao56.pdf"
+      }
+    ],
+    "prompt_block": "## 上周经验 (2024-04-29 ~ 2024-05-05)\n长势趋势: 平稳 | 灌溉趋势: 上升 (日均 7.0 L/m²)\n关键洞察:\n- 洞察1: 灌溉量呈上升(4.5→10.3)，长势仍主导same(3天)。\n- 洞察2: 5/5灌水10.3且长势worse，为唯一下降日，需排查过灌/根系缺氧。\n- 洞察3: 周总28.0、日均6.99偏高；建议回调5–7并分次小水验证。",
+    "prompt_block_tokens": 197,
+    "created_at": "2025-12-26T14:45:55.860558",
+    "updated_at": "2025-12-26T14:45:55.860558"
+  },
+  {
+    "week_start": "2024-06-03",
+    "week_end": "2024-06-09",
+    "season": "spring",
+    "trend_stats": {
+      "better_days": 0,
+      "same_days": 3,
+      "worse_days": 1,
+      "dominant_trend": "same"
+    },
+    "irrigation_stats": {
+      "total": 34.7097126061,
+      "daily_avg": 8.677428151525,
+      "max": 10.4730425004,
+      "min": 6.9233839591,
+      "trend": "decreasing"
+    },
+    "anomaly_events": [
+      {
+        "date": "2024-06-05",
+        "anomaly_type": "trend_conflict",
+        "severity": "minor",
+        "description": null
+      }
+    ],
+    "override_summary": {
+      "count": 0,
+      "total_delta": 0.0,
+      "reasons": []
+    },
+    "key_insights": [
+      "洞察1: 长势以平稳为主(3天)，无好转且有1天下降。",
+      "洞察2: 灌溉总量34.7、日均8.68 L/m²且递减，需防水分不足致后续转差。",
+      "洞察3: 6/5灌水10.5仍转差，出现轻微趋势冲突异常，建议排查EC/根区缺氧。"
+    ],
+    "knowledge_references": [
+      {
+        "doc_id": "2e7ada1640afb5c60f2bcd44714bc08b",
+        "source": "Fao56.pdf"
+      },
+      {
+        "doc_id": "3849c78c12fed391d13687f22fe1cfb6",
+        "source": "Fao56.pdf"
+      }
+    ],
+    "prompt_block": "## 上周经验 (2024-06-03 ~ 2024-06-09)\n长势趋势: 平稳 | 灌溉趋势: 下降 (日均 8.7 L/m²)\n关键洞察:\n- 洞察1: 长势以平稳为主(3天)，无好转且有1天下降。\n- 洞察2: 灌溉总量34.7、日均8.68 L/m²且递减，需防水分不足致后续转差。\n- 洞察3: 6/5灌水10.5仍转差，出现轻微趋势冲突异常，建议排查EC/根区缺氧。\n本周异常 1 次",
+    "prompt_block_tokens": 214,
+    "created_at": "2025-12-26T14:46:04.156142",
+    "updated_at": "2025-12-26T14:46:04.156142"
+  }
+]

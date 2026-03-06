@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriAgent - 未来温室指挥舱</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Inter"', '"Noto Sans SC"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        neon: {
+                            green: '#00FF94',
+                            blue: '#38BDF8',
+                            purple: '#A78BFA',
+                            orange: '#FB923C',
+                        },
+                        dark: {
+                            bg: '#0B1120', // Deep Space
+                            card: '#1E293B',
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 10s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: 1, boxShadow: '0 0 20px rgba(0, 255, 148, 0.5)' },
+                            '50%': { opacity: .7, boxShadow: '0 0 10px rgba(0, 255, 148, 0.2)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0B1120;
+            color: #E2E8F0;
+            overflow-x: hidden;
+        }
+
+        /* 极光背景层 */
+        .aurora-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .aurora-blob {
+            position: absolute;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: blob 20s infinite alternate;
+        }
+        .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(56, 189, 248, 0.3) 0%, rgba(0, 0, 0, 0) 70%); }
+        .blob-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(167, 139, 250, 0.25) 0%, rgba(0, 0, 0, 0) 70%); }
+        .blob-3 { top: 40%; left: 40%; width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(0, 255, 148, 0.15) 0%, rgba(0, 0, 0, 0) 70%); animation-delay: -5s; }
+
+        /* 高级玻璃拟态 */
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.15); /* 顶部高光 */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        .glass-panel:hover {
+            background: rgba(30, 41, 59, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.4), 0 0 20px rgba(56, 189, 248, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* 侧边栏玻璃 */
+        .glass-sidebar {
+            background: rgba(11, 17, 32, 0.8);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* 霓虹文字 */
+        .text-glow {
+            text-shadow: 0 0 10px rgba(0, 255, 148, 0.5);
+        }
+        
+        .nav-item {
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(0, 255, 148, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+            border-left: 3px solid #00FF94;
+            color: #00FF94;
+        }
+        
+        /* 滚动条美化 */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+        /* 覆盖按钮的特殊效果 */
+        .btn-override {
+            background: linear-gradient(135deg, rgba(255, 143, 0, 0.1), rgba(255, 143, 0, 0.05));
+            border: 1px solid rgba(255, 143, 0, 0.3);
+            color: #FFA04D;
+        }
+        .btn-override:hover {
+            background: rgba(255, 143, 0, 0.2);
+            box-shadow: 0 0 15px rgba(255, 143, 0, 0.3);
+            border-color: #FFA04D;
+        }
+
+        /* 聊天气泡动画 */
+        .chat-bubble {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        /* 隐藏/显示 视图 */
+        .view-section {
+            display: none;
+        }
+        .view-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden selection:bg-neon-green selection:text-black">
+
+    <!-- 极光背景 -->
+    <div class="aurora-container">
+        <div class="aurora-blob blob-1"></div>
+        <div class="aurora-blob blob-2"></div>
+        <div class="aurora-blob blob-3"></div>
+    </div>
+
+    <!-- 侧边导航栏 -->
+    <aside class="hidden md:flex flex-col w-80 glass-sidebar transition-all duration-300 z-50 h-full flex-shrink-0">
+        <!-- Brand -->
+        <div class="h-24 flex items-center px-8 border-b border-white/5 bg-black/20">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-neon-green to-blue-500 flex items-center justify-center mr-4 shadow-[0_0_15px_rgba(0,255,148,0.4)]">
+                <i class="ph-bold ph-plant text-black text-2xl"></i>
+            </div>
+            <div>
+                <span class="text-xl font-bold tracking-wider text-white block">AgriAgent</span>
+                <span class="text-[10px] text-neon-green tracking-[0.25em] opacity-90 uppercase">Intelligence</span>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 py-6 space-y-1 px-3 overflow-y-auto">
+            <div onclick="switchView('dashboard')" id="nav-dashboard" class="nav-item active flex items-center px-5 py-4 rounded-xl text-sm font-medium transition-all group mb-1">
+                <i class="ph ph-squares-four text-xl mr-4 group-hover:text-neon-green transition-colors"></i>
+                <div>
+                    <span class="block text-white group-hover:text-neon-green">指挥舱</span>
+                    <span class="text-[10px] text-slate-500 font-mono group-hover:text-neon-green/60">DASHBOARD</span>
+                </div>
+            </div>
+            <div onclick="switchView('decision')" id="nav-decision" class="nav-item flex items-center px-5 py-4 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 text-sm font-medium transition-all group mb-1">
+                <i class="ph ph-git-commit text-xl mr-4 group-hover:text-neon-blue transition-colors"></i>
+                <div>
+                    <span class="block group-hover:text-neon-blue">今日决策链</span>
+                    <span class="text-[10px] text-slate-600 font-mono group-hover:text-neon-blue/60">DECISION CHAIN</span>
+                </div>
+            </div>
+            <div onclick="switchView('history')" id="nav-history" class="nav-item flex items-center px-5 py-4 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 text-sm font-medium transition-all group mb-1">
+                <i class="ph ph-clock-counter-clockwise text-xl mr-4 group-hover:text-neon-purple transition-colors"></i>
+                <div>
+                    <span class="block group-hover:text-neon-purple">时光回溯</span>
+                    <span class="text-[10px] text-slate-600 font-mono group-hover:text-neon-purple/60">HISTORY</span>
+                </div>
+            </div>
+            <div onclick="switchView('weekly')" id="nav-weekly" class="nav-item flex items-center px-5 py-4 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 text-sm font-medium transition-all group mb-1">
+                <i class="ph ph-chart-line-up text-xl mr-4 group-hover:text-orange-400 transition-colors"></i>
+                <div>
+                    <span class="block group-hover:text-orange-400">周度分析报告</span>
+                    <span class="text-[10px] text-slate-600 font-mono group-hover:text-orange-400/60">WEEKLY REPORT</span>
+                </div>
+            </div>
+            <div onclick="switchView('knowledge')" id="nav-knowledge" class="nav-item flex items-center px-5 py-4 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 text-sm font-medium transition-all group mb-1">
+                <i class="ph ph-brain text-xl mr-4 group-hover:text-yellow-400 transition-colors"></i>
+                <div>
+                    <span class="block group-hover:text-yellow-400">FAO56 知识库</span>
+                    <span class="text-[10px] text-slate-600 font-mono group-hover:text-yellow-400/60">KNOWLEDGE BASE</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Agri-Copilot Area (Smart Q&A) -->
+        <div class="p-4 bg-black/30 border-t border-white/5">
+            <div class="bg-gradient-to-b from-slate-800/50 to-slate-900/50 rounded-2xl border border-white/10 p-4 relative overflow-hidden group">
+                <!-- Glowing effect on hover -->
+                <div class="absolute inset-0 bg-neon-green/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                
+                <div class="flex items-center gap-2 mb-3">
+                    <div class="w-2 h-2 rounded-full bg-neon-green animate-pulse"></div>
+                    <span class="text-xs font-bold text-neon-green tracking-wide">AGRI-COPILOT</span>
+                </div>
+                
+                <!-- Chat History (Simulated) -->
+                <div class="space-y-3 mb-3 max-h-32 overflow-y-auto hidden" id="copilot-history">
+                    <div class="text-[10px] text-slate-400 bg-white/5 p-2 rounded-lg rounded-tl-none">
+                        今日湿度82%，建议检查通风口。
+                    </div>
+                </div>
+
+                <p class="text-xs text-slate-400 mb-3 leading-relaxed" id="copilot-placeholder">
+                    基于 FAO56 知识库与 GPT-5.2。您可以询问："开花期最佳灌水量是多少？"
+                </p>
+
+                <!-- Input Area -->
+                <div class="relative">
+                    <input type="text" placeholder="向智能体提问..." 
+                           class="w-full bg-black/40 border border-white/10 rounded-lg py-2 pl-3 pr-8 text-xs text-white focus:outline-none focus:border-neon-green/50 focus:ring-1 focus:ring-neon-green/50 transition-all placeholder-slate-600"
+                           onkeypress="handleCopilotEnter(event)">
+                    <button class="absolute right-1 top-1 bottom-1 w-6 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+                        <i class="ph-bold ph-paper-plane-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Profile -->
+        <div class="p-4 border-t border-white/5 bg-black/20">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-slate-700 flex items-center justify-center border border-white/10 relative">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="User" class="w-7 h-7">
+                    <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-neon-green border-2 border-slate-900 rounded-full"></span>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-white truncate">Admin User</p>
+                    <p class="text-xs text-slate-500 truncate">Greenhouse #A-102</p>
+                </div>
+                <button class="text-slate-400 hover:text-white transition-colors">
+                    <i class="ph-bold ph-gear"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 主内容区域 -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden relative z-10">
+        
+        <!-- Mobile Header -->
+        <header class="md:hidden h-16 glass-sidebar flex items-center justify-between px-4 z-40 border-b border-white/10">
+            <div class="flex items-center gap-2">
+                <i class="ph-fill ph-plant text-neon-green text-xl"></i>
+                <span class="font-bold text-white text-lg">AgriAgent</span>
+            </div>
+            <button onclick="document.getElementById('mobile-menu').classList.remove('hidden')" class="text-white p-2">
+                <i class="ph ph-list text-2xl"></i>
+            </button>
+        </header>
+
+        <!-- 内容滚动区 -->
+        <div class="flex-1 overflow-y-auto p-4 md:p-8 custom-scrollbar scroll-smooth">
+            
+            <!-- VIEW 1: DASHBOARD -->
+            <div id="view-dashboard" class="view-section active space-y-8 max-w-7xl mx-auto">
+                <!-- Top Bar -->
+                <div class="flex flex-col xl:flex-row justify-between items-start xl:items-end gap-6">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-neon-green/10 text-neon-green border border-neon-green/20 animate-pulse">● LIVE</span>
+                            <span class="text-slate-400 text-sm font-mono">SYSTEM: ONLINE</span>
+                        </div>
+                        <h1 class="text-3xl md:text-4xl font-bold text-white mb-1">
+                            2025-12-26 <span class="text-lg font-normal text-slate-400 ml-2">Thursday</span>
+                        </h1>
+                        <p class="text-slate-400 text-sm flex items-center gap-2 mt-1">
+                            <i class="ph-fill ph-map-pin text-neon-blue"></i> Greenhouse Alpha 
+                            <span class="text-slate-600">|</span>
+                            <span class="text-neon-purple flex items-center gap-1"><i class="ph-fill ph-leaf"></i> 营养生长期 (Vegetative)</span>
+                        </p>
+                    </div>
+
+                    <!-- Environment Capsules -->
+                    <div class="grid grid-cols-3 gap-3 w-full xl:w-auto">
+                        <div class="glass-panel rounded-xl p-3 flex flex-col items-center justify-center min-w-[100px] hover:bg-white/5 transition-colors">
+                            <span class="text-[10px] text-slate-400 uppercase tracking-wider mb-1">Temp</span>
+                            <div class="flex items-center gap-1 text-white font-mono text-xl font-bold">
+                                <i class="ph-fill ph-thermometer text-neon-orange text-base"></i> 25°C
+                            </div>
+                        </div>
+                        <div class="glass-panel rounded-xl p-3 flex flex-col items-center justify-center min-w-[100px] hover:bg-white/5 transition-colors">
+                            <span class="text-[10px] text-slate-400 uppercase tracking-wider mb-1">Humidity</span>
+                            <div class="flex items-center gap-1 text-white font-mono text-xl font-bold">
+                                <i class="ph-fill ph-drop text-neon-blue text-base"></i> 70%
+                            </div>
+                        </div>
+                        <div class="glass-panel rounded-xl p-3 flex flex-col items-center justify-center min-w-[100px] hover:bg-white/5 transition-colors">
+                            <span class="text-[10px] text-slate-400 uppercase tracking-wider mb-1">Light</span>
+                            <div class="flex items-center gap-1 text-white font-mono text-xl font-bold">
+                                <i class="ph-fill ph-sun text-yellow-400 text-base"></i> 8k
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    
+                    <!-- Hero Decision Card -->
+                    <div class="lg:col-span-8 glass-panel rounded-3xl p-8 relative overflow-hidden group border-l-4 border-l-neon-green">
+                        <!-- BG Effects -->
+                        <div class="absolute right-0 top-0 w-96 h-96 bg-neon-green/5 rounded-full blur-[100px] group-hover:bg-neon-green/10 transition-all duration-700 pointer-events-none"></div>
+                        <div class="absolute right-10 top-10 text-white/5 text-9xl font-black pointer-events-none select-none">H2O</div>
+
+                        <div class="relative z-10 flex flex-col h-full justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-6">
+                                    <div>
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <span class="w-2 h-2 rounded-full bg-neon-green"></span>
+                                            <h2 class="text-slate-400 text-sm font-bold uppercase tracking-widest">AI Decision</h2>
+                                        </div>
+                                        <h3 class="text-2xl font-bold text-white">今日建议灌水量</h3>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="px-3 py-1 rounded-full bg-slate-900/50 border border-white/10 text-xs font-mono text-neon-blue">
+                                            <i class="ph-bold ph-brain"></i> TSMixer v2.1
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col sm:flex-row items-baseline gap-2 mb-6">
+                                    <div class="text-[6rem] leading-none font-bold text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-slate-500 tracking-tighter drop-shadow-lg">
+                                        5.2
+                                    </div>
+                                    <span class="text-2xl text-slate-500 font-medium font-mono">L/m²</span>
+                                </div>
+                                
+                                <div class="flex gap-4 mb-8 flex-wrap">
+                                    <div class="px-4 py-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-neon-green/10 flex items-center justify-center text-neon-green">
+                                            <i class="ph-fill ph-trend-up text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <span class="block text-[10px] text-slate-400 uppercase font-bold">Growth Trend</span>
+                                            <span class="text-white font-bold">Better</span>
+                                        </div>
+                                    </div>
+                                    <div class="px-4 py-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-neon-blue/10 flex items-center justify-center text-neon-blue">
+                                            <i class="ph-fill ph-check-circle text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <span class="block text-[10px] text-slate-400 uppercase font-bold">Confidence</span>
+                                            <span class="text-white font-bold">85%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-4 mt-4">
+                                <button onclick="switchView('decision')" class="flex-1 bg-gradient-to-r from-neon-green to-emerald-600 hover:to-emerald-500 text-black px-6 py-4 rounded-xl font-bold shadow-[0_0_20px_rgba(0,255,148,0.3)] hover:shadow-[0_0_30px_rgba(0,255,148,0.5)] transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 group">
+                                    <i class="ph-bold ph-list-magnifying-glass group-hover:scale-110 transition-transform"></i>
+                                    查看决策详情
+                                </button>
+                                <button onclick="toggleOverrideModal()" class="flex-1 btn-override px-6 py-4 rounded-xl font-bold transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 backdrop-blur-md">
+                                    <i class="ph-bold ph-pencil-simple"></i>
+                                    人工覆盖 (Override)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side Widgets -->
+                    <div class="lg:col-span-4 flex flex-col gap-6">
+                        <!-- Warning Card -->
+                        <div class="glass-panel rounded-3xl p-6 border-l-4 border-l-neon-orange bg-gradient-to-r from-neon-orange/5 to-transparent relative overflow-hidden group hover:bg-neon-orange/10 transition-colors cursor-pointer">
+                            <div class="absolute right-[-20px] top-[-20px] text-neon-orange/10 group-hover:text-neon-orange/20 transition-colors rotate-12">
+                                <i class="ph-fill ph-warning-octagon text-9xl"></i>
+                            </div>
+                            <div class="relative z-10">
+                                <div class="flex justify-between items-center mb-4">
+                                    <span class="px-2 py-1 rounded bg-neon-orange/20 text-neon-orange text-[10px] font-bold uppercase tracking-wide border border-neon-orange/30">Medium Risk</span>
+                                    <span class="text-[10px] text-slate-400 font-mono">10:30 AM</span>
+                                </div>
+                                <h4 class="text-white font-bold text-lg mb-2">环境湿度偏高 (82%)</h4>
+                                <p class="text-sm text-slate-400 leading-relaxed">连续 3 天检测到高湿环境，AI 建议检查通风系统以预防霉菌。</p>
+                            </div>
+                        </div>
+
+                        <!-- Info Card -->
+                        <div class="glass-panel rounded-3xl p-6 border-l-4 border-l-slate-500 flex-1 flex flex-col justify-center">
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-wide flex items-center gap-2">
+                                    <i class="ph-fill ph-clock"></i> Yesterday
+                                </span>
+                            </div>
+                            <h4 class="text-white font-bold text-lg mb-2">灌溉执行完毕</h4>
+                            <div class="w-full bg-slate-700/50 rounded-full h-2 mb-4 overflow-hidden">
+                                <div class="bg-green-500 h-full rounded-full" style="width: 100%"></div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-slate-400">Target: 5.0 L</span>
+                                <span class="text-sm text-white font-mono font-bold">Actual: 5.0 L</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts & Visuals -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 pb-6">
+                    
+                    <!-- Trend Chart -->
+                    <div class="glass-panel rounded-3xl p-8">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="font-bold text-white text-lg flex items-center gap-2">
+                                <i class="ph-fill ph-chart-line-up text-neon-blue"></i> 30天灌水量趋势
+                            </h3>
+                            <div class="flex bg-white/5 rounded-lg p-1 border border-white/5">
+                                <button class="px-3 py-1 text-xs font-medium rounded bg-white/10 text-white shadow-sm transition-all">30D</button>
+                                <button class="px-3 py-1 text-xs font-medium rounded text-slate-400 hover:text-white transition-all">7D</button>
+                            </div>
+                        </div>
+                        <div class="h-64 w-full relative">
+                            <canvas id="irrigationChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Computer Vision Lab -->
+                    <div class="glass-panel rounded-3xl p-8 border border-white/5">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="font-bold text-white text-lg flex items-center gap-2">
+                                <i class="ph-fill ph-eye text-neon-green"></i> 视觉生长分析
+                            </h3>
+                            <span class="text-xs text-neon-green bg-neon-green/10 px-2 py-1 rounded border border-neon-green/20 font-mono">
+                                YOLOv8 Confidence: 0.92
+                            </span>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <!-- Yesterday -->
+                            <div class="space-y-2 group cursor-pointer">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[10px] text-slate-500 font-mono tracking-widest">YESTERDAY</span>
+                                </div>
+                                <div class="aspect-square rounded-2xl bg-black relative overflow-hidden border border-white/10 group-hover:border-white/30 transition-all">
+                                    <img src="https://images.unsplash.com/photo-1591857177580-dc82b9e4e10c?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-500 grayscale group-hover:grayscale-0">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-3 flex flex-col justify-end">
+                                        <span class="text-xs font-mono text-slate-400">Mask: 710px</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Today -->
+                            <div class="space-y-2 group cursor-pointer relative">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[10px] text-neon-green font-mono tracking-widest">TODAY</span>
+                                    <span class="text-[10px] text-neon-green bg-neon-green/20 px-1 rounded">+15%</span>
+                                </div>
+                                <div class="aspect-square rounded-2xl bg-black relative overflow-hidden border-2 border-neon-green shadow-[0_0_15px_rgba(0,255,148,0.2)] group-hover:shadow-[0_0_25px_rgba(0,255,148,0.4)] transition-all">
+                                    <img src="https://images.unsplash.com/photo-1591857177580-dc82b9e4e10c?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover transition-all duration-500 transform group-hover:scale-110">
+                                    <!-- YOLO Box -->
+                                    <div class="absolute top-[20%] left-[25%] w-[50%] h-[50%] border border-neon-green/80 shadow-[0_0_10px_rgba(0,255,148,0.5)]">
+                                        <span class="absolute -top-4 left-0 bg-neon-green text-black text-[8px] font-bold px-1 py-0.5 rounded-t">LEAF 0.98</span>
+                                    </div>
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-3 flex flex-col justify-end">
+                                        <span class="text-xs font-mono text-neon-green">Mask: 820px</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full py-3 rounded-xl border border-white/10 text-slate-300 text-sm hover:bg-white/5 hover:text-white transition-all flex items-center justify-center gap-2 group">
+                            进入视觉分析实验室 <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 2: KNOWLEDGE BASE / Q&A -->
+            <div id="view-knowledge" class="view-section hidden max-w-5xl mx-auto h-full flex flex-col">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-white mb-2 flex items-center gap-3">
+                        <i class="ph-fill ph-books text-yellow-400"></i> FAO56 知识库
+                    </h2>
+                    <p class="text-slate-400">基于 RAG 技术，索引了 10,211 个农业知识块。支持语义检索。</p>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="glass-panel rounded-2xl p-2 flex items-center gap-2 mb-8 border-yellow-400/20 shadow-[0_0_30px_rgba(250,204,21,0.1)]">
+                    <div class="w-10 h-10 rounded-xl bg-yellow-400/10 flex items-center justify-center text-yellow-400">
+                        <i class="ph-bold ph-magnifying-glass text-xl"></i>
+                    </div>
+                    <input type="text" placeholder="搜索知识库 (例如: 开花期灌水量建议)..." class="flex-1 bg-transparent border-none text-white focus:ring-0 placeholder-slate-500 h-10">
+                    <button class="bg-yellow-400 text-black px-6 py-2 rounded-xl font-bold hover:bg-yellow-300 transition-colors">搜索</button>
+                </div>
+
+                <!-- Results Grid -->
+                <div class="grid gap-4">
+                    <!-- Result 1 -->
+                    <div class="glass-panel p-6 rounded-2xl hover:bg-white/5 transition-colors cursor-pointer group">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-yellow-400 font-mono text-xs border border-yellow-400/30 px-2 py-0.5 rounded bg-yellow-400/10">FAO56 Ch7 P123</span>
+                            <span class="text-slate-500 text-xs">Relevance: 0.92</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-yellow-400 transition-colors">开花期黄瓜需水特性</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            开花期是黄瓜需水高峰期，日灌水量建议为 <span class="text-white font-bold bg-white/10 px-1 rounded">5-8 L/m²</span>，具体取决于光照强度和温度。高温(>30°C)时应增加至...
+                        </p>
+                        <div class="flex gap-2">
+                            <button class="text-xs text-slate-500 hover:text-white flex items-center gap-1 bg-white/5 px-2 py-1 rounded"><i class="ph ph-thumbs-up"></i> 有用</button>
+                            <button class="text-xs text-slate-500 hover:text-white flex items-center gap-1 bg-white/5 px-2 py-1 rounded"><i class="ph ph-thumbs-down"></i> 无用</button>
+                        </div>
+                    </div>
+
+                    <!-- Result 2 -->
+                    <div class="glass-panel p-6 rounded-2xl hover:bg-white/5 transition-colors cursor-pointer group">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-yellow-400 font-mono text-xs border border-yellow-400/30 px-2 py-0.5 rounded bg-yellow-400/10">FAO56 Ch5 P89</span>
+                            <span class="text-slate-500 text-xs">Relevance: 0.85</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-yellow-400 transition-colors">Kc 系数计算</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Kc系数在开花期达到峰值 1.05，建议结合ET0计算每日蒸腾量。公式如下：ETc = Kc * ET0...
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Placeholder for other views -->
+            <div id="view-placeholder" class="view-section hidden flex items-center justify-center h-full">
+                <div class="text-center">
+                    <i class="ph-duotone ph-cone text-6xl text-slate-600 mb-4 inline-block"></i>
+                    <h2 class="text-2xl font-bold text-white mb-2">开发中</h2>
+                    <p class="text-slate-400">该模块正在建设中 (Phase 2)</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 覆盖模态框 (Override Modal) -->
+    <div id="override-modal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity animate-fade-in" onclick="toggleOverrideModal()"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg glass-panel rounded-3xl p-8 border border-neon-orange/30 shadow-[0_0_50px_rgba(255,143,0,0.2)] transform scale-100 transition-transform">
+            
+            <div class="flex justify-between items-start mb-8">
+                <div>
+                    <h3 class="text-2xl font-bold text-white flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-neon-orange/20 flex items-center justify-center text-neon-orange">
+                            <i class="ph-fill ph-warning-circle text-xl"></i>
+                        </div>
+                        人工介入 (Override)
+                    </h3>
+                    <p class="text-sm text-slate-400 mt-2 ml-14">此操作将覆盖 AI 决策并记录到不可篡改日志中。</p>
+                </div>
+                <button onclick="toggleOverrideModal()" class="text-slate-400 hover:text-white p-2 rounded-lg hover:bg-white/10 transition-colors">
+                    <i class="ph ph-x text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- Comparison -->
+            <div class="grid grid-cols-2 gap-4 mb-8">
+                <div class="bg-slate-900/50 rounded-2xl p-4 border border-white/5 text-center">
+                    <span class="text-xs text-slate-400 uppercase tracking-widest block mb-2">AI 建议值</span>
+                    <span class="text-3xl font-bold text-slate-300 block">5.2</span>
+                    <span class="text-xs text-slate-500 font-mono">L/m²</span>
+                </div>
+                <div class="bg-neon-orange/10 rounded-2xl p-4 border border-neon-orange/30 text-center relative overflow-hidden">
+                    <span class="text-xs text-neon-orange uppercase tracking-widest block mb-2 font-bold">修正值</span>
+                    <div class="flex items-center justify-center gap-3">
+                        <button class="w-8 h-8 rounded-lg bg-black/20 hover:bg-black/40 text-neon-orange border border-neon-orange/30" onclick="adjustValue(-0.1)">-</button>
+                        <input type="number" value="6.0" id="override-input" class="w-20 text-center bg-transparent font-bold text-3xl text-neon-orange border-none focus:ring-0 font-mono p-0">
+                        <button class="w-8 h-8 rounded-lg bg-black/20 hover:bg-black/40 text-neon-orange border border-neon-orange/30" onclick="adjustValue(0.1)">+</button>
+                    </div>
+                    <span class="text-xs text-neon-orange/70 font-mono">L/m²</span>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <label class="block text-sm font-bold text-white mb-3">介入理由 (Required)</label>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <button class="text-xs bg-white/5 hover:bg-neon-orange/20 hover:text-neon-orange border border-white/10 hover:border-neon-orange/50 text-slate-300 px-4 py-2 rounded-full transition-all" onclick="setReason(this)">🌡️ 高温预警</button>
+                    <button class="text-xs bg-white/5 hover:bg-neon-orange/20 hover:text-neon-orange border border-white/10 hover:border-neon-orange/50 text-slate-300 px-4 py-2 rounded-full transition-all" onclick="setReason(this)">🥀 叶片萎蔫</button>
+                    <button class="text-xs bg-white/5 hover:bg-neon-orange/20 hover:text-neon-orange border border-white/10 hover:border-neon-orange/50 text-slate-300 px-4 py-2 rounded-full transition-all" onclick="setReason(this)">🔧 传感器故障</button>
+                    <button class="text-xs bg-white/5 hover:bg-neon-orange/20 hover:text-neon-orange border border-white/10 hover:border-neon-orange/50 text-slate-300 px-4 py-2 rounded-full transition-all" onclick="setReason(this)">🧪 实验需要</button>
+                </div>
+                <textarea class="w-full bg-black/30 border border-white/10 rounded-xl p-4 text-white text-sm focus:border-neon-orange/50 focus:ring-1 focus:ring-neon-orange/50 outline-none transition-all placeholder-slate-600 resize-none" rows="3" placeholder="请输入详细的修正理由..."></textarea>
+            </div>
+
+            <button onclick="toggleOverrideModal()" class="w-full py-4 rounded-xl bg-gradient-to-r from-neon-orange to-orange-600 hover:to-orange-500 text-black font-bold shadow-[0_0_30px_rgba(255,143,0,0.3)] transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 text-lg">
+                <i class="ph-bold ph-check"></i>
+                确认执行修正
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-50 hidden md:hidden">
+        <div class="absolute inset-0 bg-black/95 backdrop-blur-xl p-6 flex flex-col">
+            <div class="flex justify-between items-center mb-10">
+                <span class="text-xl font-bold text-white">Menu</span>
+                <button onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="text-slate-400 p-2">
+                    <i class="ph ph-x text-3xl"></i>
+                </button>
+            </div>
+            <nav class="space-y-6 flex-1">
+                <a href="#" onclick="switchView('dashboard'); document.getElementById('mobile-menu').classList.add('hidden')" class="text-2xl font-bold text-neon-green flex items-center gap-4">
+                    <i class="ph ph-squares-four"></i> Dashboard
+                </a>
+                <a href="#" class="text-2xl font-bold text-slate-400 flex items-center gap-4">
+                    <i class="ph ph-git-commit"></i> Decision Chain
+                </a>
+                <a href="#" onclick="switchView('knowledge'); document.getElementById('mobile-menu').classList.add('hidden')" class="text-2xl font-bold text-slate-400 flex items-center gap-4">
+                    <i class="ph ph-books"></i> Knowledge Base
+                </a>
+            </nav>
+            <div class="p-4 bg-white/5 rounded-2xl">
+                <p class="text-xs text-slate-500 mb-2">Agri-Copilot</p>
+                <button class="w-full py-3 bg-neon-green text-black font-bold rounded-xl">Ask AI Assistant</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Navigation Logic ---
+        function switchView(viewId) {
+            // 1. Hide all views
+            document.querySelectorAll('.view-section').forEach(el => {
+                el.classList.remove('active');
+                setTimeout(() => {
+                   if(!el.classList.contains('active')) el.style.display = 'none'; 
+                }, 0); // Immediate for simplicity, animation handled by CSS
+            });
+
+            // 2. Deactivate all nav items
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active', 'text-neon-green'));
+            document.querySelectorAll('.nav-item i').forEach(el => el.classList.remove('text-neon-green')); // Reset icon colors roughly
+
+            // 3. Show selected view
+            const targetView = document.getElementById('view-' + (viewId === 'decision' || viewId === 'history' || viewId === 'weekly' ? 'placeholder' : viewId));
+            if (targetView) {
+                targetView.style.display = 'block';
+                setTimeout(() => targetView.classList.add('active'), 10);
+            }
+
+            // 4. Activate nav item
+            const navItem = document.getElementById('nav-' + viewId);
+            if (navItem) {
+                navItem.classList.add('active');
+            }
+        }
+
+        // --- Copilot Logic ---
+        function handleCopilotEnter(e) {
+            if (e.key === 'Enter') {
+                const input = e.target;
+                const text = input.value;
+                if (!text) return;
+
+                const history = document.getElementById('copilot-history');
+                const placeholder = document.getElementById('copilot-placeholder');
+                
+                // Hide placeholder on first message
+                placeholder.style.display = 'none';
+                history.classList.remove('hidden');
+
+                // Add User Message
+                const userMsg = document.createElement('div');
+                userMsg.className = 'text-xs text-white bg-neon-green/20 p-2 rounded-lg rounded-tr-none ml-4 mb-2 chat-bubble border border-neon-green/30';
+                userMsg.innerText = text;
+                history.appendChild(userMsg);
+
+                input.value = '';
+
+                // Simulate AI Typing
+                setTimeout(() => {
+                    const aiMsg = document.createElement('div');
+                    aiMsg.className = 'text-[10px] text-slate-300 bg-white/10 p-2 rounded-lg rounded-tl-none mr-4 mb-2 chat-bubble border border-white/5';
+                    aiMsg.innerHTML = '<span class="animate-pulse">Analyzing FAO56...</span>';
+                    history.appendChild(aiMsg);
+                    history.scrollTop = history.scrollHeight;
+
+                    setTimeout(() => {
+                        aiMsg.innerHTML = "根据 <strong>FAO56 第7章</strong>，当前温度(25°C)适宜。若光照持续 >8k，建议增加 10% 灌水量。";
+                    }, 1500);
+                }, 500);
+            }
+        }
+
+        // --- Modal Logic ---
+        function toggleOverrideModal() {
+            const modal = document.getElementById('override-modal');
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        function adjustValue(delta) {
+            const input = document.getElementById('override-input');
+            let val = parseFloat(input.value) + delta;
+            input.value = val.toFixed(1);
+        }
+
+        function setReason(btn) {
+            const textarea = document.querySelector('textarea');
+            textarea.value = btn.innerText.replace(/^[^\s]+\s/, ''); // Remove emoji
+        }
+
+        // --- Chart.js Visualization ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('irrigationChart').getContext('2d');
+            
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(0, 255, 148, 0.2)'); 
+            gradient.addColorStop(1, 'rgba(0, 255, 148, 0.0)');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 15}, (_, i) => `Day ${i+1}`),
+                    datasets: [{
+                        label: 'AI Recommendation',
+                        data: [4.2, 4.5, 4.8, 5.0, 5.2, 4.9, 5.3, 5.8, 6.0, 5.5, 5.2, 5.1, 5.4, 5.2, 5.3],
+                        borderColor: '#00FF94',
+                        backgroundColor: gradient,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#0B1120',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 8,
+                        pointHoverBackgroundColor: '#00FF94',
+                        pointHoverBorderColor: '#fff',
+                        fill: true,
+                        tension: 0.4
+                    }, {
+                        label: 'Actual (Override)',
+                        data: [4.2, 4.5, 4.8, 5.0, 6.0, 4.9, 5.3, null, null, null, null, null, null, null, null], // Example override at index 4
+                        borderColor: '#FFA04D',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        pointStyle: 'rectRot',
+                        pointRadius: 6,
+                        pointBackgroundColor: '#FFA04D',
+                        fill: false,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { 
+                            display: true,
+                            labels: { color: '#94a3b8', font: { family: 'Inter', size: 10 } }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            titleColor: '#fff',
+                            bodyColor: '#cbd5e1',
+                            borderColor: 'rgba(255,255,255,0.1)',
+                            borderWidth: 1,
+                            padding: 12,
+                            displayColors: true,
+                            boxPadding: 4
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: { color: 'rgba(255,255,255,0.05)' },
+                            ticks: { color: '#64748b', font: { family: 'JetBrains Mono' } }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#64748b', font: { family: 'JetBrains Mono' } }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

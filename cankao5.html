@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Settings - AgriAgent</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        agri: {
+                            bg: '#131314', // Gemini Dark
+                            surface: '#1E1F20', // Card Surface
+                            surfaceHover: '#28292A',
+                            border: '#444746',
+                            primary: '#A8C7FA', // Blue
+                            success: '#6DD58C', // Green
+                            warning: '#FDD663', // Yellow
+                            danger: '#F28B82', // Red
+                        }
+                    },
+                    boxShadow: {
+                        'glow': '0 0 15px rgba(168, 199, 250, 0.1)',
+                    },
+                    animation: {
+                        'spin-slow': 'spin 3s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #131314;
+            color: #E3E3E3;
+        }
+
+        /* Custom Toggle Switch */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #6DD58C;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #6DD58C;
+        }
+        
+        /* Input Fields - Material 3 Style */
+        .input-m3 {
+            background-color: #28292A;
+            border: 1px solid #444746;
+            color: #E3E3E3;
+            transition: all 0.2s ease;
+        }
+        .input-m3:focus {
+            border-color: #A8C7FA;
+            background-color: #1E1F20;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(168, 199, 250, 0.2);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #444746; border-radius: 3px; }
+
+        /* Card Hover Effect */
+        .setting-card {
+            transition: all 0.2s ease;
+        }
+        .setting-card:hover {
+            border-color: #A8C7FA;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Selection Ring for Cards */
+        .card-selected {
+            border-color: #A8C7FA !important;
+            background-color: #28292A !important;
+            box-shadow: 0 0 0 1px #A8C7FA;
+        }
+    </style>
+</head>
+<body class="h-screen flex overflow-hidden font-sans text-sm selection:bg-[#A8C7FA] selection:text-[#001D35]">
+
+    <!-- SIDEBAR (Compact) -->
+    <aside class="w-[72px] flex-shrink-0 bg-[#1E1F20] flex flex-col justify-between border-r border-[#444746] hidden md:flex z-20">
+        <div class="flex flex-col items-center py-6 space-y-8">
+            <div class="w-8 h-8 rounded bg-gradient-to-tr from-[#A8C7FA] to-[#6DD58C] flex items-center justify-center text-[#131314] font-bold shadow-glow">
+                A
+            </div>
+            <nav class="flex flex-col space-y-4 w-full px-2">
+                <a href="#" class="h-10 w-10 mx-auto rounded-full flex items-center justify-center text-[#C4C7C5] hover:bg-[#333537] transition-colors"><i class="fa-solid fa-chart-line"></i></a>
+                <a href="#" class="h-10 w-10 mx-auto rounded-full flex items-center justify-center text-[#C4C7C5] hover:bg-[#333537] transition-colors"><i class="fa-solid fa-calculator"></i></a>
+                <a href="#" class="h-10 w-10 mx-auto rounded-full flex items-center justify-center text-[#C4C7C5] hover:bg-[#333537] transition-colors"><i class="fa-solid fa-chart-pie"></i></a>
+                <a href="#" class="h-10 w-10 mx-auto rounded-full bg-[#004A77] text-[#C2E7FF] flex items-center justify-center shadow-lg"><i class="fa-solid fa-gear"></i></a>
+            </nav>
+        </div>
+        <div class="pb-6 flex justify-center">
+            <img src="https://ui-avatars.com/api/?name=Admin&background=random" class="w-8 h-8 rounded-full opacity-70 hover:opacity-100 cursor-pointer border border-[#444746]">
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 flex flex-col relative h-full">
+        
+        <!-- Header -->
+        <header class="h-16 flex items-center justify-between px-8 border-b border-[#444746] bg-[#131314]">
+            <h1 class="text-lg font-semibold text-[#E3E3E3]">System Configuration</h1>
+            <div class="flex items-center space-x-4">
+                <span class="text-xs text-[#6DD58C] flex items-center px-2 py-1 rounded bg-[#0F291E] border border-[#146C2E]">
+                    <i class="fa-solid fa-check-circle mr-2"></i> All Systems Operational
+                </span>
+                <button class="bg-[#A8C7FA] text-[#001D35] px-4 py-1.5 rounded-lg text-xs font-semibold hover:opacity-90 transition-opacity shadow-[0_0_10px_rgba(168,199,250,0.3)]">
+                    Save Changes
+                </button>
+            </div>
+        </header>
+
+        <div class="flex-1 flex overflow-hidden">
+            
+            <!-- In-Page Navigation (Left Panel) -->
+            <div class="w-64 bg-[#131314] border-r border-[#444746] hidden lg:block overflow-y-auto pt-6 px-4">
+                <h3 class="text-xs font-bold text-[#8E918F] uppercase tracking-wider mb-4 px-2">Settings Menu</h3>
+                <ul class="space-y-1">
+                    <li>
+                        <a href="#ai-model" class="flex items-center px-3 py-2 rounded-lg bg-[#004A77] text-[#C2E7FF] font-medium">
+                            <i class="fa-solid fa-brain w-5 mr-2"></i> Model Provider
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#decision-engine" class="flex items-center px-3 py-2 rounded-lg text-[#C4C7C5] hover:bg-[#1E1F20] transition-colors">
+                            <i class="fa-solid fa-gavel w-5 mr-2"></i> Decision Engine
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#sensors" class="flex items-center px-3 py-2 rounded-lg text-[#C4C7C5] hover:bg-[#1E1F20] transition-colors">
+                            <i class="fa-solid fa-wifi w-5 mr-2"></i> Sensor & IoT
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#notifications" class="flex items-center px-3 py-2 rounded-lg text-[#C4C7C5] hover:bg-[#1E1F20] transition-colors">
+                            <i class="fa-solid fa-bell w-5 mr-2"></i> Alerts
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Scrollable Settings Area -->
+            <div class="flex-1 overflow-y-auto p-8 custom-scrollbar scroll-smooth">
+                <div class="max-w-4xl mx-auto space-y-10 pb-20">
+
+                    <!-- SECTION 1: AI MODEL TUNING (LobeChat Style) -->
+                    <section id="ai-model">
+                        <div class="mb-6">
+                            <h2 class="text-xl font-semibold text-[#E3E3E3]">Language Model Provider</h2>
+                            <p class="text-[#8E918F] text-xs mt-1">Configure the LLM backend (OpenAI, DeepSeek, Ollama, etc.). Supports auto-fetching models.</p>
+                        </div>
+
+                        <!-- Provider Config Card -->
+                        <div class="setting-card bg-[#1E1F20] border border-[#444746] rounded-xl p-6 relative overflow-hidden">
+                            <!-- Header / Provider Select -->
+                            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                                <div class="flex items-center space-x-3">
+                                    <div id="provider-icon" class="w-10 h-10 rounded-lg bg-[#3C3C3C] flex items-center justify-center text-xl transition-all">
+                                        <i class="fa-solid fa-cube text-[#C4C7C5]"></i>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs text-[#8E918F] font-medium mb-1">Model Provider</label>
+                                        <select id="provider-select" class="bg-transparent text-[#E3E3E3] font-semibold text-sm border-none focus:ring-0 p-0 cursor-pointer">
+                                            <option value="custom">Custom (OpenAI Compatible)</option>
+                                            <option value="openai">OpenAI</option>
+                                            <option value="deepseek">DeepSeek</option>
+                                            <option value="ollama">Ollama (Local)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <!-- Connection Status Badge -->
+                                <div id="connection-status" class="hidden flex items-center space-x-2 px-3 py-1 rounded-full bg-[#0F291E] border border-[#146C2E] animate-fade-in">
+                                    <span class="w-2 h-2 rounded-full bg-[#6DD58C] animate-pulse"></span>
+                                    <span class="text-xs text-[#6DD58C] font-mono">Connected: 124ms</span>
+                                </div>
+                            </div>
+
+                            <!-- Input Fields Grid -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+                                <!-- Base URL -->
+                                <div class="space-y-1.5">
+                                    <label class="text-[11px] text-[#C4C7C5] uppercase tracking-wider font-semibold">API Base URL</label>
+                                    <div class="relative group">
+                                        <i class="fa-solid fa-globe absolute left-3 top-3 text-[#8E918F] group-focus-within:text-[#A8C7FA] transition-colors"></i>
+                                        <input type="text" id="api-url" value="" 
+                                               class="input-m3 w-full rounded-lg py-2.5 pl-10 pr-3 text-sm font-mono placeholder-[#444746] focus:shadow-glow" 
+                                               placeholder="https://api.openai.com/v1">
+                                    </div>
+                                </div>
+
+                                <!-- API Key -->
+                                <div class="space-y-1.5">
+                                    <label class="text-[11px] text-[#C4C7C5] uppercase tracking-wider font-semibold">API Key</label>
+                                    <div class="relative group">
+                                        <i class="fa-solid fa-key absolute left-3 top-3 text-[#8E918F] group-focus-within:text-[#A8C7FA] transition-colors"></i>
+                                        <input type="password" id="api-key" value="" 
+                                               class="input-m3 w-full rounded-lg py-2.5 pl-10 pr-10 text-sm font-mono placeholder-[#444746]" 
+                                               placeholder="sk-...">
+                                        <button class="absolute right-3 top-3 text-[#8E918F] hover:text-[#E3E3E3] transition-colors" onclick="togglePassword()">
+                                            <i class="fa-solid fa-eye-slash text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Model Auto-Fetch Section -->
+                            <div class="pt-5 border-t border-[#444746]">
+                                <div class="flex flex-col md:flex-row gap-4 items-end">
+                                    <div class="flex-1 w-full space-y-1.5">
+                                        <label class="text-[11px] text-[#C4C7C5] uppercase tracking-wider font-semibold flex justify-between">
+                                            <span>Selected Model</span>
+                                            <span id="model-count" class="text-[10px] text-[#6DD58C] hidden">Found 12 models</span>
+                                        </label>
+                                        <div class="relative">
+                                            <select id="model-select" class="input-m3 w-full rounded-lg py-2.5 px-3 text-sm font-medium appearance-none cursor-pointer disabled:opacity-50" disabled>
+                                                <option value="" selected>Wait for connection check...</option>
+                                            </select>
+                                            <i class="fa-solid fa-chevron-down absolute right-3 top-3.5 text-[#8E918F] text-xs pointer-events-none"></i>
+                                        </div>
+                                    </div>
+                                    
+                                    <button id="check-btn" class="w-full md:w-auto px-6 py-2.5 bg-[#28292A] hover:bg-[#333537] border border-[#444746] hover:border-[#A8C7FA] text-[#E3E3E3] rounded-lg transition-all flex items-center justify-center space-x-2 group">
+                                        <i id="check-icon" class="fa-solid fa-bolt text-[#A8C7FA] group-hover:animate-pulse"></i>
+                                        <span>Check & Fetch</span>
+                                    </button>
+                                </div>
+                                <p class="text-[10px] text-[#8E918F] mt-3 flex items-center">
+                                    <i class="fa-solid fa-circle-info mr-1.5 text-[#A8C7FA]"></i> 
+                                    AgriAgent will attempt to GET <code>/v1/models</code> to auto-populate the list.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- SECTION 2: DECISION ENGINE (TSMixer vs FAO56) -->
+                    <section id="decision-engine">
+                        <div class="mb-6 pt-6 border-t border-[#444746]">
+                            <h2 class="text-xl font-semibold text-[#E3E3E3]">Core Decision Engine</h2>
+                            <p class="text-[#8E918F] text-xs mt-1">Select the primary logic used for automated irrigation tasks.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            
+                            <!-- Option A: TSMixer (AI) -->
+                            <div class="setting-card card-selected cursor-pointer p-5 rounded-xl border border-[#444746] bg-[#1E1F20] relative" onclick="selectEngine(this, 'tsmixer')">
+                                <div class="absolute top-4 right-4 text-[#A8C7FA]">
+                                    <i class="fa-regular fa-circle-check text-xl"></i>
+                                </div>
+                                <div class="w-12 h-12 rounded-lg bg-[#3D2C4A] flex items-center justify-center text-[#D6BBFB] mb-4">
+                                    <i class="fa-solid fa-brain text-2xl"></i>
+                                </div>
+                                <h3 class="font-bold text-[#E3E3E3]">TSMixer (AI-Driven)</h3>
+                                <p class="text-xs text-[#8E918F] mt-2 leading-relaxed">
+                                    Uses Google's Time-Series Mixer model trained on 3 years of historical data. Predicts water demand based on non-linear patterns.
+                                </p>
+                                <div class="mt-4 pt-4 border-t border-[#444746]/50">
+                                    <div class="flex justify-between items-center text-xs">
+                                        <span class="text-[#C4C7C5]">Lookback Window</span>
+                                        <span class="text-[#D6BBFB] font-mono">96h</span>
+                                    </div>
+                                    <div class="w-full bg-[#28292A] h-1 rounded-full mt-2 overflow-hidden">
+                                        <div class="bg-[#D6BBFB] w-3/4 h-full"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Option B: FAO56 (Physics) -->
+                            <div class="setting-card cursor-pointer p-5 rounded-xl border border-[#444746] bg-[#1E1F20] relative" onclick="selectEngine(this, 'fao56')">
+                                <div class="absolute top-4 right-4 text-[#444746]">
+                                    <i class="fa-regular fa-circle text-xl"></i>
+                                </div>
+                                <div class="w-12 h-12 rounded-lg bg-[#0F291E] flex items-center justify-center text-[#6DD58C] mb-4">
+                                    <i class="fa-solid fa-flask text-2xl"></i>
+                                </div>
+                                <h3 class="font-bold text-[#E3E3E3]">FAO56 Penman-Monteith</h3>
+                                <p class="text-xs text-[#8E918F] mt-2 leading-relaxed">
+                                    The gold standard physics model. Calculates Evapotranspiration (ET₀) strictly based on net radiation, temperature, wind, and humidity.
+                                </p>
+                                <div class="mt-4 pt-4 border-t border-[#444746]/50">
+                                    <div class="flex justify-between items-center text-xs">
+                                        <span class="text-[#C4C7C5]">Crop Coefficient (Kc)</span>
+                                        <input type="number" value="1.2" class="w-16 bg-[#131314] border border-[#444746] text-[#6DD58C] text-center rounded py-0.5 text-xs focus:border-[#6DD58C] outline-none">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Hybrid Mode Toggle -->
+                        <div class="mt-4 p-4 rounded-xl border border-[#444746] bg-[#1E1F20]/50 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-scale-balanced text-[#A8C7FA]"></i>
+                                <div>
+                                    <h4 class="text-sm font-medium text-[#E3E3E3]">Hybrid Validation Mode</h4>
+                                    <p class="text-xs text-[#8E918F]">Use FAO56 to validate AI predictions. Alert if deviation > 20%.</p>
+                                </div>
+                            </div>
+                            <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                                <input type="checkbox" name="toggle" id="hybrid-toggle" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-[#444746] left-0 transition-all duration-300" checked/>
+                                <label for="hybrid-toggle" class="toggle-label block overflow-hidden h-5 rounded-full bg-[#444746] cursor-pointer transition-colors duration-300"></label>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- SECTION 3: SENSORS & IOT (Simplified for brevity) -->
+                    <section id="sensors">
+                        <div class="mb-6 pt-6 border-t border-[#444746]">
+                            <h2 class="text-xl font-semibold text-[#E3E3E3]">Sensor Nodes</h2>
+                        </div>
+                        <div class="setting-card bg-[#1E1F20] border border-[#444746] rounded-xl overflow-hidden">
+                            <div class="p-4 flex items-center justify-between border-b border-[#444746] bg-[#28292A]">
+                                <span class="text-xs font-mono text-[#A8C7FA]">SN-B01 (Master)</span>
+                                <span class="px-2 py-0.5 rounded text-[10px] bg-[#0F291E] text-[#6DD58C]">Online</span>
+                            </div>
+                            <div class="p-4 flex items-center justify-between">
+                                <span class="text-xs font-mono text-[#A8C7FA]">SN-B02 (Soil)</span>
+                                <span class="px-2 py-0.5 rounded text-[10px] bg-[#0F291E] text-[#6DD58C]">Online</span>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Danger Zone -->
+                    <section class="pt-10">
+                         <div class="border border-[#F28B82] bg-[#3F0E0E]/10 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between">
+                            <div>
+                                <h3 class="text-[#F28B82] font-semibold text-sm uppercase tracking-wide mb-1">Factory Reset</h3>
+                                <p class="text-xs text-[#C4C7C5]">Clear all custom API keys and learned weights.</p>
+                            </div>
+                            <button class="mt-4 md:mt-0 px-4 py-2 border border-[#F28B82] text-[#F28B82] hover:bg-[#F28B82] hover:text-[#3F0E0E] rounded-lg text-xs font-bold transition-all">
+                                Reset System
+                            </button>
+                         </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // --- 1. Provider & Model Fetch Logic (LobeChat Style) ---
+        const providerSelect = document.getElementById('provider-select');
+        const apiUrlInput = document.getElementById('api-url');
+        const apiKeyInput = document.getElementById('api-key');
+        const checkBtn = document.getElementById('check-btn');
+        const modelSelect = document.getElementById('model-select');
+        const statusBadge = document.getElementById('connection-status');
+        const modelCountLabel = document.getElementById('model-count');
+        const providerIcon = document.getElementById('provider-icon');
+
+        // Presets
+        const presets = {
+            'custom': { url: '', icon: 'fa-cube', placeholder: 'https://api.your-service.com/v1' },
+            'openai': { url: 'https://api.openai.com/v1', icon: 'fa-microchip', placeholder: 'https://api.openai.com/v1' },
+            'deepseek': { url: 'https://api.deepseek.com/v1', icon: 'fa-brain', placeholder: 'https://api.deepseek.com/v1' },
+            'ollama': { url: 'http://localhost:11434/v1', icon: 'fa-laptop-code', placeholder: 'http://localhost:11434/v1' }
+        };
+
+        // Simulated Available Models (Mock API Response)
+        const mockApiModels = {
+            'openai': ['gpt-4-turbo', 'gpt-4o', 'gpt-3.5-turbo', 'text-embedding-3-large'],
+            'deepseek': ['deepseek-chat', 'deepseek-coder', 'deepseek-reasoner'],
+            'ollama': ['llama3', 'mistral', 'gemma:7b', 'qwen:14b'],
+            'custom': ['custom-model-v1', 'finetuned-agri-v2']
+        };
+
+        // Switch Provider
+        providerSelect.addEventListener('change', (e) => {
+            const val = e.target.value;
+            const preset = presets[val];
+            
+            // 1. Update UI placeholders
+            apiUrlInput.value = preset.url;
+            apiUrlInput.placeholder = preset.placeholder;
+            providerIcon.innerHTML = `<i class="fa-solid ${preset.icon} text-[#C4C7C5]"></i>`;
+            
+            // 2. Reset connection state
+            resetConnectionState();
+        });
+
+        function resetConnectionState() {
+            statusBadge.classList.add('hidden');
+            modelSelect.innerHTML = '<option value="" selected>Wait for connection check...</option>';
+            modelSelect.disabled = true;
+            modelCountLabel.classList.add('hidden');
+            
+            checkBtn.className = "w-full md:w-auto px-6 py-2.5 bg-[#28292A] hover:bg-[#333537] border border-[#444746] hover:border-[#A8C7FA] text-[#E3E3E3] rounded-lg transition-all flex items-center justify-center space-x-2 group";
+            checkBtn.innerHTML = '<i id="check-icon" class="fa-solid fa-bolt text-[#A8C7FA] group-hover:animate-pulse"></i><span>Check & Fetch</span>';
+        }
+
+        // Click Check Button
+        checkBtn.addEventListener('click', () => {
+            // Loading UI
+            checkBtn.innerHTML = '<i class="fa-solid fa-circle-notch animate-spin text-[#A8C7FA]"></i><span>Connecting...</span>';
+            checkBtn.classList.add('opacity-80', 'cursor-wait');
+
+            // Simulate Network Delay (1.5s)
+            setTimeout(() => {
+                // Success UI
+                checkBtn.classList.remove('opacity-80', 'cursor-wait');
+                checkBtn.className = "w-full md:w-auto px-6 py-2.5 bg-[#0F291E] border border-[#146C2E] text-[#6DD58C] rounded-lg transition-all flex items-center justify-center space-x-2";
+                checkBtn.innerHTML = '<i class="fa-solid fa-check"></i><span>Success</span>';
+
+                // Update Status Badge
+                statusBadge.classList.remove('hidden');
+                statusBadge.querySelector('span:last-child').innerText = `Connected: ${Math.floor(Math.random() * 200)}ms`;
+
+                // Fetch Models (Simulated)
+                const provider = providerSelect.value;
+                const models = mockApiModels[provider] || mockApiModels['custom'];
+                
+                modelSelect.innerHTML = '';
+                models.forEach(m => {
+                    const opt = document.createElement('option');
+                    opt.value = m;
+                    opt.innerText = m;
+                    modelSelect.appendChild(opt);
+                });
+                modelSelect.disabled = false;
+                
+                // Show Count
+                modelCountLabel.innerText = `Found ${models.length} models`;
+                modelCountLabel.classList.remove('hidden');
+                
+            }, 1200);
+        });
+
+        function togglePassword() {
+            const type = apiKeyInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            apiKeyInput.setAttribute('type', type);
+        }
+
+        // --- 2. Engine Selection Logic ---
+        window.selectEngine = function(card, engineType) {
+            // Remove active class from all cards in the grid
+            const cards = card.parentElement.querySelectorAll('.setting-card');
+            cards.forEach(c => {
+                c.classList.remove('card-selected');
+                // Reset check icon
+                const icon = c.querySelector('.fa-circle-check');
+                if(icon) {
+                    icon.classList.remove('fa-circle-check', 'text-[#A8C7FA]');
+                    icon.classList.add('fa-circle', 'text-[#444746]');
+                }
+            });
+
+            // Add active class to clicked card
+            card.classList.add('card-selected');
+            
+            // Update check icon
+            const icon = card.querySelector('.fa-circle');
+            if(icon) {
+                icon.classList.remove('fa-circle', 'text-[#444746]');
+                icon.classList.add('fa-circle-check', 'text-[#A8C7FA]');
+            }
+
+            console.log("Selected Engine:", engineType);
+        }
+
+        // Simple Save Animation
+        const saveBtn = document.querySelector('header button');
+        saveBtn.addEventListener('click', () => {
+            const originalText = saveBtn.innerText;
+            saveBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i>Saving...';
+            setTimeout(() => {
+                saveBtn.innerHTML = '<i class="fa-solid fa-check mr-2"></i>Saved';
+                saveBtn.classList.remove('bg-[#A8C7FA]', 'text-[#001D35]');
+                saveBtn.classList.add('bg-[#6DD58C]', 'text-[#0F291E]', 'border-[#146C2E]');
+                setTimeout(() => {
+                    saveBtn.innerText = originalText;
+                    saveBtn.className = 'bg-[#A8C7FA] text-[#001D35] px-4 py-1.5 rounded-lg text-xs font-semibold hover:opacity-90 transition-opacity shadow-[0_0_10px_rgba(168,199,250,0.3)]';
+                }, 2000);
+            }, 1000);
+        });
+
+    </script>
+</body>
+</html>

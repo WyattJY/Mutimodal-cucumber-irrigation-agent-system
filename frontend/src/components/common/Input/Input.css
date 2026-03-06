@@ -1,0 +1,90 @@
+/* Input Component Styles */
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #E3E3E3;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: #E3E3E3;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.input-field::placeholder {
+  color: #6B7280;
+}
+
+.input-field:focus {
+  border-color: #00FF94;
+  box-shadow: 0 0 0 2px rgba(0, 255, 148, 0.1);
+}
+
+.input-field:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* With icons */
+.input-field--icon-left {
+  padding-left: 2.5rem;
+}
+
+.input-field--icon-right {
+  padding-right: 2.5rem;
+}
+
+.input-icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9AA0A6;
+  pointer-events: none;
+}
+
+.input-icon--left {
+  left: 0.75rem;
+}
+
+.input-icon--right {
+  right: 0.75rem;
+}
+
+/* Error state */
+.input-wrapper--error .input-field {
+  border-color: #F28B82;
+}
+
+.input-wrapper--error .input-field:focus {
+  box-shadow: 0 0 0 2px rgba(242, 139, 130, 0.1);
+}
+
+.input-error {
+  font-size: 0.75rem;
+  color: #F28B82;
+}
+
+.input-hint {
+  font-size: 0.75rem;
+  color: #9AA0A6;
+}

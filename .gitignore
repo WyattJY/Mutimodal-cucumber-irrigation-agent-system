@@ -1,0 +1,63 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+backend/.venv/
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+
+# Environment
+.env
+
+# Logs
+logs/
+logs/*.log
+logs/tmp-*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# uv
+.python-version
+
+# 大文件（模型权重等）
+*.pt
+*.pth
+*.onnx
+
+# Frontend / Node
+frontend/node_modules/
+frontend/dist/
+
+# Generated runtime data
+output/
+outputs/
+reports/
+mongodb/
+mongodb_data/
+mongodb_data_fresh/
+db/
+data/index/*.db
+backend/config/user_settings.json
+
+# Vendored / generated docs
+backend/ultralytics/
+docs/folders/
+.ipynb_checkpoints/
+
+# Archives
+*.zip
+
+# 临时文件
+*.tmp
+*.temp

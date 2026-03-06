@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analytics - AgriAgent</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        agri: {
+                            bg: '#131314',
+                            surface: '#1E1F20', // Card Background
+                            border: '#444746',
+                            primary: '#A8C7FA', // Google Blue
+                            secondary: '#6DD58C', // Google Green
+                            accent: '#F28B82', // Google Red
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #131314;
+            color: #E3E3E3;
+        }
+        
+        /* Glass/Card Effect */
+        .analytics-card {
+            background: #1E1F20;
+            border: 1px solid #444746;
+            border-radius: 16px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .analytics-card:hover {
+            border-color: #A8C7FA;
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(90deg, #A8C7FA, #E8DEF8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #444746; border-radius: 3px; }
+    </style>
+</head>
+<body class="h-screen flex overflow-hidden font-sans text-sm selection:bg-[#A8C7FA] selection:text-[#001D35]">
+
+    <!-- SIDEBAR (Collapsed by default for Analytics Focus) -->
+    <aside class="w-[72px] flex-shrink-0 bg-[#1E1F20] flex flex-col justify-between border-r border-[#444746] z-20">
+        <div class="flex flex-col items-center py-6 space-y-8">
+            <div class="w-8 h-8 rounded bg-gradient-to-tr from-[#A8C7FA] to-[#6DD58C] flex items-center justify-center text-[#131314] font-bold">
+                A
+            </div>
+            <nav class="flex flex-col space-y-4 w-full px-2">
+                <a href="#" class="h-10 w-10 mx-auto rounded-full flex items-center justify-center text-[#C4C7C5] hover:bg-[#333537] transition-colors"><i class="fa-solid fa-chart-line"></i></a>
+                <a href="#" class="h-10 w-10 mx-auto rounded-full flex items-center justify-center text-[#C4C7C5] hover:bg-[#333537] transition-colors"><i class="fa-solid fa-calculator"></i></a>
+                <a href="#" class="h-10 w-10 mx-auto rounded-full bg-[#004A77] text-[#C2E7FF] flex items-center justify-center shadow-lg"><i class="fa-solid fa-chart-pie"></i></a>
+                <a href="#" class="h-10 w-10 mx-auto rounded-full flex items-center justify-center text-[#C4C7C5] hover:bg-[#333537] transition-colors"><i class="fa-solid fa-gear"></i></a>
+            </nav>
+        </div>
+        <div class="pb-6 flex justify-center">
+            <img src="https://ui-avatars.com/api/?name=User&background=random" class="w-8 h-8 rounded-full opacity-70 hover:opacity-100 cursor-pointer">
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 flex flex-col relative h-full overflow-hidden">
+        
+        <!-- 1. ASK DATA BAR (Search) -->
+        <header class="h-20 flex items-center px-8 border-b border-[#444746] bg-[#131314]">
+            <div class="relative w-full max-w-2xl group">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <i class="fa-solid fa-wand-magic-sparkles text-gradient"></i>
+                </div>
+                <input type="text" 
+                       class="w-full bg-[#1E1F20] border border-[#444746] rounded-full py-3 pl-12 pr-4 text-[#E3E3E3] placeholder-[#8E918F] focus:outline-none focus:border-[#A8C7FA] focus:ring-1 focus:ring-[#A8C7FA] transition-all"
+                       placeholder="Ask about trends (e.g., 'Compare water usage vs ET0 for last week')">
+                <div class="absolute inset-y-0 right-3 flex items-center space-x-2">
+                    <span class="text-[10px] text-[#8E918F] border border-[#444746] px-1.5 py-0.5 rounded">⌘K</span>
+                </div>
+            </div>
+            
+            <!-- Date Filter Pills -->
+            <div class="ml-auto flex space-x-2">
+                <button class="px-4 py-2 rounded-full border border-[#444746] text-[#E3E3E3] hover:bg-[#28292A] text-xs font-medium bg-[#1E1F20]">Last 24 Hours</button>
+                <button class="px-4 py-2 rounded-full border border-transparent bg-[#A8C7FA] text-[#001D35] text-xs font-medium">Last 7 Days</button>
+                <button class="px-4 py-2 rounded-full border border-[#444746] text-[#E3E3E3] hover:bg-[#28292A] text-xs font-medium bg-[#1E1F20]">Custom</button>
+            </div>
+        </header>
+
+        <!-- SCROLLABLE DASHBOARD AREA -->
+        <div class="flex-1 overflow-y-auto p-8 custom-scrollbar">
+            <div class="max-w-7xl mx-auto space-y-6">
+
+                <!-- 2. AI SUMMARY (Smart Narrative) -->
+                <div class="analytics-card p-6 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[#A8C7FA] to-[#6DD58C]"></div>
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-lg font-semibold text-[#E3E3E3]">Weekly Irrigation Insights</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] bg-[#0F291E] text-[#6DD58C] border border-[#146C2E]">AI Generated</span>
+                        </div>
+                        <div class="flex space-x-3 mt-2 md:mt-0">
+                            <button class="text-[#A8C7FA] text-xs hover:underline"><i class="fa-solid fa-share-nodes mr-1"></i>Share</button>
+                            <button class="text-[#A8C7FA] text-xs hover:underline"><i class="fa-solid fa-download mr-1"></i>Export PDF</button>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="md:col-span-2 text-[#C4C7C5] leading-relaxed text-sm">
+                            <p class="mb-3">
+                                <strong class="text-[#E3E3E3]">Water Efficiency increased by 15%.</strong> 
+                                Compared to last week, the correlation between ET₀ (Reference Evapotranspiration) and actual irrigation volume has improved ($R^2 = 0.92$).
+                            </p>
+                            <p>
+                                The <span class="text-[#F28B82]">VPD (Vapor Pressure Deficit)</span> spiked on Tuesday afternoon (2.4 kPa), triggering an automatic misting response. This successfully prevented stomatal closure, maintaining a steady photosynthetic rate.
+                            </p>
+                        </div>
+                        <div class="bg-[#131314] rounded-xl p-4 border border-[#444746] flex items-center justify-between">
+                            <div>
+                                <div class="text-xs text-[#8E918F]">Total Water Saved</div>
+                                <div class="text-2xl font-mono text-[#6DD58C] mt-1">1,240 L</div>
+                                <div class="text-[10px] text-[#C4C7C5] mt-1">vs Standard FAO56 Model</div>
+                            </div>
+                            <div class="h-10 w-10 rounded-full bg-[#0F291E] flex items-center justify-center">
+                                <i class="fa-solid fa-droplet text-[#6DD58C]"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. MAIN CHART: ET0 vs Irrigation -->
+                <div class="analytics-card p-6">
+                    <div class="flex justify-between items-end mb-6">
+                        <div>
+                            <h3 class="text-sm font-medium text-[#8E918F] uppercase tracking-wider">Water Balance Analysis</h3>
+                            <h2 class="text-xl font-semibold text-[#E3E3E3] mt-1">Irrigation closely followed Evapotranspiration demand</h2>
+                        </div>
+                        <div class="flex items-center space-x-4 text-xs">
+                            <div class="flex items-center"><span class="w-3 h-3 rounded-full bg-[#A8C7FA] mr-2"></span>Irrigation (L)</div>
+                            <div class="flex items-center"><span class="w-3 h-1 bg-[#F28B82] mr-2"></span>ET₀ (mm)</div>
+                        </div>
+                    </div>
+                    <div class="h-72 w-full">
+                        <canvas id="mainComboChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 4. SECONDARY METRICS GRID -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    
+                    <!-- DLI Analysis (Bar Chart) -->
+                    <div class="analytics-card p-5 flex flex-col">
+                        <h3 class="text-[#E3E3E3] font-medium mb-1">Daily Light Integral (DLI)</h3>
+                        <p class="text-xs text-[#8E918F] mb-4">Target: 15-20 mol/m²/day</p>
+                        <div class="flex-1 relative">
+                            <canvas id="dliChart"></canvas>
+                        </div>
+                        <div class="mt-3 pt-3 border-t border-[#444746] flex justify-between text-xs">
+                            <span class="text-[#C4C7C5]">Avg: 18.2</span>
+                            <span class="text-[#6DD58C]">Optimal</span>
+                        </div>
+                    </div>
+
+                    <!-- VPD Heatmap (Simulated with Grid) -->
+                    <div class="analytics-card p-5">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-[#E3E3E3] font-medium">VPD Distribution</h3>
+                            <select class="bg-[#131314] text-xs text-[#C4C7C5] border border-[#444746] rounded p-1">
+                                <option>Sector B</option>
+                                <option>Sector A</option>
+                            </select>
+                        </div>
+                        <!-- Heatmap Grid Simulation -->
+                        <div class="grid grid-cols-6 gap-1 h-40">
+                            <!-- JS will generate these blocks for cleaner code -->
+                            <div class="bg-[#2D332F] rounded-sm" title="Low VPD"></div><div class="bg-[#2D332F] rounded-sm"></div><div class="bg-[#3D4C42] rounded-sm"></div><div class="bg-[#4D6655] rounded-sm"></div><div class="bg-[#5C8068] rounded-sm"></div><div class="bg-[#2D332F] rounded-sm"></div>
+                            <div class="bg-[#2D332F] rounded-sm"></div><div class="bg-[#4D6655] rounded-sm"></div><div class="bg-[#6DD58C] rounded-sm" title="Optimal"></div><div class="bg-[#6DD58C] rounded-sm"></div><div class="bg-[#4D6655] rounded-sm"></div><div class="bg-[#2D332F] rounded-sm"></div>
+                            <div class="bg-[#3D4C42] rounded-sm"></div><div class="bg-[#6DD58C] rounded-sm"></div><div class="bg-[#A8C7FA] rounded-sm" title="High Transpiration"></div><div class="bg-[#A8C7FA] rounded-sm"></div><div class="bg-[#6DD58C] rounded-sm"></div><div class="bg-[#3D4C42] rounded-sm"></div>
+                            <div class="bg-[#2D332F] rounded-sm"></div><div class="bg-[#6DD58C] rounded-sm"></div><div class="bg-[#F28B82] rounded-sm" title="Stress Warning"></div><div class="bg-[#A8C7FA] rounded-sm"></div><div class="bg-[#6DD58C] rounded-sm"></div><div class="bg-[#2D332F] rounded-sm"></div>
+                            <!-- ... simplified rows -->
+                        </div>
+                        <div class="flex justify-between text-[10px] text-[#8E918F] mt-2 font-mono">
+                            <span>06:00</span>
+                            <span>12:00</span>
+                            <span>18:00</span>
+                        </div>
+                        <p class="text-xs text-[#F28B82] mt-3 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-1.5"></i> High VPD detected at 14:00
+                        </p>
+                    </div>
+
+                    <!-- Anomaly List -->
+                    <div class="analytics-card p-5 flex flex-col">
+                        <h3 class="text-[#E3E3E3] font-medium mb-4">Anomaly Detection</h3>
+                        <div class="space-y-3 flex-1 overflow-y-auto pr-1 custom-scrollbar max-h-48">
+                            
+                            <!-- Item 1 -->
+                            <div class="flex items-start space-x-3 p-2 hover:bg-[#28292A] rounded-lg transition-colors cursor-pointer group">
+                                <div class="w-2 h-2 rounded-full bg-[#F28B82] mt-1.5 flex-shrink-0"></div>
+                                <div>
+                                    <div class="text-xs text-[#E3E3E3] font-medium group-hover:text-[#A8C7FA]">Sensor Drift (RH%)</div>
+                                    <div class="text-[10px] text-[#8E918F]">Node B-04 reporting constant 99%</div>
+                                </div>
+                                <span class="ml-auto text-[10px] text-[#C4C7C5]">2h ago</span>
+                            </div>
+
+                            <!-- Item 2 -->
+                            <div class="flex items-start space-x-3 p-2 hover:bg-[#28292A] rounded-lg transition-colors cursor-pointer group">
+                                <div class="w-2 h-2 rounded-full bg-[#FDD663] mt-1.5 flex-shrink-0"></div>
+                                <div>
+                                    <div class="text-xs text-[#E3E3E3] font-medium group-hover:text-[#A8C7FA]">Sudden Temp Drop</div>
+                                    <div class="text-[10px] text-[#8E918F]">-4°C in 10 mins (Vent error?)</div>
+                                </div>
+                                <span class="ml-auto text-[10px] text-[#C4C7C5]">Yesterday</span>
+                            </div>
+
+                             <!-- Item 3 -->
+                             <div class="flex items-start space-x-3 p-2 hover:bg-[#28292A] rounded-lg transition-colors cursor-pointer group">
+                                <div class="w-2 h-2 rounded-full bg-[#A8C7FA] mt-1.5 flex-shrink-0"></div>
+                                <div>
+                                    <div class="text-xs text-[#E3E3E3] font-medium group-hover:text-[#A8C7FA]">Irrigation Delay</div>
+                                    <div class="text-[10px] text-[#8E918F]">Pump activation lagged 2m</div>
+                                </div>
+                                <span class="ml-auto text-[10px] text-[#C4C7C5]">2d ago</span>
+                            </div>
+                        </div>
+                        <button class="mt-auto w-full py-2 text-xs text-[#A8C7FA] border border-[#444746] rounded-lg hover:bg-[#28292A] transition-colors">
+                            View System Logs
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // --- 1. Main Combo Chart (ET0 vs Irrigation) ---
+        const ctxMain = document.getElementById('mainComboChart').getContext('2d');
+        
+        // Gradient for Bar Chart
+        const barGradient = ctxMain.createLinearGradient(0, 0, 0, 300);
+        barGradient.addColorStop(0, 'rgba(168, 199, 250, 0.8)'); // Light Blue
+        barGradient.addColorStop(1, 'rgba(168, 199, 250, 0.2)');
+
+        new Chart(ctxMain, {
+            type: 'bar',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [
+                    {
+                        label: 'ET₀ (Evapotranspiration)',
+                        data: [4.2, 5.1, 4.8, 4.5, 5.6, 5.2, 4.9],
+                        type: 'line',
+                        borderColor: '#F28B82', // Red/Pink
+                        borderWidth: 3,
+                        pointBackgroundColor: '#1E1F20',
+                        pointBorderColor: '#F28B82',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        yAxisID: 'y1',
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Irrigation Volume (L)',
+                        data: [410, 520, 490, 460, 580, 530, 500],
+                        backgroundColor: barGradient,
+                        borderRadius: 4,
+                        barPercentage: 0.6,
+                        yAxisID: 'y'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: { display: false }, // Custom legend used in HTML
+                    tooltip: {
+                        backgroundColor: '#28292A',
+                        titleColor: '#E3E3E3',
+                        bodyColor: '#C4C7C5',
+                        borderColor: '#444746',
+                        borderWidth: 1,
+                        padding: 10
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false, drawBorder: false },
+                        ticks: { color: '#8E918F' }
+                    },
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        grid: { color: '#444746', borderDash: [4, 4] },
+                        ticks: { color: '#8E918F' },
+                        title: { display: true, text: 'Volume (L)', color: '#8E918F', font: {size: 10} }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        grid: { display: false },
+                        ticks: { color: '#F28B82' },
+                        title: { display: true, text: 'ET₀ (mm)', color: '#F28B82', font: {size: 10} }
+                    }
+                }
+            }
+        });
+
+        // --- 2. DLI Chart (Simple Bar) ---
+        const ctxDli = document.getElementById('dliChart').getContext('2d');
+        new Chart(ctxDli, {
+            type: 'bar',
+            data: {
+                labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+                datasets: [{
+                    label: 'DLI (mol/m²)',
+                    data: [14, 18, 16, 12, 21, 19, 15],
+                    backgroundColor: (context) => {
+                        const value = context.raw;
+                        // Color logic: Green if optimal (15-20), Blue if high, Gray if low
+                        if (value > 20) return '#A8C7FA'; 
+                        if (value < 15) return '#5E5E5E';
+                        return '#6DD58C';
+                    },
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { display: false }, ticks: { color: '#8E918F' } },
+                    y: { display: false }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

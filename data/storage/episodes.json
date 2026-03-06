@@ -1,0 +1,282 @@
+[
+  {
+    "date": "2025-03-10",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 5.2,
+      "plant_response": {
+        "trend": "better"
+      },
+      "sanity_check": {},
+      "growth_stage": "flowering",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": "none",
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 5.2,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T13:39:42.188637",
+    "updated_at": "2025-12-26T13:39:42.188637"
+  },
+  {
+    "date": "2025-03-11",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 5.5,
+      "plant_response": {
+        "trend": "better"
+      },
+      "sanity_check": {},
+      "growth_stage": "flowering",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": "none",
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 5.5,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T13:39:42.191246",
+    "updated_at": "2025-12-26T13:39:42.191246"
+  },
+  {
+    "date": "2025-03-12",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 5.3,
+      "plant_response": {
+        "trend": "same"
+      },
+      "sanity_check": {},
+      "growth_stage": "flowering",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": "none",
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 5.3,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T13:39:42.249547",
+    "updated_at": "2025-12-26T13:39:42.249547"
+  },
+  {
+    "date": "2025-03-13",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 4.8,
+      "plant_response": {
+        "trend": "worse"
+      },
+      "sanity_check": {},
+      "growth_stage": "flowering",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": "none",
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 4.8,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T13:39:42.330535",
+    "updated_at": "2025-12-26T13:39:42.330535"
+  },
+  {
+    "date": "2025-03-14",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 5.8,
+      "plant_response": {
+        "trend": "better"
+      },
+      "sanity_check": {},
+      "growth_stage": "flowering",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": "none",
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 5.8,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T13:39:42.418140",
+    "updated_at": "2025-12-26T13:39:42.418140"
+  },
+  {
+    "date": "2025-03-15",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 5.5,
+      "plant_response": {
+        "trend": "same"
+      },
+      "sanity_check": {},
+      "growth_stage": "flowering",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": "none",
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 5.5,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T13:39:42.420945",
+    "updated_at": "2025-12-26T13:39:42.420945"
+  },
+  {
+    "date": "2025-03-16",
+    "season": "",
+    "day_in_season": 0,
+    "inputs": {
+      "environment": {},
+      "yolo_metrics": {},
+      "image_path": null
+    },
+    "predictions": {
+      "tsmixer_raw": 6.0,
+      "plant_response": {
+        "trend": "better"
+      },
+      "sanity_check": {},
+      "growth_stage": "flowering",
+      "growth_stage_confidence": null
+    },
+    "anomalies": {
+      "out_of_range": false,
+      "trend_conflict": false,
+      "trend_conflict_severity": "none",
+      "env_anomaly": false,
+      "env_anomaly_type": null
+    },
+    "final_decision": {
+      "value": 6.0,
+      "source": "tsmixer",
+      "override_reason": null
+    },
+    "user_feedback": {
+      "actual_irrigation": null,
+      "notes": null,
+      "rating": null
+    },
+    "rag_doc_ids": [],
+    "knowledge_references": [],
+    "created_at": "2025-12-26T13:39:42.487574",
+    "updated_at": "2025-12-26T13:39:42.487574"
+  }
+]
