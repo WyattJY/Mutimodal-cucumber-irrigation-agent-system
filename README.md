@@ -135,6 +135,7 @@
 ## 🏗️ 系统架构
 
 ### 整体架构图
+![Uploading fig5_1_system_architecture.png…]()
 
 ```mermaid
 graph TB
