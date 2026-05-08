@@ -18,7 +18,7 @@ LLM 对话服务 - 支持 GPT-4/GPT-5.2 等模型
 
 import json
 import base64
-from typing import AsyncGenerator, Optional, List, Union
+from typing import Any, AsyncGenerator, Optional, List, Union
 from openai import AsyncOpenAI
 from app.core.config import get_active_openai_config
 from app.core.openai_compat import completion_token_kwargs, temperature_kwargs
@@ -90,6 +90,36 @@ class LLMService:
     def vision_model(self) -> str:
         config = get_active_openai_config()
         return config.get("vision_model") or config.get("model") or "unknown"
+
+    async def call_llm(
+        self,
+        *,
+        system: str,
+        user: str,
+        tools: Optional[list] = None,
+        response_format: Optional[dict] = None,
+        model: Optional[str] = None,
+        temperature: float = 0.2,
+        max_tokens: int = 2048,
+    ) -> str:
+        """Compatibility wrapper used by legacy LangGraph nodes."""
+        client = self._get_client()
+        active_model = model or self.model
+        kwargs: dict[str, Any] = {
+            "model": active_model,
+            "messages": [
+                {"role": "system", "content": system},
+                {"role": "user", "content": user},
+            ],
+            **temperature_kwargs(active_model, temperature),
+            **completion_token_kwargs(active_model, max_tokens),
+        }
+        if tools and all(isinstance(tool, dict) for tool in tools):
+            kwargs["tools"] = tools
+        if response_format:
+            kwargs["response_format"] = response_format
+        response = await client.chat.completions.create(**kwargs)
+        return response.choices[0].message.content or ""
 
     async def chat(self, message: str, history: Optional[List[dict]] = None) -> str:
         client = self._get_client()

@@ -12,6 +12,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
+COPY backend/requirements-docker.txt /tmp/requirements-docker.txt
+
+RUN pip install --upgrade pip \
+    && pip install -r /tmp/requirements-docker.txt
+
 COPY backend /app/backend
 COPY src /app/src
 COPY data /app/data
@@ -20,12 +25,8 @@ COPY prompts /app/prompts
 COPY configs /app/configs
 COPY config.ini /app/config.ini
 COPY .env.example /app/.env.example
-COPY backend/requirements-docker.txt /tmp/requirements-docker.txt
 
-RUN mkdir -p /app/output
-
-RUN pip install --upgrade pip \
-    && pip install -r /tmp/requirements-docker.txt \
+RUN mkdir -p /app/output \
     && pip install -e /app/backend --no-deps
 
 WORKDIR /app/backend
