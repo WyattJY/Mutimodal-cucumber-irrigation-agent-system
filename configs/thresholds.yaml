@@ -1,0 +1,25 @@
+# 异常检测阈值配置
+# 参考: requirements1.md 9.1节
+
+# A1: 历史范围阈值 (基于 irrigation_pre.csv 统计)
+irrigation_range:
+  min: 0.1      # 灌水量最小值 (L/m²)
+  max: 15.0     # 灌水量最大值 (L/m²)
+  mean: 5.5     # 灌水量均值 (L/m²)
+  std: 3.5      # 灌水量标准差 (L/m²)
+
+# A2: 长势-灌水矛盾阈值
+# 参考: FAO56 - 不同胁迫条件下的需水调整
+trend_conflict:
+  severe_decrease_threshold: -0.10    # 灌水减少超过10% → severe
+  moderate_increase_threshold: 0.10   # 灌水增加不足10% → moderate
+  severe_abnormality_threshold: 0.20  # 有严重异常时灌水增加不足20% → moderate
+  mild_increase_threshold: 0.30       # 长势好时灌水增加超过30% → mild
+
+# A3: 环境异常阈值
+# 参考: FAO56 Table 4 - 气象条件对作物需水的影响
+env_anomaly:
+  consecutive_days: 3     # 连续天数阈值
+  high_humidity: 85       # 高湿阈值 (%) - 易发病害，需减少灌水
+  high_temperature: 35    # 高温阈值 (°C) - 蒸腾增加，需增加灌水
+  low_light: 2000         # 弱光阈值 (lux) - 光合减弱，需减少灌水

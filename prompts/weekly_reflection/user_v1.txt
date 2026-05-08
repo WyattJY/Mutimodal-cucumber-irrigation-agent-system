@@ -1,0 +1,26 @@
+## 周度数据汇总
+- 周期: {week_start} ~ {week_end}
+- 生育期: {growth_stage}
+- 季节: {season}
+
+## 灌溉统计
+- 日均灌溉量: {avg_irrigation:.2f} L/m²
+- 总灌溉量: {total_irrigation:.2f} L/m²
+- 灌溉范围: {min_irrigation:.2f} ~ {max_irrigation:.2f} L/m²
+
+## 长势趋势分布
+- 好转 (better): {better_days} 天
+- 稳定 (same): {same_days} 天
+- 变差 (worse): {worse_days} 天
+- 主导趋势: {dominant_trend}
+
+## 异常记录
+{anomaly_summary}
+
+## 环境数据汇总
+{env_summary}
+
+{rag_knowledge}
+
+请根据以上数据，生成 3 条关键洞察 (key_insights)。
+输出 JSON 格式。

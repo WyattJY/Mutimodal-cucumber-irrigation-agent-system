@@ -1,0 +1,95 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: agriagent-postgres
+    environment:
+      POSTGRES_DB: agriagent
+      POSTGRES_USER: agriagent
+      POSTGRES_PASSWORD: agriagent
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: agriagent-redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: agriagent-chromadb
+    ports:
+      - "8001:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: agriagent-backend
+    env_file:
+      - .env
+    environment:
+      PYTHONPATH: /app/src:/app/backend
+      POSTGRES_DSN: postgresql://agriagent:agriagent@postgres:5432/agriagent
+      REDIS_URL: redis://redis:6379/0
+      CHROMA_HOST: chromadb
+      CHROMA_PORT: 8000
+    depends_on:
+      - postgres
+      - redis
+      - chromadb
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: agriagent-frontend
+    depends_on:
+      - backend
+    ports:
+      - "3003:80"
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: agriagent-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./ops/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on: []
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: agriagent-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./ops/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./ops/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  chroma_data:
+  grafana_data:

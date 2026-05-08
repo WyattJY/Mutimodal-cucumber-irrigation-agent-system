@@ -1,0 +1,111 @@
+[project]
+name = "cucumber-irrigation"
+version = "0.1.0"
+description = "温室黄瓜灌水智能体系统 - Phase 0: PlantResponse 生成与调优"
+readme = "README.md"
+requires-python = ">=3.11"
+
+dependencies = [
+    # LLM 调用
+    "openai>=1.40.0",
+
+    # 数据处理
+    "pandas>=2.2.0",
+    "numpy>=1.26.0",
+
+    # 配置管理
+    "pyyaml>=6.0",
+    "python-dotenv>=1.0.0",
+
+    # 数据验证
+    "pydantic>=2.5.0",
+    "jsonschema>=4.20.0",
+
+    # 日志
+    "loguru>=0.7.2",
+
+    # CLI
+    "typer>=0.12.0",
+    "rich>=13.7.0",
+
+    # Token 计数
+    "tiktoken>=0.5.0",
+
+    # 数据库
+    "asyncpg>=0.30.0",
+    "psycopg[binary,pool]>=3.2.0",
+    "redis>=5.0.0",
+    "chromadb>=0.5.0",
+
+    # 机器学习
+    "scikit-learn>=1.4.0",
+
+    # Excel 读取
+    "openpyxl>=3.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.4.0",
+    "mypy>=1.9.0",
+]
+
+ml = [
+    # PyTorch (可选，用于 TSMixer)
+    "torch>=2.0.0",
+]
+
+rag = [
+    # RAG components
+    "chromadb>=0.5.0",
+    "sentence-transformers>=2.5.0",
+    "FlagEmbedding>=1.2.0",
+    "pdfplumber>=0.10.0",
+    "PyPDF2>=3.0.0",
+]
+
+docparse = [
+    "doclayout-yolo>=0.0.4",
+    "transformers>=5.8.0",
+    "safetensors>=0.7.0",
+    "huggingface_hub>=1.14.0",
+    "pdfplumber>=0.11.0",
+    "PyMuPDF>=1.27.0",
+]
+
+agent = [
+    "langgraph>=0.4.0",
+    "langgraph-checkpoint-postgres>=2.0.0",
+    "langchain-core>=0.3.0",
+    "langchain-openai>=0.2.0",
+    "fastmcp>=2.0.0",
+    "mcp>=1.0.0",
+    "langchain-mcp-adapters>=0.1.0",
+    "sse-starlette>=2.0.0",
+    "prometheus-client>=0.21.0",
+    "prometheus-fastapi-instrumentator>=7.0.0",
+    "langsmith>=0.1.0",
+]
+
+[project.scripts]
+cucumber-rag = "cucumber_irrigation.rag.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cucumber_irrigation"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = false
+ignore_missing_imports = true

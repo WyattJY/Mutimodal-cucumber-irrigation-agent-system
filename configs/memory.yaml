@@ -1,0 +1,48 @@
+# 4层记忆架构配置
+# 参考: requirements1.md 9.2节, design1.md 4.2节
+
+# Rule-M1: 上下文预算控制
+context_budget:
+  total_max: 4500           # 总上下文预算 (tokens)
+  system_fixed: 500         # System Prompt 固定占用
+  weekly_max: 800           # L3 prompt_block 上限
+  today_max: 2000           # 今日输入上限
+  retrieval_max: 1000       # L4 检索结果上限
+  retrieval_default_k: 3    # 默认 TopK
+
+# 压缩配置 (超预算时按优先级压缩)
+compression:
+  priority:                 # 数字越小越先压缩
+    retrieval: 1            # 最先压缩: TopK 5→3→1→删除
+    weekly: 2               # 其次: 只保留 key_insights
+    today: 3                # 最后: 删除 evidence 详情
+  today_keep_fields:        # Today 压缩后保留的核心字段
+    - trend
+    - confidence
+    - growth_stage
+    - abnormalities
+
+# L3 周摘要配置
+weekly_summary:
+  prompt_block_max_tokens: 800    # prompt_block 最大长度
+  max_key_insights: 5             # 最大保留的 key_insights 数量
+  compression_strategy:           # 超限压缩策略
+    - "删除 override_summary"
+    - "只保留 severe 级别异常"
+    - "只保留前3条 key_insights"
+    - "如仍超限，只保留第1条"
+
+# L2 Episode 存储配置
+episode:
+  collection: "episodes"
+  indexes:
+    - field: "date"
+      unique: true
+    - field: "season"
+      unique: false
+
+# L4 知识检索配置
+knowledge:
+  default_top_k: 3
+  prefer_fao56: true
+  max_retrieval_tokens: 1000

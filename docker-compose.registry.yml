@@ -1,0 +1,29 @@
+services:
+  backend:
+    image: ghcr.io/wyattjy/mutimodal-cucumber-irrigation-agent-system-backend:latest
+    container_name: agriagent-backend
+    env_file:
+      - .env
+    environment:
+      PYTHONPATH: /app/src:/app/backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - agriagent_output:/app/output
+      - agriagent_storage:/app/data/storage
+      - agriagent_weekly_storage:/app/data/weekly_storage
+    restart: unless-stopped
+
+  frontend:
+    image: ghcr.io/wyattjy/mutimodal-cucumber-irrigation-agent-system-frontend:latest
+    container_name: agriagent-frontend
+    depends_on:
+      - backend
+    ports:
+      - "3003:80"
+    restart: unless-stopped
+
+volumes:
+  agriagent_output:
+  agriagent_storage:
+  agriagent_weekly_storage:

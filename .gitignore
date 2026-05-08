@@ -1,0 +1,95 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+backend/.venv/
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+
+# Environment
+.env
+config/user_settings.json
+
+# Logs
+logs/
+logs/*.log
+logs/tmp-*.log
+*.log
+backend_server*.log
+frontend_server*.log
+frontend_dev*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# uv
+.python-version
+
+# 大文件（模型权重等）
+*.pt
+*.pth
+*.onnx
+!models/yolo/yolo11_seg_best.pt
+!models/tsmixer/model.pt
+!models/tsmixer/model_state.pt
+
+# Frontend / Node
+frontend/node_modules/
+frontend/dist/
+
+# Generated runtime data
+output/
+outputs/
+reports/
+mongodb/
+mongodb_data/
+mongodb_data_fresh/
+db/
+data/index/*.db
+data/**/*.db
+data/**/*.sqlite
+data/**/*.sqlite3
+data/cache/
+data/docker/
+data/postgres/
+data/redis/
+data/chroma/
+data/user_literature/
+data/chat_attachments/
+data/storage/*.sqlite3
+data/storage/irrigation_overrides.sqlite3
+backend/config/user_settings.json
+
+# Local dependency/runtime caches
+.uv-cache/
+.uv-python/
+.npm-cache/
+.cache/
+.matplotlib/
+AppData/
+Ultralytics/
+.tools/
+
+# Vendored / generated docs
+backend/ultralytics/cfg/datasets/
+backend/ultralytics/**/__pycache__/
+backend/ultralytics/**/*.pyc
+docs/folders/
+.ipynb_checkpoints/
+
+# Archives
+*.zip
+
+# 临时文件
+*.tmp
+*.temp

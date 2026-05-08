@@ -1,0 +1,17 @@
+## TSMixer 预测值
+{tsmixer_prediction:.2f} L/m²
+
+## 长势评估
+```json
+{plant_response}
+```
+
+## 今日环境数据
+```json
+{today_input}
+```
+
+{rag_advice}
+
+请根据以上信息，判断预测值是否合理，并给出调整建议。
+输出 JSON 格式的 SanityCheck 结果。

@@ -1,0 +1,98 @@
+{
+  "uid": "agriagent-observability",
+  "title": "AgriAgent Observability",
+  "schemaVersion": 39,
+  "version": 2,
+  "refresh": "10s",
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Runtime Components Up",
+      "gridPos": {"x": 0, "y": 0, "w": 6, "h": 4},
+      "targets": [{"expr": "sum(agri_component_up)"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "HTTP P95 Latency",
+      "gridPos": {"x": 6, "y": 0, "w": 9, "h": 4},
+      "targets": [{"expr": "histogram_quantile(0.95, sum(rate(agri_http_request_duration_seconds_bucket[5m])) by (le, path))"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "HTTP Request Rate",
+      "gridPos": {"x": 15, "y": 0, "w": 9, "h": 4},
+      "targets": [{"expr": "sum(rate(agri_http_requests_total[5m])) by (path, status_code)"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "LangGraph Pipeline Runs",
+      "gridPos": {"x": 0, "y": 4, "w": 8, "h": 6},
+      "targets": [{"expr": "sum(rate(agri_pipeline_runs_total[5m])) by (version, status)"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "Node P95 Latency",
+      "gridPos": {"x": 8, "y": 4, "w": 8, "h": 6},
+      "targets": [{"expr": "histogram_quantile(0.95, sum(rate(agri_node_duration_seconds_bucket[5m])) by (le, node_name))"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "SubAgent Runs",
+      "gridPos": {"x": 16, "y": 4, "w": 8, "h": 6},
+      "targets": [{"expr": "sum(rate(agri_subagent_runs_total[5m])) by (agent_name, phase, status)"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "LLM Calls and Errors",
+      "gridPos": {"x": 0, "y": 10, "w": 8, "h": 6},
+      "targets": [
+        {"expr": "sum(rate(agri_llm_calls_total[5m])) by (model, purpose)"},
+        {"expr": "sum(rate(agri_llm_errors_total[5m])) by (model, purpose, error_type)"}
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "RAG Queries and Cache",
+      "gridPos": {"x": 8, "y": 10, "w": 8, "h": 6},
+      "targets": [
+        {"expr": "sum(rate(agri_rag_queries_total[5m])) by (stage)"},
+        {"expr": "sum(rate(agri_rag_cache_hits_total[5m]))"},
+        {"expr": "sum(rate(agri_rag_cache_misses_total[5m]))"}
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Knowledge Upload Indexing",
+      "gridPos": {"x": 16, "y": 10, "w": 8, "h": 6},
+      "targets": [
+        {"expr": "sum(rate(agri_knowledge_uploads_total[5m])) by (file_type, status)"},
+        {"expr": "sum(rate(agri_knowledge_chunks_indexed_total[5m])) by (backend)"}
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "MCP Tool Calls",
+      "gridPos": {"x": 0, "y": 16, "w": 8, "h": 6},
+      "targets": [{"expr": "sum(rate(agri_mcp_tool_calls_total[5m])) by (tool_name, status)"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "YOLO and TSMixer",
+      "gridPos": {"x": 8, "y": 16, "w": 8, "h": 6},
+      "targets": [
+        {"expr": "histogram_quantile(0.95, sum(rate(agri_yolo_inference_seconds_bucket[5m])) by (le))"},
+        {"expr": "histogram_quantile(0.50, sum(rate(agri_tsmixer_prediction_value_bucket[5m])) by (le))"}
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "SSE Stream Events",
+      "gridPos": {"x": 16, "y": 16, "w": 8, "h": 6},
+      "targets": [{"expr": "sum(rate(agri_sse_events_total[5m])) by (event_type, status)"}]
+    }
+  ]
+}

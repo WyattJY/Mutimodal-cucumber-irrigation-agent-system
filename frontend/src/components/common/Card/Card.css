@@ -1,0 +1,53 @@
+/* Card Component Styles */
+.card {
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Variants */
+.card--glass {
+  background: rgba(30, 31, 32, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.card--solid {
+  background: #1E1F20;
+  border: 1px solid #3C4043;
+}
+
+/* Hover Effect */
+.card--hover:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Padding */
+.card--padding-none .card__body {
+  padding: 0;
+}
+
+.card--padding-sm .card__body {
+  padding: 0.75rem;
+}
+
+.card--padding-md .card__body {
+  padding: 1.25rem;
+}
+
+.card--padding-lg .card__body {
+  padding: 1.75rem;
+}
+
+/* Header & Footer */
+.card__header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.card__footer {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}

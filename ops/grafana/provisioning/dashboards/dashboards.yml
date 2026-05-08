@@ -1,0 +1,10 @@
+apiVersion: 1
+
+providers:
+  - name: AgriAgent
+    orgId: 1
+    folder: AgriAgent
+    type: file
+    options:
+      path: /var/lib/grafana/dashboards
+

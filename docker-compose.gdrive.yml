@@ -1,0 +1,33 @@
+services:
+  postgres:
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - ./data/docker/postgres:/var/lib/postgresql/data
+
+  redis:
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - ./data/docker/redis:/data
+
+  chromadb:
+    volumes:
+      - ./data/docker/chroma:/chroma/chroma
+
+  prometheus:
+    user: "0"
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=15d"
+      - "--web.enable-lifecycle"
+    volumes:
+      - ./ops/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./data/docker/prometheus:/prometheus
+
+  grafana:
+    user: "0"
+    volumes:
+      - ./data/docker/grafana:/var/lib/grafana
+      - ./ops/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./ops/grafana/dashboards:/var/lib/grafana/dashboards:ro

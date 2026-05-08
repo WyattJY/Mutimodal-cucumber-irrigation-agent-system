@@ -1,0 +1,38 @@
+/* Spinner Component Styles */
+.spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  animation: spin 1s linear infinite;
+}
+
+/* Sizes */
+.spinner--sm {
+  font-size: 1rem;
+}
+
+.spinner--md {
+  font-size: 1.5rem;
+}
+
+.spinner--lg {
+  font-size: 2rem;
+}
+
+/* Colors */
+.spinner--primary {
+  color: #00FF94;
+}
+
+.spinner--white {
+  color: #FFFFFF;
+}
+
+.spinner--inherit {
+  color: inherit;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

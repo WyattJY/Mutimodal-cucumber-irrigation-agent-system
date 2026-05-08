@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriAgent - 未来温室指挥舱</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Design System CSS -->
+  <link rel="stylesheet" href="cankao.css">
+</head>
+<body>
+  <!-- Aurora Background -->
+  <div class="aurora-container">
+    <div class="aurora-blob aurora-blob--blue"></div>
+    <div class="aurora-blob aurora-blob--purple"></div>
+    <div class="aurora-blob aurora-blob--green"></div>
+  </div>
+
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar glass-sidebar">
+      <!-- Brand -->
+      <div class="sidebar__brand">
+        <div class="sidebar__logo">
+          <i class="ph-bold ph-plant"></i>
+        </div>
+        <div>
+          <span class="sidebar__title">AgriAgent</span>
+          <span class="sidebar__subtitle">Intelligence</span>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="sidebar__nav">
+        <div class="nav-item active">
+          <i class="ph ph-squares-four nav-item__icon"></i>
+          <div>
+            <span class="nav-item__label">指挥舱</span>
+            <span class="nav-item__sublabel">DASHBOARD</span>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <i class="ph ph-git-commit nav-item__icon"></i>
+          <div>
+            <span class="nav-item__label">今日决策链</span>
+            <span class="nav-item__sublabel">DECISION CHAIN</span>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <i class="ph ph-clock-counter-clockwise nav-item__icon"></i>
+          <div>
+            <span class="nav-item__label">时光回溯</span>
+            <span class="nav-item__sublabel">HISTORY</span>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <i class="ph ph-chart-line-up nav-item__icon"></i>
+          <div>
+            <span class="nav-item__label">周度分析报告</span>
+            <span class="nav-item__sublabel">WEEKLY REPORT</span>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <i class="ph ph-brain nav-item__icon"></i>
+          <div>
+            <span class="nav-item__label">FAO56 知识库</span>
+            <span class="nav-item__sublabel">KNOWLEDGE BASE</span>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Copilot -->
+      <div class="copilot">
+        <div class="copilot__card">
+          <div class="copilot__header">
+            <div class="copilot__dot"></div>
+            <span class="copilot__title">AGRI-COPILOT</span>
+          </div>
+          <p class="copilot__placeholder">
+            基于 FAO56 知识库与 GPT-5.2。您可以询问："开花期最佳灌水量是多少？"
+          </p>
+          <div class="copilot__input-wrapper">
+            <input type="text" class="copilot__input" placeholder="向智能体提问...">
+            <button class="copilot__send">
+              <i class="ph-bold ph-paper-plane-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- User Profile -->
+      <div class="user-profile">
+        <div class="user-profile__inner">
+          <div class="user-profile__avatar">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="User">
+            <span class="user-profile__status"></span>
+          </div>
+          <div class="user-profile__info">
+            <p class="user-profile__name">Admin User</p>
+            <p class="user-profile__location">Greenhouse #A-102</p>
+          </div>
+          <button class="user-profile__settings">
+            <i class="ph-bold ph-gear"></i>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="content-scroll">
+        <div class="page-container">
+
+          <!-- Top Bar -->
+          <div class="top-bar">
+            <div>
+              <div class="top-bar__status">
+                <span class="status-badge">● LIVE</span>
+                <span class="status-text">SYSTEM: ONLINE</span>
+              </div>
+              <h1 class="top-bar__title">
+                2025-12-26
+                <span class="top-bar__title-day">Thursday</span>
+              </h1>
+              <p class="top-bar__meta">
+                <i class="ph-fill ph-map-pin"></i> Greenhouse Alpha
+                <span class="top-bar__divider">|</span>
+                <span class="top-bar__growth">
+                  <i class="ph-fill ph-leaf"></i> 营养生长期 (Vegetative)
+                </span>
+              </p>
+            </div>
+
+            <!-- Environment Capsules -->
+            <div class="env-capsules">
+              <div class="glass-panel env-capsule">
+                <i class="ph-fill ph-thermometer env-capsule__icon env-capsule__icon--temp"></i>
+                <div>
+                  <span class="env-capsule__label">Temp</span>
+                  <span class="env-capsule__value">25°C</span>
+                </div>
+              </div>
+              <div class="glass-panel env-capsule">
+                <i class="ph-fill ph-drop env-capsule__icon env-capsule__icon--humidity"></i>
+                <div>
+                  <span class="env-capsule__label">Humidity</span>
+                  <span class="env-capsule__value">70%</span>
+                </div>
+              </div>
+              <div class="glass-panel env-capsule">
+                <i class="ph-fill ph-sun env-capsule__icon env-capsule__icon--light"></i>
+                <div>
+                  <span class="env-capsule__label">Light</span>
+                  <span class="env-capsule__value">8k lux</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Grid -->
+          <div class="grid-main">
+            <!-- Hero Decision Card -->
+            <div class="glass-panel hero-card">
+              <div class="hero-card__glow"></div>
+              <div class="hero-card__watermark">H2O</div>
+
+              <div class="hero-card__content">
+                <div>
+                  <div class="hero-card__header">
+                    <div>
+                      <div class="hero-card__label">
+                        <span class="hero-card__dot"></span>
+                        <span class="hero-card__label-text">AI Decision</span>
+                      </div>
+                      <h3 class="hero-card__title">今日建议灌水量</h3>
+                    </div>
+                    <span class="hero-card__badge">
+                      <i class="ph-bold ph-brain"></i> TSMixer v2.1
+                    </span>
+                  </div>
+
+                  <div class="hero-card__value">
+                    <span class="hero-card__number">5.2</span>
+                    <span class="hero-card__unit">L/m²</span>
+                  </div>
+
+                  <div class="stat-pills">
+                    <div class="stat-pill">
+                      <div class="stat-pill__icon stat-pill__icon--green">
+                        <i class="ph-fill ph-trend-up"></i>
+                      </div>
+                      <div>
+                        <span class="stat-pill__label">Growth Trend</span>
+                        <span class="stat-pill__value">Better</span>
+                      </div>
+                    </div>
+                    <div class="stat-pill">
+                      <div class="stat-pill__icon stat-pill__icon--blue">
+                        <i class="ph-fill ph-check-circle"></i>
+                      </div>
+                      <div>
+                        <span class="stat-pill__label">Confidence</span>
+                        <span class="stat-pill__value">85%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="btn-group">
+                  <button class="btn btn--primary">
+                    <i class="ph-bold ph-list-magnifying-glass btn__icon"></i>
+                    查看决策详情
+                  </button>
+                  <button class="btn btn--override">
+                    <i class="ph-bold ph-pencil-simple"></i>
+                    人工覆盖
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Side Widgets -->
+            <div class="side-widgets">
+              <!-- Warning Card -->
+              <div class="glass-panel warning-card">
+                <i class="ph-fill ph-warning-octagon warning-card__icon"></i>
+                <div class="warning-card__content">
+                  <div class="warning-card__header">
+                    <span class="warning-card__badge">Medium Risk</span>
+                    <span class="warning-card__time">10:30 AM</span>
+                  </div>
+                  <h4 class="warning-card__title">环境湿度偏高 (82%)</h4>
+                  <p class="warning-card__desc">
+                    连续 3 天检测到高湿环境，AI 建议检查通风系统以预防霉菌。
+                  </p>
+                </div>
+              </div>
+
+              <!-- Info Card -->
+              <div class="glass-panel info-card">
+                <div class="info-card__header">
+                  <span class="info-card__label">
+                    <i class="ph-fill ph-clock"></i> Yesterday
+                  </span>
+                </div>
+                <h4 class="info-card__title">灌溉执行完毕</h4>
+                <div class="progress-bar">
+                  <div class="progress-bar__fill" style="width: 100%"></div>
+                </div>
+                <div class="info-card__stats">
+                  <span class="info-card__stat">Target: 5.0 L</span>
+                  <span class="info-card__stat info-card__stat--highlight">Actual: 5.0 L</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Grid -->
+          <div class="grid-charts">
+            <!-- Trend Chart -->
+            <div class="glass-panel chart-card">
+              <div class="chart-card__header">
+                <h3 class="chart-card__title">
+                  <i class="ph-fill ph-chart-line-up"></i> 30天灌水量趋势
+                </h3>
+                <div class="chart-card__tabs">
+                  <button class="chart-card__tab active">30D</button>
+                  <button class="chart-card__tab">7D</button>
+                </div>
+              </div>
+              <div class="chart-card__canvas">
+                <canvas id="irrigationChart"></canvas>
+              </div>
+            </div>
+
+            <!-- Vision Card -->
+            <div class="glass-panel vision-card">
+              <div class="vision-card__header">
+                <h3 class="vision-card__title">
+                  <i class="ph-fill ph-eye"></i> 视觉生长分析
+                </h3>
+                <span class="vision-card__badge">YOLOv8 Confidence: 0.92</span>
+              </div>
+
+              <div class="grid-vision">
+                <!-- Yesterday -->
+                <div class="vision-preview">
+                  <div class="vision-preview__label">
+                    <span class="vision-preview__date">YESTERDAY</span>
+                  </div>
+                  <div class="vision-preview__image">
+                    <div class="vision-preview__placeholder">
+                      <i class="ph-bold ph-image"></i>
+                      <p>图像占位</p>
+                    </div>
+                    <div class="vision-preview__overlay">
+                      <span class="vision-preview__mask">Mask: 710px</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Today -->
+                <div class="vision-preview">
+                  <div class="vision-preview__label">
+                    <span class="vision-preview__date vision-preview__date--today">TODAY</span>
+                    <span class="vision-preview__change">+15%</span>
+                  </div>
+                  <div class="vision-preview__image vision-preview__image--today">
+                    <div class="vision-preview__placeholder">
+                      <i class="ph-bold ph-image"></i>
+                      <p>图像占位</p>
+                    </div>
+                    <!-- YOLO Box -->
+                    <div class="yolo-box">
+                      <span class="yolo-box__label">LEAF 0.98</span>
+                    </div>
+                    <div class="vision-preview__overlay">
+                      <span class="vision-preview__mask vision-preview__mask--today">Mask: 820px</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn btn--secondary" style="width: 100%; margin-top: 1.5rem;">
+                进入视觉分析实验室
+                <i class="ph-bold ph-arrow-right btn__icon"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Chart.js Initialization
+    document.addEventListener('DOMContentLoaded', function() {
+      const ctx = document.getElementById('irrigationChart').getContext('2d');
+
+      const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+      gradient.addColorStop(0, 'rgba(0, 255, 148, 0.2)');
+      gradient.addColorStop(1, 'rgba(0, 255, 148, 0.0)');
+
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: Array.from({length: 15}, (_, i) => `Day ${i + 1}`),
+          datasets: [{
+            label: 'AI Recommendation',
+            data: [4.2, 4.5, 4.8, 5.0, 5.2, 4.9, 5.3, 5.8, 6.0, 5.5, 5.2, 5.1, 5.4, 5.2, 5.3],
+            borderColor: '#00FF94',
+            backgroundColor: gradient,
+            borderWidth: 3,
+            pointBackgroundColor: '#0B1120',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 8,
+            pointHoverBackgroundColor: '#00FF94',
+            pointHoverBorderColor: '#fff',
+            fill: true,
+            tension: 0.4
+          }, {
+            label: 'Actual (Override)',
+            data: [4.2, 4.5, 4.8, 5.0, 6.0, 4.9, 5.3, null, null, null, null, null, null, null, null],
+            borderColor: '#FFA04D',
+            borderWidth: 2,
+            borderDash: [5, 5],
+            pointStyle: 'rectRot',
+            pointRadius: 6,
+            pointBackgroundColor: '#FFA04D',
+            fill: false,
+            tension: 0.4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: true,
+              labels: {
+                color: '#94a3b8',
+                font: { family: 'Inter', size: 10 }
+              }
+            },
+            tooltip: {
+              backgroundColor: 'rgba(15, 23, 42, 0.9)',
+              titleColor: '#fff',
+              bodyColor: '#cbd5e1',
+              borderColor: 'rgba(255,255,255,0.1)',
+              borderWidth: 1,
+              padding: 12,
+              displayColors: true,
+              boxPadding: 4
+            }
+          },
+          scales: {
+            y: {
+              grid: { color: 'rgba(255,255,255,0.05)' },
+              ticks: { color: '#64748b', font: { family: 'JetBrains Mono' } }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { color: '#64748b', font: { family: 'JetBrains Mono' } }
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
