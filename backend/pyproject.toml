@@ -52,6 +52,10 @@ dependencies = [
     "prometheus-client>=0.21.0",
     "prometheus-fastapi-instrumentator>=7.0.0",
     "langsmith>=0.1.0",
+    # PDF knowledge ingestion
+    "PyMuPDF>=1.24.0",
+    "pdfplumber>=0.11.0",
+    "transformers>=4.45.0",
 ]
 
 [project.optional-dependencies]

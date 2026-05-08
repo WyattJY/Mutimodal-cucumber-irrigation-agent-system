@@ -16,6 +16,9 @@ COPY backend /app/backend
 COPY src /app/src
 COPY data /app/data
 COPY models /app/models
+COPY prompts /app/prompts
+COPY configs /app/configs
+COPY config.ini /app/config.ini
 COPY .env.example /app/.env.example
 COPY backend/requirements-docker.txt /tmp/requirements-docker.txt
 

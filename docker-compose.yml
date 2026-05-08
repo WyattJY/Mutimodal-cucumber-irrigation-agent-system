@@ -36,7 +36,7 @@ services:
     env_file:
       - .env
     environment:
-      PYTHONPATH: /app/src:/app/backend
+      PYTHONPATH: /app/src:/app/backend:/app/.tools/pdf_parsers/repos/DocLayout-YOLO
       POSTGRES_DSN: postgresql://agriagent:agriagent@postgres:5432/agriagent
       REDIS_URL: redis://redis:6379/0
       CHROMA_HOST: chromadb
@@ -50,6 +50,7 @@ services:
     volumes:
       - ./data:/app/data
       - ./output:/app/output
+      - ./.tools:/app/.tools
     restart: unless-stopped
 
   frontend:
