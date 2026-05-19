@@ -56,7 +56,7 @@ async def lifespan(app: FastAPI):
     finally:
         observe_stack_status(
             {
-                "postgres": {"connected": False, "backend": postgres_manager.backend},
+                "postgres": {"connected": False, "backend": postgres_manager.runtime.backend},
                 "redis": {"connected": False, "backend": redis_cache.backend},
                 "chroma": {"connected": False, "backend": chroma_manager.backend},
                 "mcp_connected": False,

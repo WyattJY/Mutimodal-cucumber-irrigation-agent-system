@@ -45,8 +45,33 @@ sleep 2
 echo -e "${GREEN}[2/4] Starting Backend (port $BACKEND_PORT)...${NC}"
 cd "$PROJECT_ROOT/backend"
 export PYTHONPATH="$PROJECT_ROOT/src:$PROJECT_ROOT/backend"
+export COPYFILE_DISABLE=1
 
-nohup python3 -m uvicorn app.main:app --host 0.0.0.0 --port $BACKEND_PORT > "$BACKEND_LOG" 2>&1 &
+BACKEND_PYTHON="$PROJECT_ROOT/backend/.venv/bin/python"
+if [ ! -x "$BACKEND_PYTHON" ]; then
+    if command -v uv >/dev/null 2>&1; then
+        echo "  Creating backend environment with uv..."
+        UV_LINK_MODE=copy uv sync --frozen
+    else
+        echo -e "  ${YELLOW}backend/.venv not found; falling back to system python3${NC}"
+        BACKEND_PYTHON="python3"
+    fi
+fi
+
+if ! "$BACKEND_PYTHON" -c "import uvicorn" >/dev/null 2>&1; then
+    if command -v uv >/dev/null 2>&1; then
+        echo "  Installing backend dependencies with uv..."
+        UV_LINK_MODE=copy uv sync --frozen || true
+    fi
+fi
+
+if ! "$BACKEND_PYTHON" -c "import uvicorn" >/dev/null 2>&1; then
+    echo -e "  ${RED}Backend dependency check failed: uvicorn is not available in $BACKEND_PYTHON${NC}"
+    echo "  Try: cd backend && COPYFILE_DISABLE=1 UV_LINK_MODE=copy uv sync --frozen"
+    exit 1
+fi
+
+nohup "$BACKEND_PYTHON" -m uvicorn app.main:app --host 0.0.0.0 --port $BACKEND_PORT > "$BACKEND_LOG" 2>&1 &
 BACKEND_PID=$!
 echo "  PID: $BACKEND_PID"
 

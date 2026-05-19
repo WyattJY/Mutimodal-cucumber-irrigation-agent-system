@@ -1,20 +1,20 @@
 [
   {
-    "week_start": "2025-03-10",
-    "week_end": "2025-03-16",
-    "season": "spring",
+    "week_start": "2024-08-19",
+    "week_end": "2024-08-25",
+    "season": "validation-2024-autumn",
     "trend_stats": {
       "better_days": 4,
       "same_days": 2,
-      "worse_days": 1,
+      "worse_days": 0,
       "dominant_trend": "better"
     },
     "irrigation_stats": {
-      "total": 38.1,
-      "daily_avg": 5.442857142857143,
-      "max": 6.0,
-      "min": 4.8,
-      "trend": "stable"
+      "total": 13.45,
+      "daily_avg": 2.24,
+      "max": 7.26,
+      "min": 0.09,
+      "trend": "increasing"
     },
     "anomaly_events": [],
     "override_summary": {
@@ -23,12 +23,354 @@
       "reasons": []
     },
     "key_insights": [
-      "本周长势好转，日均灌水 5.4 L/m²"
+      "本周覆盖 6 天验证试验数据，长势以向好为主，日均灌水 2.24 L/m²。",
+      "灌水量整体上升，范围 0.09-7.26 L/m²。",
+      "环境风险较低，可维持当前灌水节奏并观察果实膨大。"
     ],
     "knowledge_references": [],
-    "prompt_block": "## 上周经验 (2025-03-10 ~ 2025-03-16)\n长势趋势: 向好 | 灌溉趋势: 稳定 (日均 5.4 L/m²)\n关键洞察:\n- 本周长势好转，日均灌水 5.4 L/m²",
-    "prompt_block_tokens": 89,
-    "created_at": "2025-12-26T13:42:24.391719",
-    "updated_at": "2025-12-26T13:42:24.391719"
+    "prompt_block": "## 上周经验 (2024-08-19 ~ 2024-08-25)\n长势趋势: 向好 | 灌溉趋势: 上升 (日均 2.24 L/m²)\n关键洞察:\n- 本周覆盖 6 天验证试验数据，长势以向好为主，日均灌水 2.24 L/m²。\n- 灌水量整体上升，范围 0.09-7.26 L/m²。\n- 环境风险较低，可维持当前灌水节奏并观察果实膨大。",
+    "prompt_block_tokens": 120,
+    "created_at": "2026-05-17T00:00:00",
+    "updated_at": "2026-05-17T00:00:00"
+  },
+  {
+    "week_start": "2024-08-26",
+    "week_end": "2024-09-01",
+    "season": "validation-2024-autumn",
+    "trend_stats": {
+      "better_days": 7,
+      "same_days": 0,
+      "worse_days": 0,
+      "dominant_trend": "better"
+    },
+    "irrigation_stats": {
+      "total": 55.87,
+      "daily_avg": 7.98,
+      "max": 13.49,
+      "min": 5.39,
+      "trend": "increasing"
+    },
+    "anomaly_events": [],
+    "override_summary": {
+      "count": 0,
+      "total_delta": 0.0,
+      "reasons": []
+    },
+    "key_insights": [
+      "本周覆盖 7 天验证试验数据，长势以向好为主，日均灌水 7.98 L/m²。",
+      "灌水量整体上升，范围 5.39-13.49 L/m²。",
+      "环境风险较低，可维持当前灌水节奏并观察果实膨大。"
+    ],
+    "knowledge_references": [],
+    "prompt_block": "## 上周经验 (2024-08-26 ~ 2024-09-01)\n长势趋势: 向好 | 灌溉趋势: 上升 (日均 7.98 L/m²)\n关键洞察:\n- 本周覆盖 7 天验证试验数据，长势以向好为主，日均灌水 7.98 L/m²。\n- 灌水量整体上升，范围 5.39-13.49 L/m²。\n- 环境风险较低，可维持当前灌水节奏并观察果实膨大。",
+    "prompt_block_tokens": 120,
+    "created_at": "2026-05-17T00:00:00",
+    "updated_at": "2026-05-17T00:00:00"
+  },
+  {
+    "week_start": "2024-09-02",
+    "week_end": "2024-09-08",
+    "season": "validation-2024-autumn",
+    "trend_stats": {
+      "better_days": 7,
+      "same_days": 0,
+      "worse_days": 0,
+      "dominant_trend": "better"
+    },
+    "irrigation_stats": {
+      "total": 41.75,
+      "daily_avg": 5.96,
+      "max": 12.12,
+      "min": 3.11,
+      "trend": "increasing"
+    },
+    "anomaly_events": [],
+    "override_summary": {
+      "count": 0,
+      "total_delta": 0.0,
+      "reasons": []
+    },
+    "key_insights": [
+      "本周覆盖 7 天验证试验数据，长势以向好为主，日均灌水 5.96 L/m²。",
+      "灌水量整体上升，范围 3.11-12.12 L/m²。",
+      "环境风险较低，可维持当前灌水节奏并观察果实膨大。"
+    ],
+    "knowledge_references": [],
+    "prompt_block": "## 上周经验 (2024-09-02 ~ 2024-09-08)\n长势趋势: 向好 | 灌溉趋势: 上升 (日均 5.96 L/m²)\n关键洞察:\n- 本周覆盖 7 天验证试验数据，长势以向好为主，日均灌水 5.96 L/m²。\n- 灌水量整体上升，范围 3.11-12.12 L/m²。\n- 环境风险较低，可维持当前灌水节奏并观察果实膨大。",
+    "prompt_block_tokens": 120,
+    "created_at": "2026-05-17T00:00:00",
+    "updated_at": "2026-05-17T00:00:00"
+  },
+  {
+    "week_start": "2024-09-09",
+    "week_end": "2024-09-15",
+    "season": "validation-2024-autumn",
+    "trend_stats": {
+      "better_days": 6,
+      "same_days": 0,
+      "worse_days": 1,
+      "dominant_trend": "better"
+    },
+    "irrigation_stats": {
+      "total": 43.79,
+      "daily_avg": 6.26,
+      "max": 9.85,
+      "min": 2.36,
+      "trend": "increasing"
+    },
+    "anomaly_events": [],
+    "override_summary": {
+      "count": 0,
+      "total_delta": 0.0,
+      "reasons": []
+    },
+    "key_insights": [
+      "本周覆盖 7 天验证试验数据，长势以向好为主，日均灌水 6.26 L/m²。",
+      "灌水量整体上升，范围 2.36-9.85 L/m²。",
+      "环境风险较低，可维持当前灌水节奏并观察果实膨大。"
+    ],
+    "knowledge_references": [],
+    "prompt_block": "## 上周经验 (2024-09-09 ~ 2024-09-15)\n长势趋势: 向好 | 灌溉趋势: 上升 (日均 6.26 L/m²)\n关键洞察:\n- 本周覆盖 7 天验证试验数据，长势以向好为主，日均灌水 6.26 L/m²。\n- 灌水量整体上升，范围 2.36-9.85 L/m²。\n- 环境风险较低，可维持当前灌水节奏并观察果实膨大。",
+    "prompt_block_tokens": 120,
+    "created_at": "2026-05-17T00:00:00",
+    "updated_at": "2026-05-17T00:00:00"
+  },
+  {
+    "week_start": "2024-09-16",
+    "week_end": "2024-09-22",
+    "season": "validation-2024-autumn",
+    "trend_stats": {
+      "better_days": 3,
+      "same_days": 3,
+      "worse_days": 1,
+      "dominant_trend": "same"
+    },
+    "irrigation_stats": {
+      "total": 78.24,
+      "daily_avg": 11.18,
+      "max": 14.86,
+      "min": 4.03,
+      "trend": "increasing"
+    },
+    "anomaly_events": [],
+    "override_summary": {
+      "count": 0,
+      "total_delta": 0.0,
+      "reasons": []
+    },
+    "key_insights": [
+      "本周覆盖 7 天验证试验数据，长势以平稳为主，日均灌水 11.18 L/m²。",
+      "灌水量整体上升，范围 4.03-14.86 L/m²。",
+      "环境风险较低，可维持当前灌水节奏并观察果实膨大。"
+    ],
+    "knowledge_references": [],
+    "prompt_block": "## 上周经验 (2024-09-16 ~ 2024-09-22)\n长势趋势: 平稳 | 灌溉趋势: 上升 (日均 11.18 L/m²)\n关键洞察:\n- 本周覆盖 7 天验证试验数据，长势以平稳为主，日均灌水 11.18 L/m²。\n- 灌水量整体上升，范围 4.03-14.86 L/m²。\n- 环境风险较低，可维持当前灌水节奏并观察果实膨大。",
+    "prompt_block_tokens": 120,
+    "created_at": "2026-05-17T00:00:00",
+    "updated_at": "2026-05-17T00:00:00"
+  },
+  {
+    "week_start": "2024-09-23",
+    "week_end": "2024-09-29",
+    "season": "validation-2024-autumn",
+    "trend_stats": {
+      "better_days": 3,
+      "same_days": 2,
+      "worse_days": 2,
+      "dominant_trend": "better"
+    },
+    "irrigation_stats": {
+      "total": 60.33,
+      "daily_avg": 8.62,
+      "max": 15.6,
+      "min": 2.28,
+      "trend": "decreasing"
+    },
+    "anomaly_events": [],
+    "override_summary": {
+      "count": 0,
+      "total_delta": 0.0,
+      "reasons": []
+    },
+    "key_insights": [
+      "本周覆盖 7 天验证试验数据，长势以向好为主，日均灌水 8.62 L/m²。",
+      "灌水量整体下降，范围 2.28-15.60 L/m²。",
+      "高湿天数 1 天、低光照天数 0 天，建议优先通风除湿并保守灌水。"
+    ],
+    "knowledge_references": [],
+    "prompt_block": "## 上周经验 (2024-09-23 ~ 2024-09-29)\n长势趋势: 向好 | 灌溉趋势: 下降 (日均 8.62 L/m²)\n关键洞察:\n- 本周覆盖 7 天验证试验数据，长势以向好为主，日均灌水 8.62 L/m²。\n- 灌水量整体下降，范围 2.28-15.60 L/m²。\n- 高湿天数 1 天、低光照天数 0 天，建议优先通风除湿并保守灌水。",
+    "prompt_block_tokens": 120,
+    "created_at": "2026-05-17T00:00:00",
+    "updated_at": "2026-05-17T00:00:00"
+  },
+  {
+    "week_start": "2024-09-30",
+    "week_end": "2024-10-06",
+    "season": "validation-2024-autumn",
+    "trend_stats": {
+      "better_days": 4,
+      "same_days": 2,
+      "worse_days": 1,
+      "dominant_trend": "better"
+    },
+    "irrigation_stats": {
+      "total": 28.87,
+      "daily_avg": 4.12,
+      "max": 6.64,
+      "min": 0.88,
+      "trend": "decreasing"
+    },
+    "anomaly_events": [],
+    "override_summary": {
+      "count": 0,
+      "total_delta": 0.0,
+      "reasons": []
+    },
+    "key_insights": [
+      "本周覆盖 7 天验证试验数据，长势以向好为主，日均灌水 4.12 L/m²。",
+      "灌水量整体下降，范围 0.88-6.64 L/m²。",
+      "高湿天数 1 天、低光照天数 0 天，建议优先通风除湿并保守灌水。"
+    ],
+    "knowledge_references": [],
+    "prompt_block": "## 上周经验 (2024-09-30 ~ 2024-10-06)\n长势趋势: 向好 | 灌溉趋势: 下降 (日均 4.12 L/m²)\n关键洞察:\n- 本周覆盖 7 天验证试验数据，长势以向好为主，日均灌水 4.12 L/m²。\n- 灌水量整体下降，范围 0.88-6.64 L/m²。\n- 高湿天数 1 天、低光照天数 0 天，建议优先通风除湿并保守灌水。",
+    "prompt_block_tokens": 120,
+    "created_at": "2026-05-17T00:00:00",
+    "updated_at": "2026-05-17T00:00:00"
+  },
+  {
+    "week_start": "2024-10-07",
+    "week_end": "2024-10-13",
+    "season": "validation-2024-autumn",
+    "trend_stats": {
+      "better_days": 5,
+      "same_days": 2,
+      "worse_days": 0,
+      "dominant_trend": "better"
+    },
+    "irrigation_stats": {
+      "total": 12.38,
+      "daily_avg": 1.77,
+      "max": 3.96,
+      "min": 0.65,
+      "trend": "increasing"
+    },
+    "anomaly_events": [],
+    "override_summary": {
+      "count": 0,
+      "total_delta": 0.0,
+      "reasons": []
+    },
+    "key_insights": [
+      "本周覆盖 7 天验证试验数据，长势以向好为主，日均灌水 1.77 L/m²。",
+      "灌水量整体上升，范围 0.65-3.96 L/m²。",
+      "环境风险较低，可维持当前灌水节奏并观察果实膨大。"
+    ],
+    "knowledge_references": [],
+    "prompt_block": "## 上周经验 (2024-10-07 ~ 2024-10-13)\n长势趋势: 向好 | 灌溉趋势: 上升 (日均 1.77 L/m²)\n关键洞察:\n- 本周覆盖 7 天验证试验数据，长势以向好为主，日均灌水 1.77 L/m²。\n- 灌水量整体上升，范围 0.65-3.96 L/m²。\n- 环境风险较低，可维持当前灌水节奏并观察果实膨大。",
+    "prompt_block_tokens": 120,
+    "created_at": "2026-05-17T00:00:00",
+    "updated_at": "2026-05-17T00:00:00"
+  },
+  {
+    "week_start": "2024-10-14",
+    "week_end": "2024-10-20",
+    "season": "validation-2024-autumn",
+    "trend_stats": {
+      "better_days": 5,
+      "same_days": 2,
+      "worse_days": 0,
+      "dominant_trend": "better"
+    },
+    "irrigation_stats": {
+      "total": 8.79,
+      "daily_avg": 1.26,
+      "max": 2.47,
+      "min": 0.09,
+      "trend": "decreasing"
+    },
+    "anomaly_events": [],
+    "override_summary": {
+      "count": 0,
+      "total_delta": 0.0,
+      "reasons": []
+    },
+    "key_insights": [
+      "本周覆盖 7 天验证试验数据，长势以向好为主，日均灌水 1.26 L/m²。",
+      "灌水量整体下降，范围 0.09-2.47 L/m²。",
+      "高湿天数 2 天、低光照天数 0 天，建议优先通风除湿并保守灌水。"
+    ],
+    "knowledge_references": [],
+    "prompt_block": "## 上周经验 (2024-10-14 ~ 2024-10-20)\n长势趋势: 向好 | 灌溉趋势: 下降 (日均 1.26 L/m²)\n关键洞察:\n- 本周覆盖 7 天验证试验数据，长势以向好为主，日均灌水 1.26 L/m²。\n- 灌水量整体下降，范围 0.09-2.47 L/m²。\n- 高湿天数 2 天、低光照天数 0 天，建议优先通风除湿并保守灌水。",
+    "prompt_block_tokens": 120,
+    "created_at": "2026-05-17T00:00:00",
+    "updated_at": "2026-05-17T00:00:00"
+  },
+  {
+    "week_start": "2024-10-21",
+    "week_end": "2024-10-27",
+    "season": "validation-2024-autumn",
+    "trend_stats": {
+      "better_days": 3,
+      "same_days": 3,
+      "worse_days": 1,
+      "dominant_trend": "same"
+    },
+    "irrigation_stats": {
+      "total": 14.1,
+      "daily_avg": 2.01,
+      "max": 3.36,
+      "min": 0.06,
+      "trend": "increasing"
+    },
+    "anomaly_events": [],
+    "override_summary": {
+      "count": 0,
+      "total_delta": 0.0,
+      "reasons": []
+    },
+    "key_insights": [
+      "本周覆盖 7 天验证试验数据，长势以平稳为主，日均灌水 2.01 L/m²。",
+      "灌水量整体上升，范围 0.06-3.36 L/m²。",
+      "高湿天数 1 天、低光照天数 0 天，建议优先通风除湿并保守灌水。"
+    ],
+    "knowledge_references": [],
+    "prompt_block": "## 上周经验 (2024-10-21 ~ 2024-10-27)\n长势趋势: 平稳 | 灌溉趋势: 上升 (日均 2.01 L/m²)\n关键洞察:\n- 本周覆盖 7 天验证试验数据，长势以平稳为主，日均灌水 2.01 L/m²。\n- 灌水量整体上升，范围 0.06-3.36 L/m²。\n- 高湿天数 1 天、低光照天数 0 天，建议优先通风除湿并保守灌水。",
+    "prompt_block_tokens": 120,
+    "created_at": "2026-05-17T00:00:00",
+    "updated_at": "2026-05-17T00:00:00"
+  },
+  {
+    "week_start": "2024-10-28",
+    "week_end": "2024-10-31",
+    "season": "validation-2024-autumn",
+    "trend_stats": {
+      "better_days": 4,
+      "same_days": 0,
+      "worse_days": 0,
+      "dominant_trend": "better"
+    },
+    "irrigation_stats": {
+      "total": 6.75,
+      "daily_avg": 1.69,
+      "max": 4.42,
+      "min": 0.12,
+      "trend": "decreasing"
+    },
+    "anomaly_events": [],
+    "override_summary": {
+      "count": 0,
+      "total_delta": 0.0,
+      "reasons": []
+    },
+    "key_insights": [
+      "本周覆盖 4 天验证试验数据，长势以向好为主，日均灌水 1.69 L/m²。",
+      "灌水量整体下降，范围 0.12-4.42 L/m²。",
+      "高湿天数 2 天、低光照天数 1 天，建议优先通风除湿并保守灌水。"
+    ],
+    "knowledge_references": [],
+    "prompt_block": "## 上周经验 (2024-10-28 ~ 2024-10-31)\n长势趋势: 向好 | 灌溉趋势: 下降 (日均 1.69 L/m²)\n关键洞察:\n- 本周覆盖 4 天验证试验数据，长势以向好为主，日均灌水 1.69 L/m²。\n- 灌水量整体下降，范围 0.12-4.42 L/m²。\n- 高湿天数 2 天、低光照天数 1 天，建议优先通风除湿并保守灌水。",
+    "prompt_block_tokens": 120,
+    "created_at": "2026-05-17T00:00:00",
+    "updated_at": "2026-05-17T00:00:00"
   }
 ]

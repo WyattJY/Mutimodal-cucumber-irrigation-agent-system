@@ -1,0 +1,19 @@
+{
+  "date": "2026-05-17",
+  "user_input": "请执行今日温室黄瓜灌水智能体决策，并说明 YOLO、TSMixer、RAG 的协同依据。",
+  "env_data": {
+    "temperature": 29.2,
+    "humidity": 58.0,
+    "light": 62000.0,
+    "growth_stage": "fruiting"
+  },
+  "image_path": "data/images/0516.jpg",
+  "history_irrigation": [4.8, 5.0, 5.3, 5.1, 5.6, 5.4, 5.8],
+  "user_id": "demo_operator",
+  "greenhouse_id": "greenhouse_alpha",
+  "options": {
+    "save_episode": false,
+    "save_response": false,
+    "skip_llm_review": true
+  }
+}

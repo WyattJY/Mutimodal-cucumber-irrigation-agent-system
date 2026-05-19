@@ -10,7 +10,12 @@ export function Layout() {
   const { isOpen, toggleChat, setOpen } = useChatStore()
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    const scroller = document.querySelector('.content-scroll')
+    if (scroller) {
+      scroller.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+      return
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
   }, [location.pathname])
 
   return (

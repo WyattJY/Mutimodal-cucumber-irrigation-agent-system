@@ -9,16 +9,20 @@ interface VisionMetrics {
   leaf_instance_count: number
   leaf_average_mask: number
   flower_instance_count: number
+  flower_count?: number
   flower_mask_pixel_count: number
   terminal_average_mask: number
   terminal_instance_count: number
+  terminal_count?: number
   fruit_mask_average: number
   fruit_instance_count: number
+  fruit_count?: number
   all_leaf_mask: number
   total_instances: number
   processed_at: string
   visualization_path?: string
   is_mock?: boolean
+  [key: string]: number | string | boolean | undefined
 }
 
 interface AnalysisResult {
@@ -71,26 +75,41 @@ export function Vision() {
   const formatMetrics = (metrics: VisionMetrics | null) => {
     if (!metrics) return null
 
+    const pickNumber = (...keys: string[]) => {
+      for (const key of keys) {
+        const value = metrics[key]
+        if (typeof value === 'number' && Number.isFinite(value)) return value
+      }
+      return undefined
+    }
+
+    const leafCount = pickNumber('leaf_instance_count') ?? 0
+    const flowerCount = pickNumber('flower_instance_count', 'flower_count') ?? 0
+    const terminalCount = pickNumber('terminal_instance_count', 'terminal_count') ?? 0
+    const fruitCount = pickNumber('fruit_instance_count', 'fruit_count') ?? 0
+    const flowerMask = pickNumber('flower_mask_pixel_count', 'flower Mask Pixel Count')
+    const totalInstances = pickNumber('total_instances') ?? leafCount + flowerCount + terminalCount + fruitCount
+
     return {
       leaf: {
-        count: metrics.leaf_instance_count,
-        avgMask: metrics.leaf_average_mask,
-        totalMask: metrics.all_leaf_mask
+        count: leafCount,
+        avgMask: pickNumber('leaf_average_mask', 'leaf average mask'),
+        totalMask: pickNumber('all_leaf_mask', 'all leaf mask')
       },
       flower: {
-        count: metrics.flower_instance_count,
-        avgMask: metrics.flower_mask_pixel_count / Math.max(metrics.flower_instance_count, 1),
-        totalMask: metrics.flower_mask_pixel_count
+        count: flowerCount,
+        avgMask: flowerMask !== undefined ? flowerMask / Math.max(flowerCount, 1) : undefined,
+        totalMask: flowerMask
       },
       terminal: {
-        count: metrics.terminal_instance_count,
-        avgMask: metrics.terminal_average_mask
+        count: terminalCount,
+        avgMask: pickNumber('terminal_average_mask', 'terminal average Mask Pixel Count')
       },
       fruit: {
-        count: metrics.fruit_instance_count,
-        avgMask: metrics.fruit_mask_average
+        count: fruitCount,
+        avgMask: pickNumber('fruit_mask_average', 'fruit Mask average')
       },
-      total_instances: metrics.total_instances,
+      total_instances: totalInstances,
       processed_at: metrics.processed_at
     }
   }

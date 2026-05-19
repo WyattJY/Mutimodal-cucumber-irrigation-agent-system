@@ -41,6 +41,13 @@
 4. **人机协同** - 支持人工覆盖与反馈，持续优化决策质量
 5. **经验积累** - 4层记忆架构实现知识的持久化与跨周期复用
 
+### 1.1.1 演示素材
+
+- 毕业论文演示视频（无声音）：`demo_cases/recordings/cucumber-irrigation-graduation-demo-muted.mp4`
+- 前端截图：`demo_cases/screenshots/`
+- API 演示 payload：`demo_cases/payloads/`
+- 演示脚本：`demo_cases/scripts/smoke_demo.sh`
+
 ### 1.2 核心创新点
 
 | 创新点 | 描述 |

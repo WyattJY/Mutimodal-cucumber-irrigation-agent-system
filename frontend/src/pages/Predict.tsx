@@ -38,6 +38,15 @@ interface PredictResult {
   input_summary: InputSummary
 }
 
+const metricNumber = (metrics: Record<string, any> | undefined, ...keys: string[]) => {
+  if (!metrics) return 0
+  for (const key of keys) {
+    const value = metrics[key]
+    if (typeof value === 'number' && Number.isFinite(value)) return value
+  }
+  return 0
+}
+
 export function Predict() {
   const [isLoading, setIsLoading] = useState(false)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
@@ -197,15 +206,15 @@ export function Predict() {
                 <div className="predict-page__yolo-metrics">
                   <div className="predict-page__metric">
                     <span>叶片</span>
-                    <strong>{result.yolo_metrics.leaf_instance_count || 0} 个</strong>
+                    <strong>{metricNumber(result.yolo_metrics, 'leaf_instance_count')} 个</strong>
                   </div>
                   <div className="predict-page__metric">
                     <span>花朵</span>
-                    <strong>{result.yolo_metrics.flower_instance_count || 0} 个</strong>
+                    <strong>{metricNumber(result.yolo_metrics, 'flower_instance_count', 'flower_count')} 个</strong>
                   </div>
                   <div className="predict-page__metric">
                     <span>果实</span>
-                    <strong>{result.yolo_metrics.fruit_instance_count || 0} 个</strong>
+                    <strong>{metricNumber(result.yolo_metrics, 'fruit_instance_count', 'fruit_count')} 个</strong>
                   </div>
                 </div>
               )}

@@ -418,8 +418,6 @@ def _is_uploaded_literature_visual_topic(query: str) -> bool:
 
 def _is_contextual_followup(query: str) -> bool:
     q = query.lower().strip()
-    if len(q) <= 24:
-        return True
     followup_terms = (
         "继续",
         "上面",
@@ -449,6 +447,20 @@ def _is_contextual_followup(query: str) -> bool:
     return any(term in q for term in followup_terms)
 
 
+def _uploaded_literature_metadata_files() -> list[Path]:
+    if not USER_LITERATURE_DIR.exists():
+        return []
+    return [
+        path
+        for path in sorted(
+            USER_LITERATURE_DIR.glob("*.metadata.json"),
+            key=lambda p: p.stat().st_mtime,
+            reverse=True,
+        )
+        if not path.name.startswith("._")
+    ]
+
+
 def _recent_uploaded_literature_context_query(max_messages: int = 8) -> Optional[str]:
     if not USER_LITERATURE_DIR.exists() or not _conversation_history:
         return None
@@ -459,11 +471,7 @@ def _recent_uploaded_literature_context_query(max_messages: int = 8) -> Optional
         return None
 
     recent_norm = _normalize_doc_match_text(recent_text)
-    metadata_files = sorted(
-        USER_LITERATURE_DIR.glob("*.metadata.json"),
-        key=lambda p: p.stat().st_mtime,
-        reverse=True,
-    )
+    metadata_files = _uploaded_literature_metadata_files()
     for metadata_file in metadata_files:
         try:
             metadata = json.loads(metadata_file.read_text(encoding="utf-8"))
@@ -557,6 +565,8 @@ def _load_uploaded_literature_chunks(metadata: dict, metadata_file: Path) -> lis
     chunks_path = Path(metadata.get("chunks_path") or "")
     if not chunks_path.exists():
         chunks_path = USER_LITERATURE_DIR / f"{metadata.get('doc_id', metadata_file.stem)}_chunks.json"
+    if chunks_path.name.startswith("._"):
+        return []
     try:
         chunks = json.loads(chunks_path.read_text(encoding="utf-8"))
     except Exception:
@@ -568,11 +578,7 @@ def _load_uploaded_literature_assets(query: str, max_assets: int = 12) -> list[d
     if not USER_LITERATURE_DIR.exists():
         return []
 
-    metadata_files = sorted(
-        USER_LITERATURE_DIR.glob("*.metadata.json"),
-        key=lambda p: p.stat().st_mtime,
-        reverse=True,
-    )
+    metadata_files = _uploaded_literature_metadata_files()
     if not metadata_files:
         return []
 
@@ -754,11 +760,7 @@ def _load_uploaded_literature_context(query: str, top_k: int = 3) -> tuple[Optio
     if not USER_LITERATURE_DIR.exists():
         return None, []
 
-    metadata_files = sorted(
-        USER_LITERATURE_DIR.glob("*.metadata.json"),
-        key=lambda p: p.stat().st_mtime,
-        reverse=True,
-    )
+    metadata_files = _uploaded_literature_metadata_files()
     if not metadata_files:
         return None, []
 
@@ -795,6 +797,8 @@ def _load_uploaded_literature_context(query: str, top_k: int = 3) -> tuple[Optio
             chunks_path = Path(metadata.get("chunks_path") or "")
             if not chunks_path.exists():
                 chunks_path = USER_LITERATURE_DIR / f"{metadata.get('doc_id', metadata_file.stem)}_chunks.json"
+            if chunks_path.name.startswith("._"):
+                continue
             chunks = json.loads(chunks_path.read_text(encoding="utf-8"))
         except Exception as exc:
             print(f"[chat.py] failed to load uploaded literature chunks {metadata_file}: {exc}")
@@ -874,7 +878,7 @@ def _count_uploaded_literature() -> tuple[int, int]:
         return 0, 0
     doc_count = 0
     chunk_count = 0
-    for metadata_file in USER_LITERATURE_DIR.glob("*.metadata.json"):
+    for metadata_file in _uploaded_literature_metadata_files():
         try:
             metadata = json.loads(metadata_file.read_text(encoding="utf-8"))
             doc_count += 1

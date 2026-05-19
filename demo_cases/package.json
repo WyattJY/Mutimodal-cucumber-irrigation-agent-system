@@ -1,0 +1,12 @@
+{
+  "name": "agriagent-demo-cases",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "smoke": "bash scripts/smoke_demo.sh",
+    "record": "node scripts/record_ui_demo.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.57.0"
+  }
+}

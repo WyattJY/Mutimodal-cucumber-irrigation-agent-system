@@ -1,15 +1,1 @@
-{
-  "2025-03-16": {
-    "date": "2025-03-16",
-    "original_value": 6.0,
-    "replaced_value": 6.0,
-    "reason": "人工复核确认灌水量保持不变，用于验证人工覆盖落库持久化链路",
-    "confirmation_answers": {
-      "verification": "manual_override_persistence",
-      "source": "codex_live_api_check"
-    },
-    "override_by": "user",
-    "override_at": "2026-05-07T17:36:32.668180",
-    "history": []
-  }
-}
+{}

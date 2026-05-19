@@ -58,7 +58,7 @@ async def query_episodes(
     source: Optional[str] = Query(None),
     risk_level: Optional[str] = Query(None),
     page: int = Query(1, ge=1),
-    page_size: int = Query(20, ge=1, le=100),
+    page_size: int = Query(20, ge=1, le=200),
 ):
     """查询 Episode 列表"""
     episodes, total = get_episodes(

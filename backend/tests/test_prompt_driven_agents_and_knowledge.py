@@ -239,7 +239,7 @@ def test_chat_rag_uses_uploaded_literature_when_local_rag_unavailable(monkeypatc
         json.dumps(
             {
                 "doc_id": "paper",
-                "title": "送审论文",
+                "title": "uploaded_paper",
                 "original_filename": "1.pdf",
                 "chunks_path": str(chunks_path),
                 "chunk_count": 1,
@@ -253,7 +253,7 @@ def test_chat_rag_uses_uploaded_literature_when_local_rag_unavailable(monkeypatc
     monkeypatch.setattr(chat, "RAG_AVAILABLE", False, raising=False)
     monkeypatch.setattr(chat, "_rag_service", None, raising=False)
 
-    context, references = asyncio.run(chat._search_rag("我上传的那个送审论文是讲什么的"))
+    context, references = asyncio.run(chat._search_rag("我上传的那个 uploaded_paper 是讲什么的"))
 
     assert "CO2浓度、温度与施氮量耦合" in context
     assert references
@@ -273,7 +273,7 @@ def test_chat_returns_uploaded_pdf_assets_for_result_figure_query(monkeypatch, t
                     "unique_id": "paper_chunk_0034",
                     "page_content": "图3-2 CO2 浓度、温度和施氮量三因素交互对樱桃番茄茎粗的影响。",
                     "page_num": 34,
-                    "file_name": "1.送审论文.pdf",
+                    "file_name": "uploaded_paper.pdf",
                     "metadata": {"source_type": "user", "content_type": "user_literature"},
                 }
             ],
@@ -285,8 +285,8 @@ def test_chat_returns_uploaded_pdf_assets_for_result_figure_query(monkeypatch, t
         json.dumps(
             {
                 "doc_id": "paper",
-                "title": "1.送审论文",
-                "original_filename": "1.送审论文.pdf",
+                "title": "uploaded_paper",
+                "original_filename": "uploaded_paper.pdf",
                 "chunks_path": str(chunks_path),
                 "chunk_count": 1,
                 "image_count": 1,
@@ -315,7 +315,7 @@ def test_chat_returns_uploaded_pdf_assets_for_result_figure_query(monkeypatch, t
     response = asyncio.run(
         chat.chat(
             chat.ChatRequest(
-                message="请展示1.送审论文的结果图",
+                message="请展示 uploaded_paper.pdf 的结果图",
                 use_history=False,
                 use_rag=True,
             )
@@ -327,6 +327,38 @@ def test_chat_returns_uploaded_pdf_assets_for_result_figure_query(monkeypatch, t
     assert assets[0]["asset_id"] == "paper_page_034_img_001"
     assert assets[0]["public_url"].endswith("page_034_img_001.jpg")
     assert "[[asset:paper_page_034_img_001]]" in response.data["content"]
+
+
+def test_standalone_short_irrigation_question_does_not_inherit_uploaded_pdf_context(monkeypatch, tmp_path):
+    from app.api.v1 import chat
+
+    user_dir = tmp_path / "user_literature"
+    user_dir.mkdir()
+    (user_dir / "paper.metadata.json").write_text(
+        json.dumps(
+            {
+                "doc_id": "paper",
+                "title": "uploaded_paper",
+                "original_filename": "uploaded_paper.pdf",
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(chat, "USER_LITERATURE_DIR", user_dir, raising=False)
+    monkeypatch.setattr(
+        chat,
+        "_conversation_history",
+        [
+            {"role": "user", "content": "论文中的是如何进行视觉模型改进的"},
+            {"role": "assistant", "content": "uploaded_paper P4 展示了模型结构。"},
+        ],
+        raising=False,
+    )
+
+    query = "开花期最佳灌水量是多少？"
+    assert chat._contextualize_uploaded_literature_query(query) == query
 
 
 def test_chat_attaches_assets_for_uploaded_model_question_without_image_keyword(monkeypatch, tmp_path):

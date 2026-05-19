@@ -1,0 +1,10 @@
+{
+  "question": "根据演示知识库，YOLO 分割得到的叶片 mask 和果实数量为什么能辅助黄瓜灌水决策？",
+  "top_k": 5,
+  "growth_stage": "fruiting",
+  "context": {
+    "temperature": 29.2,
+    "humidity": 58,
+    "light": 62000
+  }
+}

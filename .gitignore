@@ -30,6 +30,7 @@ frontend_dev*.log
 
 # OS
 .DS_Store
+._*
 Thumbs.db
 
 # uv
@@ -45,6 +46,7 @@ Thumbs.db
 
 # Frontend / Node
 frontend/node_modules/
+demo_cases/node_modules/
 frontend/dist/
 
 # Generated runtime data

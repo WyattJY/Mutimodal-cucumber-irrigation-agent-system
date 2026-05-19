@@ -11,6 +11,7 @@ export function Dashboard() {
   const overrideMutation = useOverrideMutation()
   const [imageError, setImageError] = useState<Record<string, boolean>>({})
   const [isOverrideModalOpen, setIsOverrideModalOpen] = useState(false)
+  const [trendDays, setTrendDays] = useState<7 | 14 | 30>(30)
 
   // 获取日期的短格式 (MMDD)
   const getShortDate = (dateStr: string) => {
@@ -286,7 +287,7 @@ export function Dashboard() {
       <div className="grid-charts">
         {/* Trend Chart */}
         <div className="glass-panel chart-card">
-          <TrendChart days={30} />
+          <TrendChart days={trendDays} onDaysChange={setTrendDays} animate={false} />
         </div>
 
         {/* Vision Card */}

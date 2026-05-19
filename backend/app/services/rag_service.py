@@ -62,6 +62,9 @@ class RAGService:
 
     def _load_chunk_json_file(self, json_file: Path):
         """Load FAO56/user chunk JSON files into the keyword fallback corpus."""
+        if json_file.name.startswith("._"):
+            return
+
         with open(json_file, 'r', encoding='utf-8') as f:
             data = json.load(f)
         for idx, item in enumerate(data if isinstance(data, list) else [data]):
@@ -133,6 +136,8 @@ class RAGService:
             user_literature_dir = project_root / "data" / "user_literature"
             if user_literature_dir.exists():
                 for chunk_file in sorted(user_literature_dir.glob("*_chunks.json")):
+                    if chunk_file.name.startswith("._"):
+                        continue
                     try:
                         self._load_chunk_json_file(chunk_file)
                     except Exception as exc:

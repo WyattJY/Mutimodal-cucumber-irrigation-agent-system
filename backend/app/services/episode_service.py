@@ -273,6 +273,8 @@ def get_all_dates() -> List[str]:
     # 从 responses 目录获取
     if RESPONSES_DIR.exists():
         for file in RESPONSES_DIR.glob("*.json"):
+            if file.name.startswith("._"):
+                continue
             date = file.stem  # e.g., "2024-06-14"
             dates.add(date)
 
@@ -301,7 +303,7 @@ def get_episode_by_date(date: str) -> Optional[dict]:
 
     # 1. 先从 responses 目录读取
     file_path = RESPONSES_DIR / f"{date}.json"
-    if file_path.exists():
+    if file_path.exists() and not file_path.name.startswith("._"):
         with open(file_path, "r", encoding="utf-8") as f:
             data = json.load(f)
 

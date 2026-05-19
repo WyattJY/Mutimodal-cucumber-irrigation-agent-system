@@ -143,6 +143,9 @@ body {
   flex: 1;
   overflow-y: auto;
   padding: 1.5rem 2rem;
+  scroll-behavior: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
 }
 
 .page-container {

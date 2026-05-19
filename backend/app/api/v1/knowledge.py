@@ -120,6 +120,15 @@ def _write_json_atomic(path: Path, data) -> None:
             tmp_path.unlink()
 
 
+def _iter_metadata_files() -> list[Path]:
+    USER_LITERATURE_DIR.mkdir(parents=True, exist_ok=True)
+    return [
+        path
+        for path in sorted(USER_LITERATURE_DIR.glob("*.metadata.json"), reverse=True)
+        if not path.name.startswith("._")
+    ]
+
+
 def _chunk_text(
     text: str,
     doc_id: str,
@@ -489,9 +498,8 @@ async def upload_knowledge_file(
 @router.get("/uploads")
 async def list_knowledge_uploads():
     """List uploaded user literature documents."""
-    USER_LITERATURE_DIR.mkdir(parents=True, exist_ok=True)
     items = []
-    for metadata_file in sorted(USER_LITERATURE_DIR.glob("*.metadata.json"), reverse=True):
+    for metadata_file in _iter_metadata_files():
         try:
             items.append(json.loads(metadata_file.read_text(encoding="utf-8")))
         except Exception:
@@ -580,7 +588,7 @@ async def get_source_stats():
         stats = {
             "total_chunks": _json_store.chunk_count,
             "FAO56": _json_store.chunk_count,
-            "user_uploads": len(list(USER_LITERATURE_DIR.glob("*.metadata.json"))) if USER_LITERATURE_DIR.exists() else 0,
+            "user_uploads": len(_iter_metadata_files()) if USER_LITERATURE_DIR.exists() else 0,
             "rag_available": _json_store.is_available,
         }
     else:
@@ -704,7 +712,7 @@ async def get_knowledge_chunk(chunk_id: str):
     """
     # 用户上传文献 chunk 优先从本地 chunks.json 精确读取。
     if USER_LITERATURE_DIR.exists():
-        for metadata_file in USER_LITERATURE_DIR.glob("*.metadata.json"):
+        for metadata_file in _iter_metadata_files():
             try:
                 metadata = json.loads(metadata_file.read_text(encoding="utf-8"))
                 chunks_path = Path(metadata.get("chunks_path") or "")

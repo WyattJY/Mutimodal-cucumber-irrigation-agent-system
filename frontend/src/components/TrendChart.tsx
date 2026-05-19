@@ -51,6 +51,7 @@ export function TrendChart({ data, isLoading: externalLoading, days = 7, onDaysC
   const [displayIndex, setDisplayIndex] = useState(0)
   const animationRef = useRef<number | null>(null)
   const sourceData = data && data.length > 0 ? data : apiData
+  const isControlled = typeof onDaysChange === 'function'
 
   const fetchTrendData = useCallback(async (numDays: number) => {
     setIsLoading(true)
@@ -86,11 +87,11 @@ export function TrendChart({ data, isLoading: externalLoading, days = 7, onDaysC
   }, [activeTab, data, fetchTrendData])
 
   useEffect(() => {
-    if (days !== activeTab) {
+    if (isControlled && days !== activeTab) {
       setActiveTab(days)
       setDisplayIndex(0)
     }
-  }, [days, activeTab])
+  }, [days, activeTab, isControlled])
 
   useEffect(() => {
     if (!data || data.length === 0) return

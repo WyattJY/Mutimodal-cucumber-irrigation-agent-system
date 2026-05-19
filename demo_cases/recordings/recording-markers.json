@@ -1,0 +1,38 @@
+[
+  {
+    "name": "recording_start",
+    "seconds": 0.176
+  },
+  {
+    "name": "dashboard_top_ready",
+    "seconds": 2.333
+  },
+  {
+    "name": "decision_chain_ready",
+    "seconds": 13.555
+  },
+  {
+    "name": "predict_submit",
+    "seconds": 20.633
+  },
+  {
+    "name": "predict_result_ready",
+    "seconds": 26.274
+  },
+  {
+    "name": "vision_upload_start",
+    "seconds": 31.424
+  },
+  {
+    "name": "vision_result_ready",
+    "seconds": 36.833
+  },
+  {
+    "name": "pdf_upload_start",
+    "seconds": 76.66
+  },
+  {
+    "name": "pdf_indexed_ready",
+    "seconds": 81.84
+  }
+]

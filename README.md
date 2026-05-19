@@ -42,6 +42,8 @@
 - **环境变量模板**: [.env.example](.env.example)
 - **Docker Compose 启动**: [docker-compose.yml](docker-compose.yml)
 - **远端镜像一键启动**: [docker-compose.registry.yml](docker-compose.registry.yml)
+- **毕业论文演示视频（无声音）**: [demo_cases/recordings/cucumber-irrigation-graduation-demo-muted.mp4](demo_cases/recordings/cucumber-irrigation-graduation-demo-muted.mp4)
+- **演示用例与截图素材**: [demo_cases/README.md](demo_cases/README.md)
 
 ## 🖼️ 界面预览
 
@@ -394,6 +396,13 @@ uv run python scripts/demo_weekly_llm.py
 # 查看生成的周报
 cat data/weekly_storage/weekly.json
 ```
+
+演示素材位于 `demo_cases/`：
+
+- `demo_cases/recordings/cucumber-irrigation-graduation-demo-muted.mp4`：毕业论文演示视频，已去除音频轨道。
+- `demo_cases/screenshots/`：前端主要页面截图。
+- `demo_cases/payloads/`：API smoke demo 请求样例。
+- `demo_cases/scripts/smoke_demo.sh`：本地服务启动后可执行的演示接口检查脚本。
 
 ---
 

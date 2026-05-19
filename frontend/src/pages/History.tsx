@@ -390,6 +390,7 @@ export function History() {
                   <TrendChart
                     days={dateRange === '7d' ? 7 : dateRange === '14d' ? 14 : 30}
                     onDaysChange={(days) => setDateRange(days === 7 ? '7d' : days === 14 ? '14d' : '30d')}
+                    animate={false}
                   />
                 </div>
               </div>
@@ -610,7 +611,7 @@ export function History() {
                     </div>
                   </div>
                   <div className="chart-section__canvas" style={{ height: '250px' }}>
-                    <TrendChart data={selectedWeeklyTrendData.length > 0 ? selectedWeeklyTrendData : undefined} days={7} />
+                    <TrendChart data={selectedWeeklyTrendData.length > 0 ? selectedWeeklyTrendData : undefined} days={7} animate={false} />
                   </div>
                 </div>
               </div>

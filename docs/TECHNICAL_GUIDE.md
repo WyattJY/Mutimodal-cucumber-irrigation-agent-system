@@ -12,6 +12,10 @@ AgriAgent 是一个面向温室黄瓜场景的多模态智能灌溉决策系统�
 
 ## 2. 系统演示
 
+完整演示视频：
+
+- [毕业论文演示视频（无声音）](../demo_cases/recordings/cucumber-irrigation-graduation-demo-muted.mp4)
+
 ### 2.1 Dashboard
 
 ![Dashboard](assets/screenshots/dashboard.png)

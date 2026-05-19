@@ -195,8 +195,8 @@ async def predict_with_image(
                     "light": light,
                     "date": env_data['date'],
                     "leaf_count": yolo_metrics.get('leaf_instance_count'),
-                    "flower_count": yolo_metrics.get('flower_instance_count'),
-                    "fruit_count": yolo_metrics.get('fruit_instance_count')
+                    "flower_count": yolo_metrics.get('flower_instance_count', yolo_metrics.get('flower_count')),
+                    "fruit_count": yolo_metrics.get('fruit_instance_count', yolo_metrics.get('fruit_count'))
                 }
             }
         }

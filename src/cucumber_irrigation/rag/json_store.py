@@ -68,6 +68,9 @@ class JsonKnowledgeStore:
         self._loaded = False
 
     def _load_chunk_file(self, path: Path) -> int:
+        if path.name.startswith("._"):
+            return 0
+
         with open(path, 'r', encoding='utf-8') as f:
             data = json.load(f)
 
@@ -100,6 +103,8 @@ class JsonKnowledgeStore:
 
             if self.user_literature_dir.exists():
                 for chunk_file in sorted(self.user_literature_dir.glob("*_chunks.json")):
+                    if chunk_file.name.startswith("._"):
+                        continue
                     try:
                         self._load_chunk_file(chunk_file)
                     except Exception as exc:

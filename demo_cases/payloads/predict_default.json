@@ -1,0 +1,18 @@
+{
+  "env_data": {
+    "temperature": 29.2,
+    "humidity": 58.0,
+    "light": 62000.0,
+    "date": "2026-05-17"
+  },
+  "yolo_metrics": {
+    "leaf_instance_count": 18,
+    "leaf_average_mask": 5420.5,
+    "flower_instance_count": 6,
+    "flower_mask_pixel_count": 1820,
+    "terminal_average_mask": 680,
+    "fruit_mask_average": 1260,
+    "fruit_instance_count": 4,
+    "all_leaf_mask": 97620
+  }
+}
